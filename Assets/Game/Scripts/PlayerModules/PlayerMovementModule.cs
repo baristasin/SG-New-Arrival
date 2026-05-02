@@ -1,21 +1,22 @@
-using Game.Scripts.CharacterMovement;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Scripts.PlayerModules
 {
-    [RequireComponent(typeof(CharacterMotor))]
+    [RequireComponent(typeof(NavMeshAgent))]
     public class PlayerMovementModule : MonoBehaviour
     {
         [SerializeField] private Camera _cam;
-        [SerializeField] private bool _isAiming;
-
-        private CharacterMotor _motor;
-
-        public bool IsAiming { get => _isAiming; set => _isAiming = value; }
+        [SerializeField] private float _moveSpeed = 4f;
+        [SerializeField] private float _rotationSpeed = 720f;
+        [SerializeField] private NavMeshAgent _agent;
 
         private void Awake()
         {
-            _motor = GetComponent<CharacterMotor>();
+            _agent.updateRotation = false;
+            _agent.speed = _moveSpeed;
+            _agent.acceleration = 999f;
+            _agent.angularSpeed = 0f;
             if (_cam == null) Debug.Log("No cam assigned");
         }
 
@@ -24,21 +25,24 @@ namespace Game.Scripts.PlayerModules
             Vector3 faceDir = GetAimDirection();
             faceDir.y = 0f;
 
-            if (faceDir.sqrMagnitude < 0.0001f)
-            {
-                _motor.SetMoveInput(Vector3.zero);
-                return;
-            }
-
+            if (faceDir.sqrMagnitude < 0.0001f) return;
             faceDir.Normalize();
-            _motor.SetFaceDirection(faceDir);
 
+            // Rotate
+            Quaternion target = Quaternion.LookRotation(faceDir);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation, target, _rotationSpeed * Time.deltaTime);
+
+            // Move
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
-        
-            Vector3 right = new Vector3(faceDir.z, 0f, -faceDir.x);
 
-            _motor.SetMoveInput(faceDir * v + right * h);
+            Vector3 right = new Vector3(faceDir.z, 0f, -faceDir.x);
+            Vector3 dir = faceDir * v + right * h;
+
+            if (dir.sqrMagnitude > 1f) dir.Normalize();
+            if (dir.sqrMagnitude > 0.0001f)
+                _agent.Move(dir * _moveSpeed * Time.deltaTime);
         }
 
         private Vector3 GetAimDirection()
