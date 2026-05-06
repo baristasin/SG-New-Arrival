@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Game.Scripts.BehaviourTree
+namespace Game.Scripts.BehaviourTree
 {
     public class Sequence : Node
     {
