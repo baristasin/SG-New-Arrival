@@ -7,7 +7,7 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
         public override NodeState Evaluate()
         {
             ZombieController.ZombieMovementModule.GoToPosition();
-            return NodeState.RUNNING;
+            return ZombieController.ZombieMovementModule.HasArrived ? NodeState.SUCCESS : NodeState.RUNNING;
         }
     }
 }

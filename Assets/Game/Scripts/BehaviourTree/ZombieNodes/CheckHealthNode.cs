@@ -5,7 +5,9 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes{
     {
         public override NodeState Evaluate()
         {
-            return ZombieController.ZombieHealthModule.IsInCriticalHealth() ? NodeState.SUCCESS : NodeState.FAILURE;
+            bool isInCriticalHealth = ZombieController.ZombieHealthModule.IsInCriticalHealth();
+            if(isInCriticalHealth) Debug.Log("Critical Health");
+            return isInCriticalHealth ? NodeState.SUCCESS : NodeState.FAILURE;
         }
     }
 }

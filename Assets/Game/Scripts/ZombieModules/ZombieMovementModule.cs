@@ -1,62 +1,70 @@
+using Game.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Game.Scripts.ZombieModules
 {
-    public enum ZombieAttackTarget
-    {
-        Player,
-        Building
-    }
-    
     [RequireComponent(typeof(NavMeshAgent))]
     public class ZombieMovementModule : ZombieBaseModule
     {
         [SerializeField] private float _moveSpeed = 2f;
-
         [SerializeField] private NavMeshAgent _agent;
 
-        private Transform _playerTransform;
         private Vector3 _buildingHitPosition;
-        private ZombieAttackTarget _zombieAttackTarget;
-        
+
         public override void Initialize(ZombieController zombieController)
         {
             base.Initialize(zombieController);
             _agent.speed = _moveSpeed;
-            _playerTransform = ZombieController.PlayerTransform;
             _buildingHitPosition = ZombieController.BuildingAttackingPosition;
+        }
+
+        public bool IsCloseEnoughToBeingLured()
+        {
+            return DistanceUtil.DistanceXZ(PlayerReference.Position, ZombieController.transform.position)
+                   < BalanceVariables.Instance.ZombieLureDistance;
+        }
+
+        public bool IsCloseEnoughToAttack()
+        {
+            return DistanceUtil.DistanceXZ(ZombieController.transform.position, GetCurrentAttackTargetPosition())
+                   < BalanceVariables.Instance.ZombieAttackDistance;
         }
 
         public void GoToPosition()
         {
-            switch (_zombieAttackTarget)
+            ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Run);
+
+            switch (ZombieController.ZombiePerceptionModule.ZombieAttackTarget)
             {
                 case ZombieAttackTarget.Player:
-                {
-                    _agent.Move(_playerTransform.position);
+                    _agent.SetDestination(PlayerReference.Position);
                     break;
-                }
-                
                 case ZombieAttackTarget.Building:
-                {
-                    _agent.Move(_buildingHitPosition);
+                    _agent.SetDestination(_buildingHitPosition);
                     break;
-                }
             }
         }
 
-        public void SetTargetTransformToPlayer()
+        public Vector3 GetCurrentAttackTargetPosition()
         {
-            _zombieAttackTarget = ZombieAttackTarget.Player;
+            switch (ZombieController.ZombiePerceptionModule.ZombieAttackTarget)
+            {
+                case ZombieAttackTarget.Player:
+                    return PlayerReference.Position;
+                case ZombieAttackTarget.Building:
+                    return _buildingHitPosition;
+                default:
+                    return Vector3.zero;
+            }
         }
 
-        public void SetTargetTransformToBuildingHitPoint()
+        public void Stop()
         {
-            _zombieAttackTarget = ZombieAttackTarget.Building;
+            ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Idle);
+            _agent.ResetPath();
         }
-        
-        public void Stop() => _agent.ResetPath();
+
         public bool HasArrived => !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance;
     }
 }

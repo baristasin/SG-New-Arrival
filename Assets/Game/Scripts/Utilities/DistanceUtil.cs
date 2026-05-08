@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class VectorUtils
+public static class DistanceUtil
 {
     /// <summary>
     /// Returns distance value not squared, based on X-Z (Y is not considered)

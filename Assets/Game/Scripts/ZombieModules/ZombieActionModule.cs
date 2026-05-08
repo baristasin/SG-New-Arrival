@@ -4,11 +4,6 @@ namespace Game.Scripts.ZombieModules
 {
     public class ZombieActionModule : ZombieBaseModule
     {
-        public override void Initialize(ZombieController zombieController)
-        {
-            base.Initialize(zombieController);
-        }
-
         public void ActivateBerserkMode()
         {
             

@@ -1,22 +1,28 @@
+using Game.Scripts.Utilities;
 using UnityEngine;
 
 namespace Game.Scripts.ZombieModules
 {
+    public enum ZombieAttackTarget
+    {
+        Player,
+        Building
+    }
+    
     public class ZombiePerceptionModule : ZombieBaseModule
     {
-        public override void Initialize(ZombieController zombieController)
+        public ZombieAttackTarget ZombieAttackTarget => _zombieAttackTarget;
+        
+        private ZombieAttackTarget _zombieAttackTarget;
+        
+        public void SetTargetTransformToPlayer()
         {
-            base.Initialize(zombieController);
+            _zombieAttackTarget = ZombieAttackTarget.Player;
         }
 
-        public bool IsCloseEnoughToBeingLured()
+        public void SetTargetTransformToBuildingHitPoint()
         {
-            return true;
-        }
-
-        public bool IsCloseEnoughToAttack()
-        {
-            return true;
+            _zombieAttackTarget = ZombieAttackTarget.Building;
         }
     }
 }
