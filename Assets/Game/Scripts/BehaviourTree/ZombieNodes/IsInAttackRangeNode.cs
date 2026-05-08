@@ -7,7 +7,9 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
     {
         public override NodeState Evaluate()
         {
-            return ZombieController.ZombiePerceptionModule.IsCloseEnoughToAttack() ? NodeState.SUCCESS : NodeState.FAILURE;
+            bool isCloseEnoughToAttack = ZombieController.ZombieMovementModule.IsCloseEnoughToAttack();
+            if(isCloseEnoughToAttack) Debug.Log("CloseEnoughToAttack");
+            return isCloseEnoughToAttack ? NodeState.SUCCESS : NodeState.FAILURE;
         }
     }
 }

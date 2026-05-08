@@ -3,13 +3,16 @@ using System;
 
 namespace Game.Scripts.ZombieModules
 {
+    public enum ZombieAnimState { Idle, Walk, Run, Attack }                                           
+
     public class ZombieAnimationModule : ZombieBaseModule
     {
         [SerializeField] private Animator _animator;
-        public override void Initialize(ZombieController zombieController)
-        {
-            base.Initialize(zombieController);
-        }
+        
+        private static readonly int IsRunning = Animator.StringToHash("IsRunning");                   
+        private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+                                                                                                    
+        private ZombieAnimState _currentState;
 
         public void ActivateAttackAnim()
         {
@@ -20,5 +23,30 @@ namespace Game.Scripts.ZombieModules
         {
             
         }
+        
+        public void Play(ZombieAnimState state)
+        {
+            if (_currentState == state) return;
+            _currentState = state;                                                                    
+   
+            switch (state)                                                                            
+            {       
+                case ZombieAnimState.Idle:
+                    _animator.SetBool(IsRunning, false);
+                    break;                                                                            
+                case ZombieAnimState.Run:
+                    _animator.SetBool(IsRunning, true);                                               
+                    break;
+                case ZombieAnimState.Attack:
+                    _animator.SetBool(IsRunning, false);
+                    _animator.SetTrigger(AttackTrigger);                                              
+                    break;
+            }                                                                                         
+        }     
+        
+        public float GetCurrentClipLength()                                                           
+        {
+            return _animator.GetCurrentAnimatorStateInfo(0).length;                                   
+        }  
     }
 }
