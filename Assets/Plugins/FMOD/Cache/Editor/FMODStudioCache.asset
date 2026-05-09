@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8867684967866940128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/kolner-dom
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/kolner-dom
+  Guid:
+    Data1: 75432724
+    Data2: 1176000716
+    Data3: 491293825
+    Data4: -901186768
+  Banks:
+  - {fileID: 3342854231489884973}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-8391062425061827264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,7 +42,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639136892876058934
+  lastModified: 639139272534099628
   FileSizes:
   - Name: 
     Value: 818
@@ -35,7 +62,25 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639136892876056201
+  lastModified: 639139272533916521
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-4380231124439913389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Zombies.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Zombies.bank
+  Name: Zombies
+  StudioPath: bank:/Voicelines/Zombies
+  lastModified: 639139358378256914
   FileSizes: []
   Exists: 1
 --- !u!114 &-2706900258789717861
@@ -65,6 +110,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-321997844074080977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639139358372498012
+  FileSizes: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,21 +141,48 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EventCache
   EditorBanks:
-  - {fileID: -8391062425061827264}
-  - {fileID: -4550400612790747363}
-  - {fileID: 2484181952820750051}
+  - {fileID: 6836851630471989989}
+  - {fileID: 3342854231489884973}
+  - {fileID: 1527067165218551290}
+  - {fileID: -321997844074080977}
+  - {fileID: 4148116687126916651}
+  - {fileID: -4380231124439913389}
   EditorEvents:
-  - {fileID: -2706900258789717861}
+  - {fileID: -8867684967866940128}
+  - {fileID: 4139956840962914554}
+  - {fileID: 7877180013753145366}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -4550400612790747363}
+  - {fileID: -321997844074080977}
   StringsBanks:
-  - {fileID: -8391062425061827264}
+  - {fileID: 6836851630471989989}
   cacheVersion: 131858
-  cacheTime: 639136892876071973
+  cacheTime: 639139358378556422
   SerializableEventsDict:
   - key: event:/kolner-dom
     index: 0
+  - key: event:/staple-gun/staple-gun-sounds
+    index: 1
+  - key: event:/zombies/zombie-grawlings
+    index: 2
+--- !u!114 &1527067165218551290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Guns.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Guns.bank
+  Name: Guns
+  StudioPath: bank:/Guns
+  lastModified: 639139358375794078
+  FileSizes: []
+  Exists: 1
 --- !u!114 &2484181952820750051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +198,116 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639136892876071973
+  lastModified: 639139272534240512
   FileSizes: []
   Exists: 1
+--- !u!114 &3342854231489884973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Day-Environment.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Day-Environment.bank
+  Name: Day-Environment
+  StudioPath: bank:/Environment/Day-Environment
+  lastModified: 639139358378556422
+  FileSizes: []
+  Exists: 1
+--- !u!114 &4139956840962914554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/staple-gun/staple-gun-sounds
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/staple-gun/staple-gun-sounds
+  Guid:
+    Data1: -1078685545
+    Data2: 1206532767
+    Data3: 429560241
+    Data4: 2022765579
+  Banks:
+  - {fileID: 1527067165218551290}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4148116687126916651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 639139358372657641
+  FileSizes: []
+  Exists: 1
+--- !u!114 &6836851630471989989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639139358372529347
+  FileSizes:
+  - Name: 
+    Value: 1086
+  Exists: 1
+--- !u!114 &7877180013753145366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/zombies/zombie-grawlings
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/zombies/zombie-grawlings
+  Guid:
+    Data1: 909596966
+    Data2: 1092579438
+    Data3: 934632863
+    Data4: 1924451688
+  Banks:
+  - {fileID: -4380231124439913389}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
