@@ -46,9 +46,10 @@ namespace Game.Scripts.Utilities
                         break;
 
                     case ZombieAttackTarget.Player:
-                        float dx = req.ZombieX - PlayerReference.X;
-                        float dz = req.ZombieZ - PlayerReference.Z;
-                        if (dx * dx + dz * dz < dodgeThreshold)
+                        float dist = DistanceUtil.DistanceXZ(
+                            new Vector3(req.ZombieX, 0f, req.ZombieZ),
+                            PlayerReference.Position);
+                        if (dist < dodgeThreshold)
                             playerHealth.TakeDamage(req.Damage);
                         break;
                 }

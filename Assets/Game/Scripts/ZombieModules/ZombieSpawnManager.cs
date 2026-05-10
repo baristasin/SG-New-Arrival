@@ -1,3 +1,4 @@
+using System.Collections;
 using Game.Scripts.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,19 +8,42 @@ namespace Game.Scripts.ZombieModules
     public class ZombieSpawnManager : MonoBehaviour
     {
         [SerializeField] private ZombieController _zombiePrefab;
-        [SerializeField] private Transform _playerTransform;
         [SerializeField] private Transform[] _spawnPoints;
         [SerializeField] private Vector3 _buildingCenter;
         [SerializeField] private float _buildingHalfWidth = 30f;
         [SerializeField] private int _initialPoolSize = 50;
         [SerializeField] private int _totalGroups = 5;
 
-        private Pool<ZombieController> _pool;
+        private static Pool<ZombieController> _pool;
         private int _spawnCount;
 
         private void Awake()
         {
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
+
+            for (int i = 0; i < 1; i++)
+            {
+                SpawnZombie();
+            }
+
+            // StartCoroutine(SpawnZombiesCo());
+        }
+
+        private IEnumerator SpawnZombiesCo()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(2f);
+                for (int i = 0; i < 5; i++)
+                {
+                    SpawnZombie();
+                }    
+            }
+        }
+
+        public static void DespawnZombie(ZombieController zombie)
+        {
+            _pool.ReturnToPool(zombie);
         }
 
         [Button]
@@ -33,13 +57,8 @@ namespace Game.Scripts.ZombieModules
             int group = _spawnCount % _totalGroups;
             _spawnCount++;
 
-            zombie.Setup(_playerTransform, GetRandomBuildingHitPoint(), group, _totalGroups);
+            zombie.Setup(GetRandomBuildingHitPoint(), group, _totalGroups);
             return zombie;
-        }
-
-        public void DespawnZombie(ZombieController zombie)
-        {
-            _pool.ReturnToPool(zombie);
         }
 
         private Vector3 GetRandomBuildingHitPoint()

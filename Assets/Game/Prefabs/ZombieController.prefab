@@ -20,7 +20,8 @@ GameObject:
   - component: {fileID: 5214313043731406710}
   - component: {fileID: 3314552075202816288}
   - component: {fileID: 4052326585892411793}
-  m_Layer: 0
+  - component: {fileID: 2718946241733015321}
+  m_Layer: 6
   m_Name: ZombieController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +118,7 @@ MonoBehaviour:
   _zombieHealthModule: {fileID: 3908395647639066795}
   _zombiePerceptionModule: {fileID: 3314552075202816288}
   _zombieMovementModule: {fileID: 5214313043731406710}
+  _collider: {fileID: 2718946241733015321}
 --- !u!114 &4443435256968430932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67da594f8b86245419c10f5dfd2c3107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.ZombieModules.ZombieCombatModule
+  _attackDamage: 1
+  _minAttackDuration: 1
+  _attackCooldown: 2
 --- !u!114 &3908395647639066795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.ZombieModules.ZombieHealthModule
   _startingZombieHealth: 100
   _criticalZombieHealth: 20
+  _renderer: {fileID: 2943451382858638160}
+  _knockbackDistance: 0.3
 --- !u!195 &4803093235640953315
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -202,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00337c764423948cb85a30e4d24c1fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.ZombieModules.ZombieMovementModule
-  _moveSpeed: 3
+  _moveSpeed: 1.5
   _agent: {fileID: 4803093235640953315}
 --- !u!114 &3314552075202816288
 MonoBehaviour:
@@ -226,7 +233,7 @@ Animator:
   m_GameObject: {fileID: 5555764896458037195}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 477fd0e07c9614deb9aeaa8ab11f4d77, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -238,3 +245,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &2718946241733015321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555764896458037195}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 10, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
