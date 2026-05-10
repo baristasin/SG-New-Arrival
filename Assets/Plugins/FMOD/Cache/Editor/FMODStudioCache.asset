@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639139272534099628
+  lastModified: 639140236437603087
   FileSizes:
   - Name: 
     Value: 818
@@ -107,7 +107,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639139272533916521
+  lastModified: 639136902718086883
   FileSizes: []
   Exists: 1
 --- !u!114 &-4380231124439913389
@@ -277,7 +277,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 2530929288914127597}
   cacheVersion: 131858
-  cacheTime: 639140214126808739
+  cacheTime: 639140236437614185
   SerializableEventsDict:
   - key: event:/kolner-dom
     index: 0

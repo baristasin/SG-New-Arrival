@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BalanceVariables
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Utilities.BalanceVariables
   ZombieLureDistance: 100
-  ZombieAttackDistance: 9
+  ZombieAttackDistance: 16
