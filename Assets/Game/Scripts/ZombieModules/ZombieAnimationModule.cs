@@ -3,16 +3,25 @@ using System;
 
 namespace Game.Scripts.ZombieModules
 {
-    public enum ZombieAnimState { Idle, Walk, Run, Attack }                                           
+    public enum ZombieAnimState { Idle, Walk, Run, Attack, Death }                                           
 
     public class ZombieAnimationModule : ZombieBaseModule
     {
         [SerializeField] private Animator _animator;
         
-        private static readonly int IsRunning = Animator.StringToHash("IsRunning");                   
+        private static readonly int IsRunning = Animator.StringToHash("IsRunning");
         private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+        private static readonly int DeathTrigger = Animator.StringToHash("Death");
                                                                                                     
         private ZombieAnimState _currentState;
+
+        public override void Initialize(ZombieController zombieController)
+        {
+            base.Initialize(zombieController);
+            _currentState = ZombieAnimState.Idle;
+            _animator.SetBool(IsRunning, false);
+            _animator.ResetTrigger(AttackTrigger);
+        }
 
         public void ActivateAttackAnim()
         {
@@ -39,7 +48,11 @@ namespace Game.Scripts.ZombieModules
                     break;
                 case ZombieAnimState.Attack:
                     _animator.SetBool(IsRunning, false);
-                    _animator.SetTrigger(AttackTrigger);                                              
+                    _animator.SetTrigger(AttackTrigger);
+                    break;
+                case ZombieAnimState.Death:
+                    _animator.SetBool(IsRunning, false);
+                    _animator.SetTrigger(DeathTrigger);
                     break;
             }                                                                                         
         }     

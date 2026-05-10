@@ -13,10 +13,13 @@ namespace Game.Scripts.ZombieModules
         private Transform _target;
         private Coroutine _hideCoroutine;
 
-        public void Show(Transform target, float healthPercentage)
+        private bool _isTargetDead;
+
+        public void Show(Transform target, int remainingHealth, int maxHealth)
         {
             _target = target;
-            _fillImage.fillAmount = healthPercentage;
+            _fillImage.fillAmount = (float)remainingHealth / maxHealth;
+            _isTargetDead = remainingHealth <= 0;
             gameObject.SetActive(true);
 
             if (_hideCoroutine != null)
@@ -26,8 +29,9 @@ namespace Game.Scripts.ZombieModules
 
         private void LateUpdate()
         {
-            if (_target == null || !_target.gameObject.activeInHierarchy)
+            if (_target == null || !_target.gameObject.activeInHierarchy || _isTargetDead)
             {
+                gameObject.SetActive(false);
                 ReturnToPool();
                 return;
             }
@@ -49,6 +53,7 @@ namespace Game.Scripts.ZombieModules
                 StopCoroutine(_hideCoroutine);
                 _hideCoroutine = null;
             }
+
             _target = null;
             ZombieHealthBarPool.Return(this);
         }

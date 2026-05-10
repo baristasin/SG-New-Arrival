@@ -6,6 +6,7 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
     {
         public override NodeState Evaluate()
         {
+            ZombieController.ZombieCombatModule.SetIsAttacking(false);
             ZombieController.ZombieCombatModule.ResetAttackTimer();
             ZombieController.ZombieMovementModule.GoToPosition();
             return ZombieController.ZombieMovementModule.HasArrived ? NodeState.SUCCESS : NodeState.RUNNING;

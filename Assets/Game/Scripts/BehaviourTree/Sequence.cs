@@ -8,7 +8,6 @@ namespace Game.Scripts.BehaviourTree
     {
         protected List<Node> _nodes = new List<Node>();
 
-        protected int _currentNodeIndex;
         public Sequence(List<Node> nodes)
         {
             _nodes = nodes;
@@ -16,35 +15,21 @@ namespace Game.Scripts.BehaviourTree
 
         public override NodeState Evaluate()
         {
-            if (_currentNodeIndex < _nodes.Count)
+            foreach (var node in _nodes)
             {
-                _nodeState = _nodes[_currentNodeIndex].Evaluate();
-
-                if (_nodeState == NodeState.RUNNING)
+                switch (node.Evaluate())
                 {
-                    _currentNodeIndex = 0;
-                    return NodeState.RUNNING;
-                }
-
-                else if (_nodeState == NodeState.FAILURE)
-                {
-                    _currentNodeIndex = 0;
-                    return NodeState.FAILURE;
-                }
-
-                else // SUCCESS
-                {
-                    _currentNodeIndex++;
-                    if (_currentNodeIndex < _nodes.Count)
-                        return NodeState.RUNNING;
-                    else
-                    {
-                        _currentNodeIndex = 0;
-                        return NodeState.SUCCESS;
-                    }
+                    case NodeState.RUNNING:
+                        _nodeState = NodeState.RUNNING;
+                        return _nodeState;
+                    case NodeState.FAILURE:
+                        _nodeState = NodeState.FAILURE;
+                        return _nodeState;
                 }
             }
-            return NodeState.SUCCESS;
+
+            _nodeState = NodeState.SUCCESS;
+            return _nodeState;
         }
     }
 }

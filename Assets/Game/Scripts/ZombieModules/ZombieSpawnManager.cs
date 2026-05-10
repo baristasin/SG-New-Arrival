@@ -21,23 +21,18 @@ namespace Game.Scripts.ZombieModules
         {
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
 
-            for (int i = 0; i < 1; i++)
-            {
-                SpawnZombie();
-            }
-
-            // StartCoroutine(SpawnZombiesCo());
+            StartCoroutine(SpawnZombiesCo());
         }
 
         private IEnumerator SpawnZombiesCo()
         {
             while (true)
             {
-                yield return new WaitForSeconds(2f);
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     SpawnZombie();
-                }    
+                }
+                yield return new WaitForSeconds(16f);
             }
         }
 

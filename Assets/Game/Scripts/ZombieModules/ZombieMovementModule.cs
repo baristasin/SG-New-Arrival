@@ -15,7 +15,7 @@ namespace Game.Scripts.ZombieModules
         public override void Initialize(ZombieController zombieController)
         {
             base.Initialize(zombieController);
-            _agent.speed = _moveSpeed;
+            _agent.speed = Random.Range(_moveSpeed - 0.5f, _moveSpeed + 0.5f);
             _buildingHitPosition = ZombieController.BuildingAttackingPosition;
         }
 
@@ -63,6 +63,17 @@ namespace Game.Scripts.ZombieModules
         {
             ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Idle);
             _agent.ResetPath();
+        }
+
+        public void FaceTarget()
+        {
+            Vector3 dir = GetCurrentAttackTargetPosition() - ZombieController.transform.position;
+            dir.y = 0f;
+            if (dir.sqrMagnitude < 0.0001f) return;
+
+            Quaternion target = Quaternion.LookRotation(dir);
+            ZombieController.transform.rotation = Quaternion.RotateTowards(
+                ZombieController.transform.rotation, target, 360f * Time.deltaTime);
         }
 
         public void Knockback(Vector3 direction, float distance)

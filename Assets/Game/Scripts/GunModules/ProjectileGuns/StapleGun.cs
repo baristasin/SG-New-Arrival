@@ -24,7 +24,12 @@ namespace Game.Scripts.GunModules.ProjectileGuns
         {
             _lineRenderer.enabled = true;
             _lineRenderer.SetPosition(0, _muzzlePoint.position);
-            _lineRenderer.SetPosition(1, _muzzlePoint.position + _muzzlePoint.forward * _projectileGunData.Range);
+
+            Vector3 endPoint = _muzzlePoint.position + _muzzlePoint.forward * _projectileGunData.Range;
+            if (Physics.Raycast(_muzzlePoint.position, _muzzlePoint.forward, out var hit, _projectileGunData.Range, _targetLayerMask))
+                endPoint = hit.point;
+
+            _lineRenderer.SetPosition(1, endPoint);
         }
 
         public override void HideAimIndicator()

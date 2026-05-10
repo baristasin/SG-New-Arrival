@@ -5,53 +5,52 @@ namespace Game.Scripts.PlayerModules
 {
     public class PlayerShootingModule : MonoBehaviour
     {
-        [SerializeField] private ProjectileGunBase _currentProjectileGun;
+        [SerializeField] private GameObject[] _weapons;
+        [SerializeField] private ProjectileGunData[] _weaponData;
+
+        private int _currentIndex = -1;
+        private ProjectileGunBase _currentGun;
 
         private void Awake()
         {
-            ProjectileGunData pgd = new ProjectileGunData();
-            pgd.FireRate = 0.5f;
-            pgd.Damage = 25;
-            pgd.ProjectileGunType = ProjectileGunType.Staple;
-            pgd.Range = 50f;
-
-            _currentProjectileGun.InitializeGun(pgd);
+            EquipWeapon(0);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown("1"))
+            for (int i = 0; i < _weapons.Length; i++)
             {
-                ProjectileGunData pgd = new ProjectileGunData();
-                pgd.FireRate = 0.5f;
-                pgd.Damage = 25;
-                pgd.ProjectileGunType = ProjectileGunType.Staple;
-                pgd.Range = 50f;
-
-                _currentProjectileGun.InitializeGun(pgd);
+                if (Input.GetKeyDown((i + 1).ToString()))
+                    EquipWeapon(i);
             }
-            if (Input.GetKeyDown("2"))
-            {
-                ProjectileGunData pgd = new ProjectileGunData();
-                pgd.FireRate = 0.08f;
-                pgd.Damage = 25;
-                pgd.ProjectileGunType = ProjectileGunType.Staple;
-                pgd.Range = 50f;
 
-                _currentProjectileGun.InitializeGun(pgd);
-            }
+            if (_currentGun == null) return;
 
             if (Input.GetMouseButton(1))
             {
-                _currentProjectileGun.ShowAimIndicator();
+                _currentGun.ShowAimIndicator();
 
                 if (Input.GetMouseButton(0))
-                    _currentProjectileGun.TryShoot();
+                    _currentGun.TryShoot();
             }
             else
             {
-                _currentProjectileGun.HideAimIndicator();
+                _currentGun.HideAimIndicator();
             }
+        }
+
+        private void EquipWeapon(int index)
+        {
+            if (_currentIndex == index) return;
+
+            for (int i = 0; i < _weapons.Length; i++)
+                _weapons[i].SetActive(i == index);
+
+            _currentIndex = index;
+            _currentGun = _weapons[index].GetComponent<ProjectileGunBase>();
+
+            if (_currentGun != null && _weaponData.Length > index)
+                _currentGun.InitializeGun(_weaponData[index]);
         }
     }
 }

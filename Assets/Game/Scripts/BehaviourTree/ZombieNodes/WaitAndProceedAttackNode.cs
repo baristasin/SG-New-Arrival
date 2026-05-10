@@ -16,7 +16,7 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
             {
                 Debug.Log("Updating Attack");
                 ZombieController.ZombieCombatModule.UpdateAttack();
-                return NodeState.RUNNING;    
+                return NodeState.RUNNING;
             }
         }
     }

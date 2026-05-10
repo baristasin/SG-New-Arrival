@@ -15,10 +15,10 @@ namespace Game.Scripts.ZombieModules
             _pool = new Pool<ZombieHealthBar>(_prefab, _initialSize);
         }
 
-        public static void Show(Transform target, float healthPercentage)
+        public static void Show(Transform target, int remainingHealth, int maxHealth)
         {
             var bar = _pool.Get();
-            bar.Show(target, healthPercentage);
+            bar.Show(target, remainingHealth, maxHealth);
         }
 
         public static void Return(ZombieHealthBar bar)

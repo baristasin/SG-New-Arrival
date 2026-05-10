@@ -9,11 +9,9 @@ namespace Game.Scripts.UI
         [SerializeField] private Image _fillImage;
         [SerializeField] private TextMeshProUGUI _healthText;
 
-        public void UpdateBar(float percentage)
+        public void UpdateBar(int currentHealth)
         {
-            percentage = Mathf.Clamp01(percentage);
-            _fillImage.fillAmount = percentage;
-            _healthText.SetText("{0}", (int)(percentage * 100));
+            _healthText.SetText("{0}", currentHealth);
         }
     }
 }

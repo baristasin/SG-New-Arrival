@@ -9,7 +9,7 @@ namespace Game.Scripts.BuildingModules
         [SerializeField] private Renderer _renderer;
         [SerializeField] private int _buildingStartingHealth;
 
-        public event Action<float> OnHealthChanged;
+        public event Action<int> OnHealthChanged;
 
         private Color _originalColor;
         private Coroutine _flashCoroutine;
@@ -24,13 +24,11 @@ namespace Game.Scripts.BuildingModules
         public void TakeDamage(int damage)
         {
             _buildingCurrentHealth -= damage;
-            OnHealthChanged?.Invoke(GetHealthPercentage());
+            OnHealthChanged?.Invoke(_buildingCurrentHealth);
 
             if (_flashCoroutine != null) return;
             _flashCoroutine = StartCoroutine(FlashRed());
         }
-
-        public float GetHealthPercentage() => (float)_buildingCurrentHealth / _buildingStartingHealth;
 
         private IEnumerator FlashRed()
         {
