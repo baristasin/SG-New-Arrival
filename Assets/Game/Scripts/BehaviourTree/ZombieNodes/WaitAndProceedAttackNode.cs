@@ -8,10 +8,16 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
         public override NodeState Evaluate()
         {
             if (!ZombieController.ZombieCombatModule.IsAttacking)
-                return NodeState.FAILURE;
-
-            ZombieController.ZombieCombatModule.UpdateAttack();
-            return NodeState.RUNNING;
+            {
+                Debug.Log("is Attacking false, so go to TryToAttackNode");
+                return NodeState.SUCCESS;
+            }
+            else
+            {
+                Debug.Log("Updating Attack");
+                ZombieController.ZombieCombatModule.UpdateAttack();
+                return NodeState.RUNNING;    
+            }
         }
     }
 }

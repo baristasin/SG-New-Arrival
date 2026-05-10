@@ -22,27 +22,39 @@ namespace Game.Scripts.PlayerModules
 
         private void Update()
         {
-            Vector3 faceDir = GetAimDirection();
-            faceDir.y = 0f;
-
-            if (faceDir.sqrMagnitude < 0.0001f) return;
-            faceDir.Normalize();
-
-            // Rotate
-            Quaternion target = Quaternion.LookRotation(faceDir);
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation, target, _rotationSpeed * Time.deltaTime);
-
-            // Move
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 
-            Vector3 right = new Vector3(faceDir.z, 0f, -faceDir.x);
-            Vector3 dir = faceDir * v + right * h;
+            Vector3 camForward = _cam.transform.forward;
+            Vector3 camRight = _cam.transform.right;
+            camForward.y = 0f;
+            camRight.y = 0f;
+            camForward.Normalize();
+            camRight.Normalize();
 
-            if (dir.sqrMagnitude > 1f) dir.Normalize();
-            if (dir.sqrMagnitude > 0.0001f)
-                _agent.Move(dir * _moveSpeed * Time.deltaTime);
+            Vector3 moveDir = camForward * v + camRight * h;
+            if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
+
+            if (moveDir.sqrMagnitude > 0.0001f)
+                _agent.Move(moveDir * _moveSpeed * Time.deltaTime);
+
+            if (Input.GetMouseButton(1))
+            {
+                Vector3 aimDir = GetAimDirection();
+                aimDir.y = 0f;
+                if (aimDir.sqrMagnitude > 0.0001f)
+                {
+                    Quaternion target = Quaternion.LookRotation(aimDir.normalized);
+                    transform.rotation = Quaternion.RotateTowards(
+                        transform.rotation, target, _rotationSpeed * Time.deltaTime);
+                }
+            }
+            else if (moveDir.sqrMagnitude > 0.0001f)
+            {
+                Quaternion target = Quaternion.LookRotation(moveDir.normalized);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation, target, _rotationSpeed * Time.deltaTime);
+            }
         }
 
         private Vector3 GetAimDirection()
