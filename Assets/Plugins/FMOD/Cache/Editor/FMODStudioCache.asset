@@ -1,44 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8391062425061827264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 639140236437603087
-  FileSizes:
-  - Name: 
-    Value: 818
-  Exists: 1
---- !u!114 &-4550400612790747363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: Assets/Game/Sound/Banks/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 639136902718086883
-  FileSizes: []
-  Exists: 1
---- !u!114 &-2706900258789717861
+--- !u!114 &-7696349375809349596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +19,7 @@ MonoBehaviour:
     Data3: 491293825
     Data4: -901186768
   Banks:
-  - {fileID: 2484181952820750051}
+  - {fileID: -1946333703737582511}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -65,6 +27,161 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6857889906384089907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Zombies.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Zombies.bank
+  Name: Zombies
+  StudioPath: bank:/Voicelines/Zombies
+  lastModified: 639140414151168102
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-4750907042210610407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/staple-gun
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/staple-gun
+  Guid:
+    Data1: 1573720890
+    Data2: 1320449915
+    Data3: -1515761772
+    Data4: -891591002
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4234581209570364789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/player/Footstep-1
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/player/Footstep-1
+  Guid:
+    Data1: -137634879
+    Data2: 1308746081
+    Data3: 2050445988
+    Data4: 1391000718
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3304077908682765422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639140414151146053
+  FileSizes:
+  - Name: 
+    Value: 1226
+  Exists: 1
+--- !u!114 &-2852196418496443435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/zombies/zombie-grawlings
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/zombies/zombie-grawlings
+  Guid:
+    Data1: 909596966
+    Data2: 1092579438
+    Data3: 934632863
+    Data4: 1924451688
+  Banks:
+  - {fileID: -6857889906384089907}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1946333703737582511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Day-Environment.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Day-Environment.bank
+  Name: Day-Environment
+  StudioPath: bank:/Environment/Day-Environment
+  lastModified: 639140414151122891
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-1216607810391221545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639136902718086883
+  FileSizes: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,22 +195,112 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EventCache
   EditorBanks:
-  - {fileID: -8391062425061827264}
-  - {fileID: -4550400612790747363}
-  - {fileID: 2484181952820750051}
+  - {fileID: -3304077908682765422}
+  - {fileID: -1946333703737582511}
+  - {fileID: 5985131158796421540}
+  - {fileID: -1216607810391221545}
+  - {fileID: 8988069978858246303}
+  - {fileID: -6857889906384089907}
   EditorEvents:
-  - {fileID: -2706900258789717861}
+  - {fileID: -7696349375809349596}
+  - {fileID: -4750907042210610407}
+  - {fileID: 575127938398685352}
+  - {fileID: 3246671875129821386}
+  - {fileID: -4234581209570364789}
+  - {fileID: -2852196418496443435}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -4550400612790747363}
+  - {fileID: -1216607810391221545}
   StringsBanks:
-  - {fileID: -8391062425061827264}
+  - {fileID: -3304077908682765422}
   cacheVersion: 131858
-  cacheTime: 639140236437614185
+  cacheTime: 639140414151168102
   SerializableEventsDict:
   - key: event:/kolner-dom
     index: 0
---- !u!114 &2484181952820750051
+  - key: event:/guns/staple-gun
+    index: 1
+  - key: event:/guns/printer-sounds
+    index: 2
+  - key: event:/player/Footstep-Single
+    index: 3
+  - key: event:/player/Footstep-1
+    index: 4
+  - key: event:/zombies/zombie-grawlings
+    index: 5
+--- !u!114 &575127938398685352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/printer-sounds
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/printer-sounds
+  Guid:
+    Data1: -1078685545
+    Data2: 1206532767
+    Data3: 429560241
+    Data4: 2022765579
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3246671875129821386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/player/Footstep-Single
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/player/Footstep-Single
+  Guid:
+    Data1: -1011073499
+    Data2: 1254253173
+    Data3: 2109508229
+    Data4: 654238208
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5985131158796421540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Guns.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Guns.bank
+  Name: Guns
+  StudioPath: bank:/Guns
+  lastModified: 639140414151139076
+  FileSizes: []
+  Exists: 1
+--- !u!114 &8988069978858246303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,6 +315,6 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639140236437614185
+  lastModified: 639140414151154335
   FileSizes: []
   Exists: 1
