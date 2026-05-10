@@ -65,6 +65,11 @@ namespace Game.Scripts.ZombieModules
             _agent.ResetPath();
         }
 
+        public void Knockback(Vector3 direction, float distance)
+        {
+            _agent.Warp(ZombieController.transform.position + direction * distance);
+        }
+
         public bool HasArrived => !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance;
     }
 }

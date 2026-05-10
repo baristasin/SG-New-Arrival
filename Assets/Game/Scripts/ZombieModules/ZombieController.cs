@@ -27,19 +27,32 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private ZombieHealthModule _zombieHealthModule;
         [SerializeField] private ZombiePerceptionModule _zombiePerceptionModule;
         [SerializeField] private ZombieMovementModule _zombieMovementModule;
+        [SerializeField] private Collider _collider;
 
-
-        // Tüm yaprak (leaf) node'ları referans olarak tutmak istersen
         private List<ZombieBaseNode> _allNodes = new List<ZombieBaseNode>();
         private Node _topNode;
         private bool _isInitialized;
 
-        public void Setup(Transform playerTransform, Vector3 buildingHitPoint, int tickGroup, int totalGroups)
+        public void Setup(Vector3 buildingHitPoint, int tickGroup, int totalGroups)
         {
             _buildingAttackingPosition = buildingHitPoint;
             _tickGroup = tickGroup;
             _totalGroups = totalGroups;
+
+            ZombieRegistry.Register(_collider, _zombieHealthModule);
             Initialize();
+        }
+
+        public void ZombieDead()
+        {
+            UnregisterZombie();
+            // maybe animation first =>
+            ZombieSpawnManager.DespawnZombie(this);
+        }
+
+        private void UnregisterZombie()
+        {
+            ZombieRegistry.Unregister(_collider);
         }
 
         private void Initialize()
@@ -76,7 +89,7 @@ namespace Game.Scripts.ZombieModules
                 node.Initialize(this);
             }
 
-            
+
             var specialActionSelector = new Selector(new List<Node>
             {
                 new Sequence(new List<Node>()), // HealOrBuff 
@@ -88,15 +101,15 @@ namespace Game.Scripts.ZombieModules
                 checkHealthNode,
                 specialActionSelector
             });
-            
+
             Node CreateCombatBranch()
             {
                 return new Selector(new List<Node>
                 {
-                    waitAndProceedAttackNode,
                     new Sequence(new List<Node>
                     {
                         isInAttackRangeNode,
+                        waitAndProceedAttackNode,
                         tryToAttackNode
                     }),
                     new Sequence(new List<Node>
