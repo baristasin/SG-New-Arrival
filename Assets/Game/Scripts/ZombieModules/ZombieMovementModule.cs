@@ -15,7 +15,7 @@ namespace Game.Scripts.ZombieModules
         public override void Initialize(ZombieController zombieController)
         {
             base.Initialize(zombieController);
-            _agent.speed = Random.Range(_moveSpeed - 0.5f, _moveSpeed + 0.5f);
+            _agent.speed = Random.Range(_moveSpeed - 0.8f, _moveSpeed + 0.8f);
             _buildingHitPosition = ZombieController.BuildingAttackingPosition;
         }
 
@@ -31,9 +31,12 @@ namespace Game.Scripts.ZombieModules
                    < BalanceVariables.Instance.ZombieAttackDistance;
         }
 
+        [SerializeField] private float _walkThreshold = 1.5f;
+
         public void GoToPosition()
         {
-            ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Run);
+            ZombieController.ZombieAnimationModule.Play(
+                _agent.speed < _walkThreshold ? ZombieAnimState.Walk : ZombieAnimState.Run);
 
             switch (ZombieController.ZombiePerceptionModule.ZombieAttackTarget)
             {

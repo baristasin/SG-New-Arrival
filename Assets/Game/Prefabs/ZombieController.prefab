@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.ZombieModules.ZombieMovementModule
   _moveSpeed: 2.5
   _agent: {fileID: 4803093235640953315}
+  _walkThreshold: 2
 --- !u!114 &3314552075202816288
 MonoBehaviour:
   m_ObjectHideFlags: 0
