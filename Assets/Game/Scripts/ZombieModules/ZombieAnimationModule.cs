@@ -3,7 +3,7 @@ using System;
 
 namespace Game.Scripts.ZombieModules
 {
-    public enum ZombieAnimState { Idle, Walk, Run, Attack, Death }                                           
+    public enum ZombieAnimState { Idle, Walk, Run, Attack, Death, Dance }                                           
 
     public class ZombieAnimationModule : ZombieBaseModule
     {
@@ -12,6 +12,7 @@ namespace Game.Scripts.ZombieModules
         private static readonly int IsRunning = Animator.StringToHash("IsRunning");
         private static readonly int AttackTrigger = Animator.StringToHash("Attack");
         private static readonly int DeathTrigger = Animator.StringToHash("Death");
+        private static readonly int DanceTrigger = Animator.StringToHash("Dance");
                                                                                                     
         private ZombieAnimState _currentState;
 
@@ -53,6 +54,10 @@ namespace Game.Scripts.ZombieModules
                 case ZombieAnimState.Death:
                     _animator.SetBool(IsRunning, false);
                     _animator.SetTrigger(DeathTrigger);
+                    break;
+                case ZombieAnimState.Dance:
+                    _animator.SetBool(IsRunning, false);
+                    _animator.SetTrigger(DanceTrigger);
                     break;
             }                                                                                         
         }     

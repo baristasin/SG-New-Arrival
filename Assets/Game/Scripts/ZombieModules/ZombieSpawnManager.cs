@@ -1,10 +1,25 @@
+using System;
 using System.Collections;
 using Game.Scripts.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.Scripts.ZombieModules
 {
+    [Serializable]
+    public class WaveEntry
+    {
+        public int ZombieCount;
+        public float DelayAfter;
+    }
+
+    [Serializable]
+    public class WaveData
+    {
+        public WaveEntry[] Entries;
+    }
+
     public class ZombieSpawnManager : MonoBehaviour
     {
         [SerializeField] private ZombieController _zombiePrefab;
@@ -13,6 +28,7 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private float _buildingHalfWidth = 30f;
         [SerializeField] private int _initialPoolSize = 50;
         [SerializeField] private int _totalGroups = 5;
+        [SerializeField] private WaveData[] _waves;
 
         private static Pool<ZombieController> _pool;
         private int _spawnCount;
@@ -20,19 +36,26 @@ namespace Game.Scripts.ZombieModules
         private void Awake()
         {
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
-
-            StartCoroutine(SpawnZombiesCo());
+            StartWaves();
         }
 
-        private IEnumerator SpawnZombiesCo()
+        [Button]
+        public void StartWaves()
         {
-            while (true)
+            StartCoroutine(RunWaves());
+        }
+
+        private IEnumerator RunWaves()
+        {
+            foreach (var wave in _waves)
             {
-                for (int i = 0; i < 12; i++)
+                foreach (var entry in wave.Entries)
                 {
-                    SpawnZombie();
+                    for (int i = 0; i < entry.ZombieCount; i++)
+                        SpawnZombie();
+
+                    yield return new WaitForSeconds(entry.DelayAfter);
                 }
-                yield return new WaitForSeconds(16f);
             }
         }
 

@@ -80,6 +80,7 @@ namespace Game.Scripts.ZombieModules
 
         private Node ConstructBehaviourTree()
         {
+            var dancingNode = new DancingNode();
             var checkHealthNode = new CheckHealthNode();
             var isBeingLuredNode = new IsBeingLuredNode();
             var waitAndProceedAttackNode = new WaitAndProceedAttackNode();
@@ -87,6 +88,7 @@ namespace Game.Scripts.ZombieModules
             var tryToAttackNode = new TryToAttackNode();
             var goToAttackTargetNode = new GoToAttackTargetNode();
 
+            _allNodes.Add(dancingNode);
             _allNodes.Add(checkHealthNode);
             _allNodes.Add(isBeingLuredNode);
             _allNodes.Add(waitAndProceedAttackNode);
@@ -145,6 +147,7 @@ namespace Game.Scripts.ZombieModules
             // ROOT SELECTOR
             return new Selector(new List<Node>
             {
+                dancingNode,
                 surviveAndSpecialSequence,
                 attackPlayerSequence,
                 attackBuildingSequence

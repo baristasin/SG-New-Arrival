@@ -65,6 +65,11 @@ namespace Game.Scripts.ZombieModules
             _agent.ResetPath();
         }
 
+        public void StopMovement()
+        {
+            _agent.ResetPath();
+        }
+
         public void FaceTarget()
         {
             Vector3 dir = GetCurrentAttackTargetPosition() - ZombieController.transform.position;

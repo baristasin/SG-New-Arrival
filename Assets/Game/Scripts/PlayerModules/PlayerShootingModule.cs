@@ -1,4 +1,5 @@
 using Game.Scripts.GunModules.ProjectileGuns;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules
@@ -7,6 +8,7 @@ namespace Game.Scripts.PlayerModules
     {
         [SerializeField] private GameObject[] _weapons;
         [SerializeField] private ProjectileGunData[] _weaponData;
+        [SerializeField] private BottomGunUI _bottomGunUI;
 
         private int _currentIndex = -1;
         private ProjectileGunBase _currentGun;
@@ -49,6 +51,8 @@ namespace Game.Scripts.PlayerModules
             _currentIndex = index;
             _currentGun = _weapons[index].GetComponent<ProjectileGunBase>();
 
+            _bottomGunUI.Select(index);
+            
             if (_currentGun != null && _weaponData.Length > index)
                 _currentGun.InitializeGun(_weaponData[index]);
         }
