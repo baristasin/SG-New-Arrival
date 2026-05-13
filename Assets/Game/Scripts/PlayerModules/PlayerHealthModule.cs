@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules
@@ -21,6 +22,7 @@ namespace Game.Scripts.PlayerModules
             _playerCurrentHealth = _playerStartingHealth;
         }
 
+        [Button]
         public void TakeDamage(int damage)
         {
             _playerCurrentHealth -= damage;
@@ -29,6 +31,7 @@ namespace Game.Scripts.PlayerModules
             if (_flashCoroutine != null) return;
             _flashCoroutine = StartCoroutine(FlashRed());
         }
+        
 
         private IEnumerator FlashRed()
         {

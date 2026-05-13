@@ -6,7 +6,7 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
     {
         public override NodeState Evaluate()
         {
-            Debug.Log("TryingToAttack");
+            // Debug.Log("TryingToAttack");
             ZombieController.ZombieCombatModule.TryToAttack();
             return NodeState.RUNNING;
         }

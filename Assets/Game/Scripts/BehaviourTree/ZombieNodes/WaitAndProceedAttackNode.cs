@@ -9,12 +9,12 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
         {
             if (!ZombieController.ZombieCombatModule.IsAttacking)
             {
-                Debug.Log("is Attacking false, so go to TryToAttackNode");
+                // Debug.Log("is Attacking false, so go to TryToAttackNode");
                 return NodeState.SUCCESS;
             }
             else
             {
-                Debug.Log("Updating Attack");
+                // Debug.Log("Updating Attack");
                 ZombieController.ZombieCombatModule.UpdateAttack();
                 return NodeState.RUNNING;
             }

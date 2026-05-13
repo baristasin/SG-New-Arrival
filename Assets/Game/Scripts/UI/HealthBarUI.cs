@@ -12,6 +12,11 @@ namespace Game.Scripts.UI
 
         public void UpdateBar(int currentHealth)
         {
+            if (currentHealth <= 0)
+            {
+                return;
+            }
+            
             _fillImage.fillAmount = (float)currentHealth / _maxHealth;
             _healthText.SetText("{0}", currentHealth);
         }
