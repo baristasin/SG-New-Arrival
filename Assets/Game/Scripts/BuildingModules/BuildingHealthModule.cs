@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Game.Scripts.BuildingModules
@@ -9,35 +9,34 @@ namespace Game.Scripts.BuildingModules
         [SerializeField] private Renderer _renderer;
         [SerializeField] private int _buildingStartingHealth;
 
-        public event Action<float> OnHealthChanged;
+        public event Action<int> OnHealthChanged;
 
         private Color _originalColor;
-        private Coroutine _flashCoroutine;
+        private Vector3 _originalScale;
+        private Tween _scaleTween;
+        private Tween _colorTween;
         private int _buildingCurrentHealth;
 
         private void Awake()
         {
             _originalColor = _renderer.material.color;
+            _originalScale = transform.localScale;
             _buildingCurrentHealth = _buildingStartingHealth;
         }
 
         public void TakeDamage(int damage)
         {
             _buildingCurrentHealth -= damage;
-            OnHealthChanged?.Invoke(GetHealthPercentage());
+            OnHealthChanged?.Invoke(_buildingCurrentHealth);
 
-            if (_flashCoroutine != null) return;
-            _flashCoroutine = StartCoroutine(FlashRed());
-        }
-
-        public float GetHealthPercentage() => (float)_buildingCurrentHealth / _buildingStartingHealth;
-
-        private IEnumerator FlashRed()
-        {
-            _renderer.material.color = Color.red;
-            yield return new WaitForSeconds(0.15f);
+            _scaleTween?.Kill();
+            _colorTween?.Kill();
+            transform.localScale = _originalScale;
             _renderer.material.color = _originalColor;
-            _flashCoroutine = null;
+
+            _scaleTween = transform.DOPunchScale(_originalScale * 0.08f, 0.3f, 6, 0.5f).SetEase(Ease.OutElastic);
+            _colorTween = _renderer.material.DOColor(Color.red, 0.1f).SetEase(Ease.OutQuad)
+                .OnComplete(() => _renderer.material.DOColor(_originalColor, 0.2f).SetEase(Ease.InQuad));
         }
     }
 }

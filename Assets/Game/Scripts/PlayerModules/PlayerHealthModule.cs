@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules
@@ -9,7 +10,7 @@ namespace Game.Scripts.PlayerModules
         [SerializeField] private Renderer _renderer;
         [SerializeField] private int _playerStartingHealth;
 
-        public event Action<float> OnHealthChanged;
+        public event Action<int> OnHealthChanged;
 
         private Color _originalColor;
         private Coroutine _flashCoroutine;
@@ -21,16 +22,16 @@ namespace Game.Scripts.PlayerModules
             _playerCurrentHealth = _playerStartingHealth;
         }
 
+        [Button]
         public void TakeDamage(int damage)
         {
             _playerCurrentHealth -= damage;
-            OnHealthChanged?.Invoke(GetHealthPercentage());
+            OnHealthChanged?.Invoke(_playerCurrentHealth);
 
             if (_flashCoroutine != null) return;
             _flashCoroutine = StartCoroutine(FlashRed());
         }
-
-        public float GetHealthPercentage() => (float)_playerCurrentHealth / _playerStartingHealth;
+        
 
         private IEnumerator FlashRed()
         {

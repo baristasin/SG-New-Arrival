@@ -17,7 +17,7 @@ namespace Game.Scripts.PlayerModules
             _agent.speed = _moveSpeed;
             _agent.acceleration = 999f;
             _agent.angularSpeed = 0f;
-            if (_cam == null) Debug.Log("No cam assigned");
+            // if (_cam == null) Debug.Log("No cam assigned");
         }
 
         private void Update()

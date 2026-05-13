@@ -49,7 +49,7 @@ namespace Game.Scripts.ZombieModules
                 ZombieController.StopCoroutine(_flashCoroutine);
             _flashCoroutine = ZombieController.StartCoroutine(FlashRed());
 
-            ZombieHealthBarPool.Show(ZombieController.transform, GetHealthPercentage());
+            ZombieHealthBarPool.Show(ZombieController.transform, _zombieHealth, _startingZombieHealth);
 
             if (_zombieHealth <= 0)
                 ZombieController.ZombieDead();
@@ -62,7 +62,5 @@ namespace Game.Scripts.ZombieModules
             _renderer.material.color = _originalColor;
             _flashCoroutine = null;
         }
-
-        public float GetHealthPercentage() => (float)_zombieHealth / _startingZombieHealth;
     }
 }

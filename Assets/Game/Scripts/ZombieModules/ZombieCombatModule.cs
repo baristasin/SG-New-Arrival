@@ -15,14 +15,16 @@ namespace Game.Scripts.ZombieModules
         public void TryToAttack()
         {
             IsAttacking = true;
-            ResetAttackTimer();
-            
             ZombieController.ZombieMovementModule.Stop();
             ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Attack);
+            _attackDuration = ZombieController.ZombieAnimationModule.GetCurrentClipLength() * 0.5f;
+            ResetAttackTimer();
         }
 
         public void UpdateAttack()
         {
+            ZombieController.ZombieMovementModule.FaceTarget();
+
             if (Time.time < _attackEndTime) return;
 
             var target = ZombieController.ZombiePerceptionModule.ZombieAttackTarget;
@@ -33,6 +35,11 @@ namespace Game.Scripts.ZombieModules
         public void ResetAttackTimer()
         {
             _attackEndTime = Time.time + _attackDuration;
+        }
+
+        public void SetIsAttacking(bool value)
+        {
+            IsAttacking = value;
         }
     }
 }

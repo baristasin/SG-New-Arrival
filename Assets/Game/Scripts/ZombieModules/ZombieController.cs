@@ -38,6 +38,7 @@ namespace Game.Scripts.ZombieModules
             _buildingAttackingPosition = buildingHitPoint;
             _tickGroup = tickGroup;
             _totalGroups = totalGroups;
+            _collider.enabled = true;
 
             ZombieRegistry.Register(_collider, _zombieHealthModule);
             Initialize();
@@ -46,7 +47,16 @@ namespace Game.Scripts.ZombieModules
         public void ZombieDead()
         {
             UnregisterZombie();
-            // maybe animation first =>
+            _collider.enabled = false;
+            _isInitialized = false;
+            StartCoroutine(DeathSequence());
+        }
+
+        private System.Collections.IEnumerator DeathSequence()
+        {
+            _zombieAnimationModule.Play(ZombieAnimState.Death);
+            yield return null;
+            yield return new WaitForSeconds(_zombieAnimationModule.GetCurrentClipLength());
             ZombieSpawnManager.DespawnZombie(this);
         }
 
@@ -70,6 +80,7 @@ namespace Game.Scripts.ZombieModules
 
         private Node ConstructBehaviourTree()
         {
+            var dancingNode = new DancingNode();
             var checkHealthNode = new CheckHealthNode();
             var isBeingLuredNode = new IsBeingLuredNode();
             var waitAndProceedAttackNode = new WaitAndProceedAttackNode();
@@ -77,6 +88,7 @@ namespace Game.Scripts.ZombieModules
             var tryToAttackNode = new TryToAttackNode();
             var goToAttackTargetNode = new GoToAttackTargetNode();
 
+            _allNodes.Add(dancingNode);
             _allNodes.Add(checkHealthNode);
             _allNodes.Add(isBeingLuredNode);
             _allNodes.Add(waitAndProceedAttackNode);
@@ -92,10 +104,10 @@ namespace Game.Scripts.ZombieModules
 
             var specialActionSelector = new Selector(new List<Node>
             {
-                new Sequence(new List<Node>()), // HealOrBuff 
-                new Sequence(new List<Node>()) // Berserk 
+                new Sequence(new List<Node>()), // HealOrBuff
+                new Sequence(new List<Node>()) // Berserk
             });
-
+            
             var surviveAndSpecialSequence = new Sequence(new List<Node>
             {
                 checkHealthNode,
@@ -135,6 +147,7 @@ namespace Game.Scripts.ZombieModules
             // ROOT SELECTOR
             return new Selector(new List<Node>
             {
+                dancingNode,
                 surviveAndSpecialSequence,
                 attackPlayerSequence,
                 attackBuildingSequence

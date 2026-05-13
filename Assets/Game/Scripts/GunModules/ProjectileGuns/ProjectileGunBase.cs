@@ -21,6 +21,7 @@ namespace Game.Scripts.GunModules.ProjectileGuns
     {
         [SerializeField] protected Transform _muzzlePoint;
         [SerializeField] protected LayerMask _targetLayerMask;
+        [SerializeField] protected ParticleSystem _muzzleEffect;
 
         protected ProjectileGunData _projectileGunData;
 
@@ -35,6 +36,7 @@ namespace Game.Scripts.GunModules.ProjectileGuns
         {
             if (_fireTimer > 0f) return;
             _fireTimer = _projectileGunData.FireRate;
+            if (_muzzleEffect != null) _muzzleEffect.Play();
             Fire();
         }
 
