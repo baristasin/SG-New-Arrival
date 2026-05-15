@@ -1,0 +1,49 @@
+{
+  "Items": [
+    {
+      "StudentName": "Anna Schmidt",
+      "VisaStatus": 0,
+      "Budget": 1,
+      "IsEnrolled": true,
+      "VisaStory": "Anna has a long-term student visa valid for two years, issued for her Master's program at TU Berlin.",
+      "BudgetStory": "She receives 500 EUR monthly from a DAAD scholarship and can afford moderate housing.",
+      "EnrollmentStory": "Currently enrolled in Computer Science at TU Berlin, starting her second semester."
+    },
+    {
+      "StudentName": "Carlos Rivera",
+      "VisaStatus": 1,
+      "Budget": 0,
+      "IsEnrolled": true,
+      "VisaStory": "Carlos is on a 3-month exchange program with a short-term Schengen visa.",
+      "BudgetStory": "His family sends him 300 EUR per month, so he needs the cheapest option available.",
+      "EnrollmentStory": "Enrolled as an exchange student at HU Berlin for the summer semester."
+    },
+    {
+      "StudentName": "Yuki Tanaka",
+      "VisaStatus": 0,
+      "Budget": 2,
+      "IsEnrolled": true,
+      "VisaStory": "Yuki holds a long-term visa for her PhD research at FU Berlin, valid for four years.",
+      "BudgetStory": "Her research grant provides 1200 EUR monthly, giving her flexibility in housing choices.",
+      "EnrollmentStory": "Enrolled in the Biology doctoral program at FU Berlin."
+    },
+    {
+      "StudentName": "Tom Baker",
+      "VisaStatus": 1,
+      "Budget": 2,
+      "IsEnrolled": false,
+      "VisaStory": "Tom is visiting Berlin for a 2-month language course, holding a short-term tourist visa.",
+      "BudgetStory": "He saved up before the trip and has about 800 EUR per month for accommodation.",
+      "EnrollmentStory": "Not enrolled in any university program. Attending a private language school."
+    },
+    {
+      "StudentName": "Fatima Al-Rashid",
+      "VisaStatus": 0,
+      "Budget": 0,
+      "IsEnrolled": true,
+      "VisaStory": "Fatima received a long-term student visa after being accepted into the medical program at Charite.",
+      "BudgetStory": "Living on a tight budget of 320 EUR from part-time work at the university library.",
+      "EnrollmentStory": "First-year medical student at Charite, enrolled full-time."
+    }
+  ]
+}
