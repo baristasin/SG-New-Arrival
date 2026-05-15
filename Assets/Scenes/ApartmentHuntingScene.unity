@@ -1538,9 +1538,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Game.Scripts.Paperwork.PaperworkManager, Assembly-CSharp
-        m_MethodName: CompletePaper
+      - m_Target: {fileID: 1135595446}
+        m_TargetAssemblyTypeName: Game.Scripts.ApartmentHunting.ApartmentHuntingManager,
+          Assembly-CSharp
+        m_MethodName: MatchClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

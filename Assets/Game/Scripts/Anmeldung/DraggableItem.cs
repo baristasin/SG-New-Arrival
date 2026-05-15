@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Game.Scripts.Paperwork
+namespace Game.Scripts.Anmeldung
 {
     [Serializable]
     public class DraggableItemData

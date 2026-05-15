@@ -5,7 +5,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Scripts.Paperwork
+namespace Game.Scripts.Anmeldung
 {
     public enum PaperItemCategory
     {
@@ -17,15 +17,15 @@ namespace Game.Scripts.Paperwork
     }
     
     [Serializable]
-    public class PaperworkData
+    public class AnmeldungData
     {
-        public PaperDocument PaperDocument;
+        public AnmeldungDocument AnmeldungDocument;
         public List<DraggableItemData> DraggableItemDatas;
     }
 
-    public class PaperworkManager : MonoBehaviour
+    public class AnmeldungManager : MonoBehaviour
     {
-        [SerializeField] private List<PaperworkData> _paperworkDatas;
+        [SerializeField] private List<AnmeldungData> _anmeldungDatas;
         [SerializeField] private DraggableItem _draggableItemPrefab;
         [SerializeField] private RectTransform _paperParent;
         [SerializeField] private List<RectTransform> _itemTransforms;
@@ -36,7 +36,7 @@ namespace Game.Scripts.Paperwork
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Canvas _canvas;
 
-        private PaperDocument _currentPaper;
+        private AnmeldungDocument _currentAnmeldung;
         private List<DraggableItem> _currentItems;
         private DropSlot[] _currentSlots;
         private int _currentRound;
@@ -50,24 +50,24 @@ namespace Game.Scripts.Paperwork
 
         private IEnumerator StartRound()
         {
-            yield return SlideInPaper();
+            yield return SlideInAnmeldungPaper();
             yield return SlideInItems();
         }
 
-        private IEnumerator SlideInPaper()
+        private IEnumerator SlideInAnmeldungPaper()
         {
-            _currentPaper = Instantiate(_paperworkDatas[_currentRound].PaperDocument, _paperParent);
-            _currentPaper.transform.localPosition = Vector3.left * _slideDistance;
+            _currentAnmeldung = Instantiate(_anmeldungDatas[_currentRound].AnmeldungDocument, _paperParent);
+            _currentAnmeldung.transform.localPosition = Vector3.left * _slideDistance;
 
-            yield return _currentPaper.transform.DOLocalMove(Vector3.zero, _slideDuration)
+            yield return _currentAnmeldung.transform.DOLocalMove(Vector3.zero, _slideDuration)
                 .SetEase(Ease.OutQuad).WaitForCompletion();
 
-            _currentSlots = _currentPaper.Slots;
+            _currentSlots = _currentAnmeldung.Slots;
         }
 
         private IEnumerator SlideInItems()
         {
-            var datas = _paperworkDatas[_currentRound].DraggableItemDatas;
+            var datas = _anmeldungDatas[_currentRound].DraggableItemDatas;
             _currentItems = new List<DraggableItem>();
 
             for (int i = 0; i < datas.Count; i++)
@@ -86,10 +86,10 @@ namespace Game.Scripts.Paperwork
 
         private IEnumerator SlideOutAll()
         {
-            if (_currentPaper != null)
+            if (_currentAnmeldung != null)
             {
-                _currentPaper.StopEffects();
-                _currentPaper.transform.DOLocalMove(Vector3.left * _slideDistance, _slideDuration)
+                _currentAnmeldung.StopEffects();
+                _currentAnmeldung.transform.DOLocalMove(Vector3.left * _slideDistance, _slideDuration)
                     .SetEase(Ease.InQuad);
             }
 
@@ -106,7 +106,7 @@ namespace Game.Scripts.Paperwork
 
             yield return new WaitForSeconds(_slideDuration + (_currentItems?.Count ?? 0) * 0.05f);
 
-            if (_currentPaper != null) Destroy(_currentPaper.gameObject);
+            if (_currentAnmeldung != null) Destroy(_currentAnmeldung.gameObject);
             if (_currentItems != null)
             {
                 foreach (var item in _currentItems)

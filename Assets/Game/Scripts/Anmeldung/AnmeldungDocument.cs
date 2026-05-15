@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
-namespace Game.Scripts.Paperwork
+namespace Game.Scripts.Anmeldung
 {
-    public class PaperDocument : MonoBehaviour
+    public class AnmeldungDocument : MonoBehaviour
     {
         [SerializeField] private Image _paperImage;
         [SerializeField] private RectTransform _rectTransform;

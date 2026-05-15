@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Game.Scripts.Paperwork
+namespace Game.Scripts.Anmeldung
 {
     public class DropSlot : MonoBehaviour, IDropHandler
     {
