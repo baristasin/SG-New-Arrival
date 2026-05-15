@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Zombies.bank
   Name: Zombies
   StudioPath: bank:/Voicelines/Zombies
-  lastModified: 639140414151168102
+  lastModified: 639140415548016450
   FileSizes: []
   Exists: 1
 --- !u!114 &-4750907042210610407
@@ -114,7 +114,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639140414151146053
+  lastModified: 639140415547996410
   FileSizes:
   - Name: 
     Value: 1226
@@ -161,7 +161,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Day-Environment.bank
   Name: Day-Environment
   StudioPath: bank:/Environment/Day-Environment
-  lastModified: 639140414151122891
+  lastModified: 639140415547981377
   FileSizes: []
   Exists: 1
 --- !u!114 &-1216607810391221545
@@ -179,7 +179,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639136902718086883
+  lastModified: 639140221027863767
   FileSizes: []
   Exists: 1
 --- !u!114 &11400000
@@ -214,7 +214,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3304077908682765422}
   cacheVersion: 131858
-  cacheTime: 639140414151168102
+  cacheTime: 639140415548016450
   SerializableEventsDict:
   - key: event:/kolner-dom
     index: 0
@@ -297,7 +297,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Guns.bank
   Name: Guns
   StudioPath: bank:/Guns
-  lastModified: 639140414151139076
+  lastModified: 639140415547996410
   FileSizes: []
   Exists: 1
 --- !u!114 &8988069978858246303
@@ -315,6 +315,6 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639140414151154335
+  lastModified: 639140415548006462
   FileSizes: []
   Exists: 1
