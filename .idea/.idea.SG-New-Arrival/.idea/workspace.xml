@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad124cb8-c583-418a-bc08-ba2fed04d32c" name="Changes" comment="" />
+    <list default="true" id="ad124cb8-c583-418a-bc08-ba2fed04d32c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SG-New-Arrival/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SG-New-Arrival/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/Anmeldung/CategoryItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/Anmeldung/CategoryItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/ApartmentHunting/ApartmentPaper.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/ApartmentHunting/ApartmentPaper.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/ApartmentHunting/StudentPaper.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/ApartmentHunting/StudentPaper.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ApartmentHuntingScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ApartmentHuntingScene.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "feature/VisaMechanics",
+    "unity.profiler.toolWindow.autoShown": "true"
+  }
+}]]></component>
   <component name="TaskManager">
     <servers />
   </component>
