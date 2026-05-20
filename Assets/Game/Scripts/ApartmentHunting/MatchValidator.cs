@@ -1,45 +1,49 @@
-using Game.Scripts.ApartmentHunting.Data;
+using Game.Scripts.StudentData;
 
 namespace Game.Scripts.ApartmentHunting
 {
     public struct MatchResult
     {
-        public bool VisaMatch;
-        public bool BudgetMatch;
-        public bool EnrollmentMatch;
+        public bool PriceMatch;
+        public bool AnmeldungMatch;
+        public bool DormitoryMatch;
 
-        public int CorrectCount => (VisaMatch ? 1 : 0) + (BudgetMatch ? 1 : 0) + (EnrollmentMatch ? 1 : 0);
+        public int CorrectCount => (PriceMatch ? 1 : 0) + (AnmeldungMatch ? 1 : 0) + (DormitoryMatch ? 1 : 0);
         public int TotalRules => 3;
         public bool IsFullMatch => CorrectCount == TotalRules;
     }
 
     public static class MatchValidator
     {
-        public static MatchResult Evaluate(StudentPaperData student, ApartmentPaperData apartment)
+        public static MatchResult Evaluate(StudentProfile student, ApartmentEntry apartment)
         {
             return new MatchResult
             {
-                VisaMatch = IsVisaMatch(student, apartment),
-                BudgetMatch = IsBudgetMatch(student, apartment),
-                EnrollmentMatch = IsEnrollmentMatch(student, apartment)
+                PriceMatch = IsPriceMatch(student, apartment),
+                AnmeldungMatch = IsAnmeldungMatch(student, apartment),
+                DormitoryMatch = IsDormitoryMatch(student, apartment),
             };
         }
 
-        private static bool IsVisaMatch(StudentPaperData student, ApartmentPaperData apartment)
-        {
-            return student.VisaStatus == VisaStatus.LongTerm
-                ? apartment.ProvidesAnmeldung
-                : !apartment.ProvidesAnmeldung;
-        }
-
-        private static bool IsBudgetMatch(StudentPaperData student, ApartmentPaperData apartment)
+        private static bool IsPriceMatch(StudentProfile student, ApartmentEntry apartment)
         {
             return student.Budget >= apartment.PriceCategory;
         }
 
-        private static bool IsEnrollmentMatch(StudentPaperData student, ApartmentPaperData apartment)
+        // Long-term students must register their address (Anmeldung), which requires the
+        // landlord's Wohnungsgeberbescheinigung. Short-term stays skip registration.
+        private static bool IsAnmeldungMatch(StudentProfile student, ApartmentEntry apartment)
         {
-            if (apartment.IsDormitory && !student.IsEnrolled) return false;
+            if (student.VisaStatus == VisaStatus.LongTerm)
+                return apartment.ProvidesWohnungsgeberbescheinigung;
+            return true;
+        }
+
+        // Dormitories are reserved for enrolled students.
+        private static bool IsDormitoryMatch(StudentProfile student, ApartmentEntry apartment)
+        {
+            if (apartment.Type == ApartmentType.Dormitory)
+                return student.IsEnrolled;
             return true;
         }
     }

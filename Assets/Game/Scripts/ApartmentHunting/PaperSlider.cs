@@ -10,6 +10,7 @@ namespace Game.Scripts.ApartmentHunting
         where TPaper : HuntingPaperBase<TData>
     {
         [SerializeField] private RectTransform _viewport;
+        [SerializeField] private RectTransform _pageParent;
         [SerializeField] private float _slideDuration = 0.3f;
         [SerializeField] private TPaper _paperPrefab;
 
@@ -18,14 +19,18 @@ namespace Game.Scripts.ApartmentHunting
         private float _pageWidth;
         private bool _isSliding;
 
+        // The masked container that holds and clips the pages. Falls back to the
+        // viewport when no dedicated parent is assigned.
+        private RectTransform PageParent => _pageParent != null ? _pageParent : _viewport;
+
         public TData CurrentData => _pages.Count > 0 ? _pages[_currentIndex].Data : default;
 
         public void Initialize(List<TData> pageDatas)
         {
-            _pageWidth = _viewport.rect.width;
+            _pageWidth = PageParent.rect.width;
             SetPages(pageDatas);
         }
-        
+
         public void SetPages(List<TData> pageDatas)
         {
             _pages.Clear();
@@ -33,10 +38,10 @@ namespace Game.Scripts.ApartmentHunting
 
             for (int i = 0; i < pageDatas.Count; i++)
             {
-                var paper = Instantiate(_paperPrefab, _viewport);
+                var paper = Instantiate(_paperPrefab, PageParent);
                 paper.Initialize(pageDatas[i]);
                 _pages.Add(paper);
-                paper.RectTransform.anchoredPosition = new Vector2(i * _pageWidth, 0);
+                paper.RectTransform.anchoredPosition = new Vector2(i * _pageWidth, 0f);
             }
         }
 
