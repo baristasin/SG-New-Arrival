@@ -7,6 +7,7 @@ namespace Game.Scripts.ApartmentHunting
         public bool PriceMatch;
         public bool AnmeldungMatch;
         public bool DormitoryMatch;
+        public bool SchufaMatch;
 
         public int CorrectCount => (PriceMatch ? 1 : 0) + (AnmeldungMatch ? 1 : 0) + (DormitoryMatch ? 1 : 0);
         public int TotalRules => 3;
@@ -22,6 +23,7 @@ namespace Game.Scripts.ApartmentHunting
                 PriceMatch = IsPriceMatch(student, apartment),
                 AnmeldungMatch = IsAnmeldungMatch(student, apartment),
                 DormitoryMatch = IsDormitoryMatch(student, apartment),
+                SchufaMatch = IsSchufaMatch(student, apartment)
             };
         }
 
@@ -44,6 +46,16 @@ namespace Game.Scripts.ApartmentHunting
         {
             if (apartment.Type == ApartmentType.Dormitory)
                 return student.IsEnrolled;
+            return true;
+        }
+
+        private static bool IsSchufaMatch(StudentProfile student, ApartmentEntry apartment)
+        {
+            if (apartment.RequiresSchufa)
+            {
+                return student.HasPreviousSchufa;
+            }
+
             return true;
         }
     }

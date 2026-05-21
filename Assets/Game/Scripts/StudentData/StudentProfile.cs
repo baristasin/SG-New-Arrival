@@ -5,6 +5,7 @@ namespace Game.Scripts.StudentData
     [Serializable]
     public class StudentProfile
     {
+        public int IdNumber;
         public string Id;
         public string FirstName;
         public string LastName;

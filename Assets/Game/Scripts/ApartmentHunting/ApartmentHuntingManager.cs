@@ -1,3 +1,4 @@
+using System;
 using Game.Scripts.StudentData;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,6 +11,11 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private ApartmentDatabase _apartmentDatabase;
         [SerializeField] private ApartmentPaperSlider _apartmentPaperSlider;
         [SerializeField] private StudentPaperSlider _studentPaperSlider;
+
+        private void Start()
+        {
+            Initialize();
+        }
 
         [Button]
         public void Initialize()
@@ -26,7 +32,8 @@ namespace Game.Scripts.ApartmentHunting
             var result = MatchValidator.Evaluate(studentData, apartmentData);
             Debug.Log($"[Match] {studentData.FullName} x {apartmentData.Name} — " +
                       $"Price:{result.PriceMatch} Anmeldung:{result.AnmeldungMatch} Dormitory:{result.DormitoryMatch} " +
-                      $"=> {(result.IsFullMatch ? "FULL MATCH" : $"{result.CorrectCount}/3")}");
+                      $"Schufa: {result.SchufaMatch} " +
+                      $"=> {(result.IsFullMatch ? "FULL MATCH" : $"{result.CorrectCount}/4")}");
 
             _apartmentPaperSlider.SlideOutCurrent();
             _studentPaperSlider.SlideOutCurrent();
