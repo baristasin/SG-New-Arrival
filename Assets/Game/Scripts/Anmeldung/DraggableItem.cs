@@ -20,7 +20,11 @@ namespace Game.Scripts.Anmeldung
         [SerializeField] private TextMeshProUGUI _itemText;
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private CanvasGroup _canvasGroup;
-        
+
+        [SerializeField] private float _horizontalPadding = 40f;
+        [SerializeField] private float _minWidth = 120f;
+        [SerializeField] private float _maxWidth = 400f;
+
         private Canvas _canvas;
         private Vector3 _originalPosition;
         private Transform _originalParent;
@@ -33,9 +37,27 @@ namespace Game.Scripts.Anmeldung
             DraggableItemData = draggableItemData;
             _mainCamera = mainCamera;
             _canvas = canvas;
+            _itemText.enableAutoSizing = false;
             _itemText.SetText(draggableItemData.ItemDataStr);
+            FitWidthToText(draggableItemData.ItemDataStr);
             _originalPosition = Vector3.zero;
             _originalParent = transform.parent;
+        }
+
+        private void FitWidthToText(string text)
+        {
+            var oldRootSize = _rectTransform.sizeDelta;
+            float preferredTextWidth = _itemText.GetPreferredValues(text).x;
+            float desiredRootWidth = preferredTextWidth + _horizontalPadding;
+
+            float targetWidth = Mathf.Min(_maxWidth, Mathf.Max(_minWidth, desiredRootWidth));
+
+            float widthDelta = targetWidth - oldRootSize.x;
+            _rectTransform.sizeDelta = new Vector2(targetWidth, oldRootSize.y);
+
+            var textRect = _itemText.rectTransform;
+            var textSize = textRect.sizeDelta;
+            textRect.sizeDelta = new Vector2(textSize.x + widthDelta, textSize.y);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -70,7 +92,7 @@ namespace Game.Scripts.Anmeldung
         {
             _currentSlot = slot;
             transform.SetParent(slot.transform);
-            _rectTransform.DOLocalMove(Vector3.zero, 0.15f).SetEase(Ease.OutQuad);
+            _rectTransform.DOLocalMove(new Vector3(0,8f,0), 0.15f).SetEase(Ease.OutQuad);
             _rectTransform.DOLocalRotate(Vector3.zero, 0.15f);
         }
 

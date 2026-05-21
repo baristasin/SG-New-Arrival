@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa930cda4ef0497eb166a2e9cf00029, type: 3}
+  m_Name: StudentDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.StudentData.StudentDatabase
+  Students:
+  - IdNumber: 0
+    Id: emma-fischer
+    FirstName: Emma
+    LastName: Fischer
+    Nationality: Austria
+    PlaceOfBirth: Salzburg
+    DateOfBirth: 2003-10-14
+    GermanLevel: 4
+    EnglishLevel: 5
+    Gender: 1
+    MaritalStatus: 0
+    Budget: 1
+    VisaStatus: 0
+    IsEnrolled: 0
+    AddressInGermany: "Hauptstra\xDFe 12, 50667 K\xF6ln"
+    MoveInDate: 2026-04-01
+    Wohnungsgeber: "M\xFCller Wohnen GmbH"
+    FormerAddressAbroad: Getreidegasse 4, 5020 Salzburg, Austria
+    HasPreviousSchufa: 1
+  - IdNumber: 1
+    Id: yasmin-al-amir
+    FirstName: Yasmin
+    LastName: Al-Amir
+    Nationality: Egypt
+    PlaceOfBirth: Cairo
+    DateOfBirth: 2007-02-03
+    GermanLevel: 2
+    EnglishLevel: 7
+    Gender: 1
+    MaritalStatus: 0
+    Budget: 0
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Universit\xE4tsstra\xDFe 45, 50996 K\xF6ln"
+    MoveInDate: 2026-03-15
+    Wohnungsgeber: "K\xF6lner Studierendenwerk"
+    FormerAddressAbroad: El-Tahrir Square 12, Cairo, Egypt
+    HasPreviousSchufa: 0
+  - IdNumber: 2
+    Id: lucas-silva
+    FirstName: Lucas
+    LastName: Silva
+    Nationality: Brazil
+    PlaceOfBirth: "S\xE3o Paulo"
+    DateOfBirth: 1998-08-29
+    GermanLevel: 3
+    EnglishLevel: 4
+    Gender: 0
+    MaritalStatus: 0
+    Budget: 0
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Max-Planck-Stra\xDFe 8, 50676 K\xF6ln"
+    MoveInDate: 2026-04-01
+    Wohnungsgeber: Karl Hauser (Private Landlord)
+    FormerAddressAbroad: "Avenida Paulista 1000, S\xE3o Paulo, Brazil"
+    HasPreviousSchufa: 0
+  - IdNumber: 3
+    Id: alex-taylor
+    FirstName: Alex
+    LastName: Taylor
+    Nationality: United Kingdom (England)
+    PlaceOfBirth: Bristol
+    DateOfBirth: 1995-12-12
+    GermanLevel: 1
+    EnglishLevel: 8
+    Gender: 2
+    MaritalStatus: 0
+    Budget: 2
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Karl-Marx-Stra\xDFe 22, 50672 K\xF6ln"
+    MoveInDate: 2026-03-20
+    Wohnungsgeber: WG-Gesucht Vermietung (Thomas Klein)
+    FormerAddressAbroad: 14 Park Street, Bristol, UK
+    HasPreviousSchufa: 0
+  - IdNumber: 4
+    Id: mateo-fernandez
+    FirstName: Mateo
+    LastName: Fernandez
+    Nationality: Spain
+    PlaceOfBirth: Barcelona
+    DateOfBirth: 2001-04-07
+    GermanLevel: 4
+    EnglishLevel: 4
+    Gender: 0
+    MaritalStatus: 0
+    Budget: 1
+    VisaStatus: 0
+    IsEnrolled: 0
+    AddressInGermany: "Schillerstra\xDFe 5, 50677 K\xF6ln"
+    MoveInDate: 2026-04-01
+    Wohnungsgeber: GAG Immobilien AG
+    FormerAddressAbroad: Carrer de Mallorca 250, Barcelona, Spain
+    HasPreviousSchufa: 1
+  - IdNumber: 5
+    Id: nia-okafor
+    FirstName: Nia
+    LastName: Okafor
+    Nationality: Nigeria
+    PlaceOfBirth: Abuja
+    DateOfBirth: 2007-11-21
+    GermanLevel: 2
+    EnglishLevel: 7
+    Gender: 1
+    MaritalStatus: 0
+    Budget: 1
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Einsteinstra\xDFe 104, 50679 K\xF6ln"
+    MoveInDate: 2026-03-28
+    Wohnungsgeber: "K\xF6lner Studierendenwerk"
+    FormerAddressAbroad: 5 Garki Way, Abuja, Nigeria
+    HasPreviousSchufa: 0
+  - IdNumber: 6
+    Id: kenji-sato
+    FirstName: Kenji
+    LastName: Sato
+    Nationality: Japan
+    PlaceOfBirth: Kyoto
+    DateOfBirth: 1998-01-05
+    GermanLevel: 3
+    EnglishLevel: 4
+    Gender: 0
+    MaritalStatus: 0
+    Budget: 2
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Heine-Allee 17, 50733 K\xF6ln"
+    MoveInDate: 2026-04-05
+    Wohnungsgeber: Rhein-Wohnen GmbH
+    FormerAddressAbroad: 21 Shijo-dori, Kyoto, Japan
+    HasPreviousSchufa: 0
+  - IdNumber: 7
+    Id: jordan-carter
+    FirstName: Jordan
+    LastName: Carter
+    Nationality: United States
+    PlaceOfBirth: Chicago
+    DateOfBirth: 2004-07-18
+    GermanLevel: 2
+    EnglishLevel: 8
+    Gender: 0
+    MaritalStatus: 0
+    Budget: 0
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Rosenweg 3, 50823 K\xF6ln"
+    MoveInDate: 2026-04-01
+    Wohnungsgeber: Sabine Schneider (Private Landlord)
+    FormerAddressAbroad: 405 Michigan Ave, Chicago, USA
+    HasPreviousSchufa: 0
+  - IdNumber: 8
+    Id: priya-sharma
+    FirstName: Priya
+    LastName: Sharma
+    Nationality: India
+    PlaceOfBirth: Mumbai
+    DateOfBirth: 2001-06-30
+    GermanLevel: 3
+    EnglishLevel: 7
+    Gender: 1
+    MaritalStatus: 0
+    Budget: 2
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Lessingstra\xDFe 14, 50933 K\xF6ln"
+    MoveInDate: 2026-04-02
+    Wohnungsgeber: L.E. Housing Group
+    FormerAddressAbroad: 88 Marine Drive, Mumbai, India
+    HasPreviousSchufa: 0
+  - IdNumber: 9
+    Id: mei-lin
+    FirstName: Mei
+    LastName: Lin
+    Nationality: Taiwan
+    PlaceOfBirth: Taipei
+    DateOfBirth: 2000-03-11
+    GermanLevel: 5
+    EnglishLevel: 4
+    Gender: 1
+    MaritalStatus: 0
+    Budget: 1
+    VisaStatus: 0
+    IsEnrolled: 1
+    AddressInGermany: "Am Schlossgarten 2, 50937 K\xF6ln"
+    MoveInDate: 2026-04-01
+    Wohnungsgeber: Stiftung Diligentia
+    FormerAddressAbroad: 102 Xinyi Road, Taipei, Taiwan
+    HasPreviousSchufa: 0
