@@ -24,6 +24,7 @@ MonoBehaviour:
     Gender: 1
     MaritalStatus: 0
     Budget: 1
+    VisaStatus: 0
     IsEnrolled: 0
     AddressInGermany: "Hauptstra\xDFe 12, 50667 K\xF6ln"
     MoveInDate: 2026-04-01
@@ -41,6 +42,7 @@ MonoBehaviour:
     Gender: 1
     MaritalStatus: 0
     Budget: 0
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Universit\xE4tsstra\xDFe 45, 50996 K\xF6ln"
     MoveInDate: 2026-03-15
@@ -58,6 +60,7 @@ MonoBehaviour:
     Gender: 0
     MaritalStatus: 0
     Budget: 0
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Max-Planck-Stra\xDFe 8, 50676 K\xF6ln"
     MoveInDate: 2026-04-01
@@ -75,6 +78,7 @@ MonoBehaviour:
     Gender: 2
     MaritalStatus: 0
     Budget: 2
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Karl-Marx-Stra\xDFe 22, 50672 K\xF6ln"
     MoveInDate: 2026-03-20
@@ -92,6 +96,7 @@ MonoBehaviour:
     Gender: 0
     MaritalStatus: 0
     Budget: 1
+    VisaStatus: 0
     IsEnrolled: 0
     AddressInGermany: "Schillerstra\xDFe 5, 50677 K\xF6ln"
     MoveInDate: 2026-04-01
@@ -109,6 +114,7 @@ MonoBehaviour:
     Gender: 1
     MaritalStatus: 0
     Budget: 1
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Einsteinstra\xDFe 104, 50679 K\xF6ln"
     MoveInDate: 2026-03-28
@@ -126,6 +132,7 @@ MonoBehaviour:
     Gender: 0
     MaritalStatus: 0
     Budget: 2
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Heine-Allee 17, 50733 K\xF6ln"
     MoveInDate: 2026-04-05
@@ -143,6 +150,7 @@ MonoBehaviour:
     Gender: 0
     MaritalStatus: 0
     Budget: 0
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Rosenweg 3, 50823 K\xF6ln"
     MoveInDate: 2026-04-01
@@ -160,6 +168,7 @@ MonoBehaviour:
     Gender: 1
     MaritalStatus: 0
     Budget: 2
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Lessingstra\xDFe 14, 50933 K\xF6ln"
     MoveInDate: 2026-04-02
@@ -177,6 +186,7 @@ MonoBehaviour:
     Gender: 1
     MaritalStatus: 0
     Budget: 1
+    VisaStatus: 0
     IsEnrolled: 1
     AddressInGermany: "Am Schlossgarten 2, 50937 K\xF6ln"
     MoveInDate: 2026-04-01

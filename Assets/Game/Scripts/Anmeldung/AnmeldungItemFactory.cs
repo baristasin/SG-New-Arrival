@@ -8,13 +8,6 @@ namespace Game.Scripts.Anmeldung
 {
     public static class AnmeldungItemFactory
     {
-        private static readonly string[] EmployerPool =
-        {
-            "Müller Wohnen GmbH", "Rhein-Tech GmbH", "BerlinSoft GmbH",
-            "Köln Logistik GmbH", "Schultz & Partner GmbH", "Hansa Bau GmbH",
-            "Nordlicht Media GmbH", "Adler Automotive GmbH", "Werner Industries GmbH",
-        };
-
         public static List<DraggableItemData> BuildRound(StudentProfile student)
         {
             if (student == null)
@@ -24,12 +17,12 @@ namespace Game.Scripts.Anmeldung
             {
                 Make(PaperItemCategory.NameAndSurname, student.FullName),
                 Make(PaperItemCategory.Nationality, student.Nationality),
-                Make(PaperItemCategory.DateOfBirth, FormatGermanDate(student.DateOfBirth)),
+                Make(PaperItemCategory.LandlordCertificate, student.Wohnungsgeber),
                 Make(PaperItemCategory.Address, student.AddressInGermany),
                 Make(PaperItemCategory.MoveInDate, FormatGermanDate(student.MoveInDate)),
 
                 Make(PaperItemCategory.MonthlyIncome, $"€{UnityEngine.Random.Range(600, 2001)}"),
-                Make(PaperItemCategory.Employer, EmployerPool[UnityEngine.Random.Range(0, EmployerPool.Length)]),
+                Make(PaperItemCategory.DateOfBirth, FormatGermanDate(student.DateOfBirth)),
                 Make(PaperItemCategory.SizeOfApartment, $"{UnityEngine.Random.Range(20, 51)} m²"),
             };
 

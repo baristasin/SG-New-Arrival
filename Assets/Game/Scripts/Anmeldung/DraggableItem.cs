@@ -22,7 +22,6 @@ namespace Game.Scripts.Anmeldung
         [SerializeField] private CanvasGroup _canvasGroup;
 
         [SerializeField] private float _horizontalPadding = 40f;
-        [SerializeField] private float _verticalPadding = 30f;
         [SerializeField] private float _minWidth = 120f;
         [SerializeField] private float _maxWidth = 400f;
 
@@ -51,28 +50,14 @@ namespace Game.Scripts.Anmeldung
             float preferredTextWidth = _itemText.GetPreferredValues(text).x;
             float desiredRootWidth = preferredTextWidth + _horizontalPadding;
 
-            float targetWidth;
-            float targetHeight = oldRootSize.y;
-
-            if (desiredRootWidth > _maxWidth)
-            {
-                targetWidth = _maxWidth;
-                float innerWidth = _maxWidth - _horizontalPadding;
-                float wrappedHeight = _itemText.GetPreferredValues(text, innerWidth, 0f).y;
-                targetHeight = Mathf.Max(oldRootSize.y, wrappedHeight + _verticalPadding);
-            }
-            else
-            {
-                targetWidth = Mathf.Max(_minWidth, desiredRootWidth);
-            }
+            float targetWidth = Mathf.Min(_maxWidth, Mathf.Max(_minWidth, desiredRootWidth));
 
             float widthDelta = targetWidth - oldRootSize.x;
-            float heightDelta = targetHeight - oldRootSize.y;
-            _rectTransform.sizeDelta = new Vector2(targetWidth, targetHeight);
+            _rectTransform.sizeDelta = new Vector2(targetWidth, oldRootSize.y);
 
             var textRect = _itemText.rectTransform;
             var textSize = textRect.sizeDelta;
-            textRect.sizeDelta = new Vector2(textSize.x + widthDelta, textSize.y + heightDelta);
+            textRect.sizeDelta = new Vector2(textSize.x + widthDelta, textSize.y);
         }
 
         public void OnBeginDrag(PointerEventData eventData)

@@ -128,10 +128,18 @@ namespace Game.Scripts.Anmeldung
 
         public void CheckCompletion()
         {
+            var roundPoints = 0;
+            
             foreach (var slot in _currentSlots)
             {
-                if (slot.IsCorrect) _points++;
+                if (slot.IsCorrect)
+                {
+                    roundPoints++;
+                    _points++;
+                }
             }
+            
+            Debug.Log($"Points: {roundPoints}/5");
 
             StartCoroutine(OnRoundComplete());
         }
