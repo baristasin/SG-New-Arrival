@@ -1,35 +1,81 @@
 using UnityEngine;
 using System.Collections.Generic;
-//TODO this is AI generated code and is not yet applied to the current game.
+using UnityEngine.AI;
+
 public class CafeManager : MonoBehaviour
 {
+    [Header("Setup")]
     public List<Table> allTables;
+    public GameObject GuestPrefab;
+    
+    private Table[,] tableGrid = new Table[5, 5]; 
     
     private Queue<GuestData> guestQueue = new Queue<GuestData>();
     private GuestData currentGuest;
+
     
-    // Reference to the active 3D character placeholder instance at the entrance
+    [Header("Active Guest Interaction")]
     public GameObject activeGuestObject; 
+    public Transform spawnPoint;
 
     void Start()
     {
+        InitializeTableGrid();
         InitializeGuestQueue();
         SpawnNextGuest();
     }
 
     void Update()
     {
-        // Detect Player clicking on a Spot
         if (Input.GetMouseButtonDown(0))
         {
             HandleSpotSelection();
         }
     }
 
+    // sort tables
+    void InitializeTableGrid()
+    {
+        foreach (Table table in allTables)
+        {
+            if (table != null)
+            {
+                tableGrid[table.table_row, table.table_col] = table;
+            }
+        }
+    }
+
+    // Create a deck of guests
     void InitializeGuestQueue()
     {
-        // 1. Populate your 16 unique characters here using the list we discussed
-        // 2. Enqueue them into guestQueue
+        var BG = GuestData.InterestType.Boardgames;
+        var MU = GuestData.InterestType.Music;
+        var BE = GuestData.InterestType.Beer;
+        var BK = GuestData.InterestType.Books;
+
+        // BG - Group
+        guestQueue.Enqueue(new GuestData("Gamer 1", new List<GuestData.InterestType> { BG, BE }, MU));
+        guestQueue.Enqueue(new GuestData("Gamer 2", new List<GuestData.InterestType> { BG, BK }, BE));
+        guestQueue.Enqueue(new GuestData("Gamer 3", new List<GuestData.InterestType> { BG, MU }, BK));
+        guestQueue.Enqueue(new GuestData("Gamer 4", new List<GuestData.InterestType> { BG, BE }, BK));
+
+        // BK - Group
+        guestQueue.Enqueue(new GuestData("Reader 1", new List<GuestData.InterestType> { BK, BE }, MU));
+        guestQueue.Enqueue(new GuestData("Reader 2", new List<GuestData.InterestType> { BK, MU }, BG));
+        guestQueue.Enqueue(new GuestData("Reader 3", new List<GuestData.InterestType> { BK, BG }, BE));
+        guestQueue.Enqueue(new GuestData("Reader 4", new List<GuestData.InterestType> { BK, MU }, BE));
+
+        // BE - Group
+        guestQueue.Enqueue(new GuestData("Bar-Fan 1", new List<GuestData.InterestType> { BE, MU }, BK));
+        guestQueue.Enqueue(new GuestData("Bar-Fan 2", new List<GuestData.InterestType> { BE, BG }, MU));
+        guestQueue.Enqueue(new GuestData("Bar-Fan 3", new List<GuestData.InterestType> { BE, BK }, BG));
+        guestQueue.Enqueue(new GuestData("Bar-Fan 4", new List<GuestData.InterestType> { BE, MU }, BG));
+
+        // MU - Group
+        guestQueue.Enqueue(new GuestData("Concert-Goer 1", new List<GuestData.InterestType> { MU, BG }, BK));
+        guestQueue.Enqueue(new GuestData("Concert-Goer 2", new List<GuestData.InterestType> { MU, BE }, BG));
+        guestQueue.Enqueue(new GuestData("Concert-Goer 3", new List<GuestData.InterestType> { MU, BK }, BG));
+        guestQueue.Enqueue(new GuestData("Concert-Goer 4", new List<GuestData.InterestType> { MU, BE }, BK));
     }
 
     void SpawnNextGuest()
@@ -37,10 +83,18 @@ public class CafeManager : MonoBehaviour
         if (guestQueue.Count > 0)
         {
             currentGuest = guestQueue.Dequeue();
-            // Update your UI text here: "Hi, I like..."
             
-            // Move your activeGuestObject back to the entrance spawn point
-            // Reset its animations to 'Idle/Waiting'
+            Debug.Log($"NextGuest: {currentGuest.Name}. Likes: {currentGuest.Likes[0]} & {currentGuest.Likes[1]}. Hates: {currentGuest.Dislike}");
+
+            // Bring the guest back to entrance
+            if (activeGuestObject != null && spawnPoint != null)
+            {
+                NavMeshAgent agent = activeGuestObject.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    agent.Warp(spawnPoint.position);
+                }
+            }
         }
         else
         {
@@ -57,15 +111,38 @@ public class CafeManager : MonoBehaviour
         {
             Spot clickedSpot = hit.collider.GetComponent<Spot>();
 
-            if (clickedSpot != null && !clickedSpot.isOccupied)
+            if (clickedSpot != null && clickedSpot.free)
             {
-                // 1. Tell clickedSpot it is now reserved/occupied
-                clickedSpot.SeatCharacter(currentGuest);
+                clickedSpot.takeThisSpot(currentGuest);
 
-                // 2. Tell the NavMeshAgent on activeGuestObject to move to clickedSpot.transform.position
-                // 3. Script on activeGuestObject handles switching to 'Walking' and then 'Sitting' on arrival
+                if (GuestPrefab != null)
+                {
 
-                // 4. Move to the next person in line
+                    GameObject spawnedGuest = Instantiate(GuestPrefab, clickedSpot.transform.position, clickedSpot.transform.rotation);
+                    spawnedGuest.transform.SetParent(clickedSpot.transform);
+
+                    var renderer = spawnedGuest.GetComponent<Renderer>();
+                    if (renderer != null && currentGuest.Likes.Count > 0)
+                    {
+                        //placeholder Debug
+                        if (currentGuest.Likes[0] == GuestData.InterestType.Beer) renderer.material.color = Color.yellow;
+                        if (currentGuest.Likes[0] == GuestData.InterestType.Books) renderer.material.color = Color.blue;
+                        if (currentGuest.Likes[0] == GuestData.InterestType.Boardgames) renderer.material.color = Color.green;
+                        if (currentGuest.Likes[0] == GuestData.InterestType.Music) renderer.material.color = Color.cyan;
+                    }
+
+                    if (activeGuestObject != null)
+                    {
+                        NavMeshAgent agent = activeGuestObject.GetComponent<NavMeshAgent>();
+                        if (agent != null)
+                        {
+                            agent.SetDestination(clickedSpot.transform.position);
+                        } 
+                    }
+
+
+                }
+
                 SpawnNextGuest();
             }
         }
@@ -73,8 +150,81 @@ public class CafeManager : MonoBehaviour
 
     public void CalculateFinalScore()
     {
-        // This is where you check the 4 hardcoded interfaces!
-        // Example: Compare allTables[0].eastSpot.seatedCharacter with allTables[1].westSpot.seatedCharacter
-        Debug.Log("Game Over! Checking synergies...");
+        Debug.Log("All seats taken final score is...");
+
+        int finalScore = 0;
+
+        //Table_score
+        foreach (Table table in allTables)
+        {
+            if (table != null)
+            {
+                int tableScore = table.CalculateTableScore();
+                finalScore += tableScore;
+                Debug.Log($"Tisch {table.tableID} erzielt {tableScore} Punkte.");
+            }
+        }
+
+        // synergy
+        int synergyBonus = 0;
+
+        // run through the matrix
+        for (int r = 0; r < 5; r++)
+        {
+            for (int c = 0; c < 5; c++)
+            {
+                Table currentTable = tableGrid[r, c];
+                if (currentTable == null) continue;
+
+                // CHECK East/West
+                if (c + 1 < 5)
+                {
+                    Table rightTable = tableGrid[r, c + 1];
+                    if (rightTable != null)
+                    {
+                        synergyBonus += EvaluateSpotPair(currentTable.eastSpot, rightTable.westSpot);
+                    }
+                }
+
+                // CHECK Up/Down
+                if (r + 1 < 5)
+                {
+                    Table bottomTable = tableGrid[r + 1, c];
+                    if (bottomTable != null)
+                    {
+                        synergyBonus += EvaluateSpotPair(currentTable.southSpot, bottomTable.northSpot);
+                    }
+                }
+            }
+        }
+
+        finalScore += synergyBonus;
+        Debug.Log($"Synergie-Bonus/Malus total: {synergyBonus} Points.");
+        Debug.Log($"=== final result: {finalScore} points ===");
+    }
+
+    // copare two spots
+    private int EvaluateSpotPair(Spot spotA, Spot spotB)
+    {
+        if (spotA == null || spotB == null || spotA.free || spotB.free) return 0;
+
+        int scoreDelta = 0;
+
+        // shared interest
+        foreach (GuestData.InterestType likeA in spotA.myGuest.Likes)
+        {
+            if (spotB.myGuest.Likes.Contains(likeA))
+            {
+                scoreDelta += 1; //this is a magic number maybe chage this to a var (common intrest score)
+                
+                //maybe fancy stuff for soulmates
+            }
+        }
+
+        // Conflicts: Wenn einer das Desinteresse des anderen triggert
+        if (spotB.myGuest.Likes.Contains(spotA.myGuest.Dislike)) scoreDelta -= 2; //this is a magic number maybe chage this to a var (reason for a mortal Kombat) //insert fatalities here
+        if (spotA.myGuest.Likes.Contains(spotB.myGuest.Dislike)) scoreDelta -= 2;
+
+        return scoreDelta;
     }
 }
