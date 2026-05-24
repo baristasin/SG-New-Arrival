@@ -7,20 +7,20 @@ namespace Game.Scripts.Visa
     [Serializable]
     public class InsuranceData
     {
-        public bool HasTravelInsurance;
-        public bool HasHealthInsurance;
+        public string IssuedPerson;
+        public string DateOfBirth;
     }
 
     public class InsuranceDocument : VisaDocumentBase<InsuranceData>
     {
-        [SerializeField] private TextMeshProUGUI _travelInsuranceText;
-        [SerializeField] private TextMeshProUGUI _healthInsuranceText;
+        [SerializeField] private TextMeshProUGUI _issuedPersonText;
+        [SerializeField] private TextMeshProUGUI _dateOfBirthText;
 
         public override void Initialize(InsuranceData data)
         {
             base.Initialize(data);
-            _travelInsuranceText.SetText(data.HasTravelInsurance ? "Active" : "None");
-            _healthInsuranceText.SetText(data.HasHealthInsurance ? "Active" : "None");
+            _issuedPersonText.SetText(data.IssuedPerson);
+            _dateOfBirthText.SetText(data.DateOfBirth);
         }
     }
 }

@@ -58,4 +58,22 @@ namespace Game.Scripts.StudentData
         LongTerm = 0,
         ShortTerm = 1,
     }
+
+    // Quality of the biometric passport photos. Sourced from the "Photos quality" column.
+    public enum PhotoQuality
+    {
+        None = 0,
+        Normal = 1,
+        Sunglasses = 2,
+        Blurred = 3,
+    }
+
+    // Tri-state status for each visa document review check ("yes" / "no" / "not required").
+    // Not a bool — "NotRequired" is a distinct third state.
+    public enum CheckStatus
+    {
+        No = 0,
+        Yes = 1,
+        NotRequired = 2,
+    }
 }

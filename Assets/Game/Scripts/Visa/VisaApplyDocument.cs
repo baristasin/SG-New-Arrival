@@ -7,7 +7,7 @@ namespace Game.Scripts.Visa
     [Serializable]
     public class VisaApplyData
     {
-        public bool FeePaid;
+        public float PayAmount;
     }
 
     public class VisaApplyDocument : VisaDocumentBase<VisaApplyData>
@@ -17,7 +17,7 @@ namespace Game.Scripts.Visa
         public override void Initialize(VisaApplyData data)
         {
             base.Initialize(data);
-            _feePaidText.SetText(data.FeePaid ? "Paid" : "Not Paid");
+            _feePaidText.text = data.PayAmount.ToString("0");
         }
     }
 }
