@@ -7,20 +7,17 @@ namespace Game.Scripts.Visa
     [Serializable]
     public class APSData
     {
-        public bool APSRequired;
-        public bool APSCompleted;
+        public string Name;
     }
 
     public class APSDocument : VisaDocumentBase<APSData>
     {
-        [SerializeField] private TextMeshProUGUI _apsRequiredText;
-        [SerializeField] private TextMeshProUGUI _apsCompletedText;
+        [SerializeField] private TextMeshProUGUI _nameText;
 
         public override void Initialize(APSData data)
         {
             base.Initialize(data);
-            _apsRequiredText.SetText(data.APSRequired ? "Required" : "Not Required");
-            _apsCompletedText.SetText(data.APSCompleted ? "Completed" : "Not Completed");
+            _nameText.text = data.Name;
         }
     }
 }
