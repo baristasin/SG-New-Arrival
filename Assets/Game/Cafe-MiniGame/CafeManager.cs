@@ -13,10 +13,13 @@ public class CafeManager : MonoBehaviour
     private Queue<GuestData> guestQueue = new Queue<GuestData>();
     private GuestData currentGuest;
 
+
     
     [Header("Active Guest Interaction")]
     public GameObject activeGuestObject; 
     public Transform spawnPoint;
+
+    private GameObject waitingGuestVisuals;
 
     void Start()
     {
@@ -86,7 +89,22 @@ public class CafeManager : MonoBehaviour
             
             Debug.Log($"NextGuest: {currentGuest.Name}. Likes: {currentGuest.Likes[0]} & {currentGuest.Likes[1]}. Hates: {currentGuest.Dislike}");
 
-            // Bring the guest back to entrance
+            //spawn guest nexto Hazem
+            if (GuestPrefab != null && spawnPoint != null)
+            {
+                Vector3 waitPosition = spawnPoint.position + new Vector3(1.5f, 0, 0);
+                waitingGuestVisuals = Instantiate(GuestPrefab, waitPosition, spawnPoint.rotation);
+
+                //adjust speechBubblo
+                GuestVisuals guestVisuals = waitingGuestVisuals.GetComponent<GuestVisuals>();
+                if (guestVisuals != null)
+                {
+                    guestVisuals.SetupSpeechBubble(currentGuest);
+                }
+            }
+
+
+            // Bring Hazem back
             if (activeGuestObject != null && spawnPoint != null)
             {
                 NavMeshAgent agent = activeGuestObject.GetComponent<NavMeshAgent>();
@@ -95,6 +113,7 @@ public class CafeManager : MonoBehaviour
                     agent.Warp(spawnPoint.position);
                 }
             }
+            
         }
         else
         {
@@ -129,14 +148,22 @@ public class CafeManager : MonoBehaviour
 
     public void OnGuestArrived(Spot arrivedSpot)
     {
-        if (GuestPrefab != null && arrivedSpot != null)
+        if (waitingGuestVisuals != null && arrivedSpot != null)
         {
-            // spawn to chair
-            GameObject spawnedGuest = Instantiate(GuestPrefab, arrivedSpot.transform.position, arrivedSpot.transform.rotation);
-            spawnedGuest.transform.SetParent(arrivedSpot.transform);
+            // move Guest
+            waitingGuestVisuals.transform.position = arrivedSpot.transform.position;
+            waitingGuestVisuals.transform.rotation = arrivedSpot.transform.rotation;
+            waitingGuestVisuals.transform.SetParent(arrivedSpot.transform);
 
-            // PlaceHolder coulors
-            var renderer = spawnedGuest.GetComponent<Renderer>();
+            // active speechBubblo
+            GuestVisuals visualScript = waitingGuestVisuals.GetComponent<GuestVisuals>();
+            if (visualScript != null)
+            {
+                visualScript.HideSpeechBubble();
+            }
+
+            //placeholder colours
+            var renderer = waitingGuestVisuals.GetComponent<Renderer>();
             if (renderer != null && arrivedSpot.myGuest.Likes.Count > 0)
             {
                 if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Beer) renderer.material.color = Color.yellow;
@@ -144,6 +171,9 @@ public class CafeManager : MonoBehaviour
                 if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Boardgames) renderer.material.color = Color.green;
                 if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Music) renderer.material.color = Color.cyan;
             }
+
+            // empty the car
+            waitingGuestVisuals = null;
         }
 
         SpawnNextGuest();
