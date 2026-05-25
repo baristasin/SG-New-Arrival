@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class guestVisuals : MonoBehaviour
+public class GuestVisuals : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
