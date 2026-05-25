@@ -115,39 +115,39 @@ public class CafeManager : MonoBehaviour
             {
                 clickedSpot.takeThisSpot(currentGuest);
 
-                if (GuestPrefab != null)
+                if (activeGuestObject != null)
                 {
-
-                    GameObject spawnedGuest = Instantiate(GuestPrefab, clickedSpot.transform.position, clickedSpot.transform.rotation);
-                    spawnedGuest.transform.SetParent(clickedSpot.transform);
-
-                    var renderer = spawnedGuest.GetComponent<Renderer>();
-                    if (renderer != null && currentGuest.Likes.Count > 0)
+                    Guest guest = activeGuestObject.GetComponent<Guest>();
+                    if (guest != null)
                     {
-                        //placeholder Debug
-                        if (currentGuest.Likes[0] == GuestData.InterestType.Beer) renderer.material.color = Color.yellow;
-                        if (currentGuest.Likes[0] == GuestData.InterestType.Books) renderer.material.color = Color.blue;
-                        if (currentGuest.Likes[0] == GuestData.InterestType.Boardgames) renderer.material.color = Color.green;
-                        if (currentGuest.Likes[0] == GuestData.InterestType.Music) renderer.material.color = Color.cyan;
+                        guest.WalkToSpot(clickedSpot,this);
                     }
-
-                    if (activeGuestObject != null)
-                    {
-                        NavMeshAgent agent = activeGuestObject.GetComponent<NavMeshAgent>();
-                        if (agent != null)
-                        {
-                            agent.SetDestination(clickedSpot.transform.position);
-                        } 
-                    }
-
-
                 }
-
-                SpawnNextGuest();
             }
         }
     }
 
+    public void OnGuestArrived(Spot arrivedSpot)
+    {
+        if (GuestPrefab != null && arrivedSpot != null)
+        {
+            // spawn to chair
+            GameObject spawnedGuest = Instantiate(GuestPrefab, arrivedSpot.transform.position, arrivedSpot.transform.rotation);
+            spawnedGuest.transform.SetParent(arrivedSpot.transform);
+
+            // PlaceHolder coulors
+            var renderer = spawnedGuest.GetComponent<Renderer>();
+            if (renderer != null && arrivedSpot.myGuest.Likes.Count > 0)
+            {
+                if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Beer) renderer.material.color = Color.yellow;
+                if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Books) renderer.material.color = Color.blue;
+                if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Boardgames) renderer.material.color = Color.green;
+                if (arrivedSpot.myGuest.Likes[0] == GuestData.InterestType.Music) renderer.material.color = Color.cyan;
+            }
+        }
+
+        SpawnNextGuest();
+    }
     public void CalculateFinalScore()
     {
         Debug.Log("All seats taken final score is...");
@@ -227,4 +227,6 @@ public class CafeManager : MonoBehaviour
 
         return scoreDelta;
     }
+
+    
 }

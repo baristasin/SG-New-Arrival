@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7752364520720929513}
   - component: {fileID: 957611961940936851}
   - component: {fileID: 4360935400622359559}
+  - component: {fileID: 2721250496972013094}
+  - component: {fileID: -7238496061660235488}
   m_Layer: 0
   m_Name: Guest
   m_TagString: Untagged
@@ -112,3 +114,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2721250496972013094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3642476353967920170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1c5e430590b0b44b5890bb8ed2714f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Guest
+--- !u!114 &-7238496061660235488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3642476353967920170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b855cd60484d27489b1dd8d7ec2ed9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
