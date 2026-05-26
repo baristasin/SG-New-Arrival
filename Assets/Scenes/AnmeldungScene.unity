@@ -163,6 +163,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23878963}
   m_CullTransparentMesh: 1
+--- !u!1 &218320911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 218320913}
+  - component: {fileID: 218320912}
+  m_Layer: 0
+  m_Name: AnmeldungSanityCorruption
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &218320912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218320911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3750b7769ccc43ac95153da8b5ab7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Anmeldung.AnmeldungSanityCorruption
+--- !u!4 &218320913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218320911}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4941.5015, y: 0.00004, z: 8534.701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245695232
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +453,7 @@ MonoBehaviour:
   _slideDuration: 1
   _mainCamera: {fileID: 1261908361}
   _canvas: {fileID: 525089830}
+  _sanityCorruption: {fileID: 218320912}
 --- !u!4 &703638660
 Transform:
   m_ObjectHideFlags: 0
@@ -1239,3 +1284,4 @@ SceneRoots:
   - {fileID: 525089831}
   - {fileID: 1558299171}
   - {fileID: 703638660}
+  - {fileID: 218320913}

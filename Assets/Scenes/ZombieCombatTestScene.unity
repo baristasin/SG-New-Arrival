@@ -43700,17 +43700,17 @@ MonoBehaviour:
   _totalGroups: 5
   _waves:
   - Entries:
-    - ZombieCount: 6
+    - ZombieCount: 30
       DelayAfter: 20
   - Entries:
-    - ZombieCount: 6
-      DelayAfter: 5
-    - ZombieCount: 4
-      DelayAfter: 4
-    - ZombieCount: 8
-      DelayAfter: 6
-    - ZombieCount: 6
-      DelayAfter: 15
+    - ZombieCount: 30
+      DelayAfter: 20
+    - ZombieCount: 30
+      DelayAfter: 20
+    - ZombieCount: 30
+      DelayAfter: 20
+    - ZombieCount: 30
+      DelayAfter: 20
   - Entries:
     - ZombieCount: 12
       DelayAfter: 5

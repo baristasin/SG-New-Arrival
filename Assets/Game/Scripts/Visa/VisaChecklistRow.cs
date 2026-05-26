@@ -26,10 +26,27 @@ namespace Game.Scripts.Visa
 
         private void Awake()
         {
-            if (_yesButton != null) _yesButton.onClick.AddListener(() => Select(CheckStatus.Yes));
-            if (_noButton != null) _noButton.onClick.AddListener(() => Select(CheckStatus.No));
-            if (_notRequiredButton != null) _notRequiredButton.onClick.AddListener(() => Select(CheckStatus.NotRequired));
+            if (_yesButton != null) _yesButton.onClick.AddListener(() => Press(CheckStatus.Yes));
+            if (_noButton != null) _noButton.onClick.AddListener(() => Press(CheckStatus.No));
+            if (_notRequiredButton != null) _notRequiredButton.onClick.AddListener(() => Press(CheckStatus.NotRequired));
             Clear();
+        }
+
+        // Player input goes through the sanity corruption (if active): it may be dropped or
+        // redirected to a different option as sanity drops.
+        private void Press(CheckStatus requested)
+        {
+            var corruption = VisaSanityCorruption.Active;
+            if (corruption == null)
+            {
+                Select(requested);
+                return;
+            }
+
+            var result = corruption.FilterInput(requested);
+            if (result.HasValue)
+                Select(result.Value);
+            // else: the press was dropped — nothing happens
         }
 
         public void Clear()
