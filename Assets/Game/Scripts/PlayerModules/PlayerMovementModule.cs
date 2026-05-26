@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,8 @@ namespace Game.Scripts.PlayerModules
         [SerializeField] private float _moveSpeed = 4f;
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private NavMeshAgent _agent;
+        
+        [SerializeField] private EventReference _footstepEvent;
 
         private void Awake()
         {
@@ -36,7 +39,10 @@ namespace Game.Scripts.PlayerModules
             if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
 
             if (moveDir.sqrMagnitude > 0.0001f)
+            {
                 _agent.Move(moveDir * _moveSpeed * Time.deltaTime);
+                AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
+            }
 
             if (Input.GetMouseButton(1))
             {
