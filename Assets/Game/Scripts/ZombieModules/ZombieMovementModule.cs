@@ -1,3 +1,4 @@
+using System.Collections;
 using Game.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,11 +11,28 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private float _moveSpeed = 2f;
         [SerializeField] private NavMeshAgent _agent;
 
+        [Header("Knockback fly")]
+        [SerializeField] private float _flyThreshold = 1f;   // below this: instant nudge, no fly/BT-freeze
+        [SerializeField] private float _knockbackDuration = 0.3f;
+        [SerializeField] private float _knockbackArcHeight = 0.5f;
+        [SerializeField] private AnimationCurve _knockbackCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
         private Vector3 _buildingHitPosition;
+        private bool _isKnockedBack;
+        private Coroutine _knockbackRoutine;
+
+        public bool IsKnockedBack => _isKnockedBack;
 
         public override void Initialize(ZombieController zombieController)
         {
             base.Initialize(zombieController);
+
+            // Clean state on (re)spawn — a knockback fly may have been cut short by despawn.
+            if (_knockbackRoutine != null) ZombieController.StopCoroutine(_knockbackRoutine);
+            _knockbackRoutine = null;
+            _isKnockedBack = false;
+            _agent.enabled = true;
+
             _agent.speed = Random.Range(_moveSpeed - 0.8f, _moveSpeed + 0.8f);
             _buildingHitPosition = ZombieController.BuildingAttackingPosition;
         }
@@ -35,6 +53,8 @@ namespace Game.Scripts.ZombieModules
 
         public void GoToPosition()
         {
+            if (_isKnockedBack) return;
+
             ZombieController.ZombieAnimationModule.Play(
                 _agent.speed < _walkThreshold ? ZombieAnimState.Walk : ZombieAnimState.Run);
 
@@ -73,6 +93,15 @@ namespace Game.Scripts.ZombieModules
             _agent.ResetPath();
         }
 
+        // Fully halts the agent on death so it doesn't keep sliding toward its last
+        // destination while the death animation plays.
+        public void StopForDeath()
+        {
+            if (!_agent.isActiveAndEnabled || !_agent.isOnNavMesh) return;
+            _agent.ResetPath();
+            _agent.velocity = Vector3.zero;
+        }
+
         public void FaceTarget()
         {
             Vector3 dir = GetCurrentAttackTargetPosition() - ZombieController.transform.position;
@@ -86,7 +115,53 @@ namespace Game.Scripts.ZombieModules
 
         public void Knockback(Vector3 direction, float distance)
         {
-            _agent.Warp(ZombieController.transform.position + direction * distance);
+            // Small knockbacks (e.g. the staple gun) stay an instant nudge — no fly, no BT freeze.
+            if (distance < _flyThreshold)
+            {
+                if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
+                    _agent.Warp(ZombieController.transform.position + direction.normalized * distance);
+                return;
+            }
+
+            if (_knockbackRoutine != null) ZombieController.StopCoroutine(_knockbackRoutine);
+            _knockbackRoutine = ZombieController.StartCoroutine(KnockbackRoutine(direction.normalized, distance));
+        }
+
+        // Disables the agent and flies the zombie back over _knockbackDuration (with a small arc),
+        // then snaps it back onto the NavMesh. While flying, IsKnockedBackNode freezes the BT.
+        private IEnumerator KnockbackRoutine(Vector3 dir, float distance)
+        {
+            _isKnockedBack = true;
+
+            Transform body = ZombieController.transform;
+            Vector3 start = body.position;
+            Vector3 desired = start + dir * distance;
+
+            Vector3 landing = start;
+            if (NavMesh.SamplePosition(desired, out var navHit, distance + 1f, NavMesh.AllAreas))
+                landing = navHit.position;
+
+            if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
+                _agent.ResetPath();
+            _agent.enabled = false;
+
+            float t = 0f;
+            while (t < _knockbackDuration)
+            {
+                t += Time.deltaTime;
+                float u = Mathf.Clamp01(t / _knockbackDuration);
+                Vector3 pos = Vector3.Lerp(start, landing, _knockbackCurve.Evaluate(u));
+                pos.y += _knockbackArcHeight * Mathf.Sin(u * Mathf.PI);
+                body.position = pos;
+                yield return null;
+            }
+
+            body.position = landing;
+            _agent.enabled = true;
+            if (_agent.isOnNavMesh) _agent.Warp(landing);
+
+            _isKnockedBack = false;
+            _knockbackRoutine = null;
         }
 
         public bool HasArrived => !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance;
