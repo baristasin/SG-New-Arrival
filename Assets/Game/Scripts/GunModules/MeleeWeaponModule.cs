@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    public class MeleeWeaponModule : MonoBehaviour
+    // Swings while held, hitting enemies based on how fast the cursor (this transform) turns.
+    public class MeleeWeaponModule : WeaponBase
     {
         [SerializeField] private float _slashThreshold = 10f;
         [SerializeField] private float _weaponLength = 2.5f;
         [SerializeField] private float _weaponRadius = 0.5f;
-        [SerializeField] private int _baseDamage = 5;
         [SerializeField] private float _hitCooldown = 0.3f;
         [SerializeField] private LayerMask _targetLayer;
 
@@ -17,13 +17,18 @@ namespace Game.Scripts.GunModules
         private Collider[] _hitBuffer = new Collider[20];
         private Dictionary<Collider, float> _hitTimestamps = new();
 
-        private void Update()
+        private void OnEnable()
+        {
+            _lastAngle = transform.eulerAngles.y;
+        }
+
+        public override void Tick(bool aimHeld, bool fireHeld)
         {
             float currentAngle = transform.eulerAngles.y;
             float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(_lastAngle, currentAngle));
             _lastAngle = currentAngle;
 
-            if (!Input.GetMouseButton(1)) return;
+            if (!aimHeld) return;
 
             if (deltaAngle > _slashThreshold)
                 Slash(deltaAngle);
@@ -36,7 +41,8 @@ namespace Game.Scripts.GunModules
 
             int count = Physics.OverlapCapsuleNonAlloc(start, end, _weaponRadius, _hitBuffer, _targetLayer);
 
-            int damage = (int)(_baseDamage * (speed / _slashThreshold));
+            int baseDamage = _data != null ? _data.Damage : 0;
+            int damage = (int)(baseDamage * (speed / _slashThreshold));
 
             for (int i = 0; i < count; i++)
             {

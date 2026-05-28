@@ -1,4 +1,3 @@
-using Game.Scripts.Utilities;
 using Game.Scripts.ZombieModules;
 
 namespace Game.Scripts.BehaviourTree.ZombieNodes
@@ -7,7 +6,7 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
     {
         public override NodeState Evaluate()
         {
-            if (!ZombieState.IsDancing) return NodeState.FAILURE;
+            if (!ZombieController.IsDancing) return NodeState.FAILURE;
 
             ZombieController.ZombieMovementModule.StopMovement();
             ZombieController.ZombieAnimationModule.Play(ZombieAnimState.Dance);

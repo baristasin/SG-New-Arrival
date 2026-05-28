@@ -257,6 +257,7 @@ namespace Game.Scripts.Visa
                     {
                         PhotoCount = visaData.PhotosTotal,
                         Photo = GetStudentPhoto(ssudent),
+                        Quality = visaData.PhotosQuality,
                     });
             }
         }

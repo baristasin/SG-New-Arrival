@@ -38,12 +38,17 @@ namespace Game.Scripts.ZombieModules
 
         [SerializeField] private float _knockbackDistance = 0.3f;
 
-        public void GetHit(int damage, Vector3 knockDir = default)
+        // knockbackDistance < 0 uses the zombie's default; weapons (e.g. the cuckoo) can pass a
+        // larger value for a stronger knockback.
+        public void GetHit(int damage, Vector3 knockDir = default, float knockbackDistance = -1f)
         {
             _zombieHealth -= damage;
 
             if (knockDir != default)
-                ZombieController.ZombieMovementModule.Knockback(knockDir, _knockbackDistance);
+            {
+                float distance = knockbackDistance >= 0f ? knockbackDistance : _knockbackDistance;
+                ZombieController.ZombieMovementModule.Knockback(knockDir, distance);
+            }
 
             if (_flashCoroutine != null)
                 ZombieController.StopCoroutine(_flashCoroutine);

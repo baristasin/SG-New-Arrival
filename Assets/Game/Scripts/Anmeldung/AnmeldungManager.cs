@@ -20,6 +20,7 @@ namespace Game.Scripts.Anmeldung
 
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private AnmeldungSanityCorruption _sanityCorruption;
 
         private AnmeldungDocument _currentAnmeldung;
         private List<DraggableItem> _currentItems;
@@ -63,11 +64,15 @@ namespace Game.Scripts.Anmeldung
                 .SetEase(Ease.OutQuad).WaitForCompletion();
 
             _currentSlots = _currentAnmeldung.Slots;
+
+            if (_sanityCorruption != null)
+                _sanityCorruption.SetPaper(_currentAnmeldung);
         }
 
         private IEnumerator SlideInItems()
         {
-            var datas = AnmeldungItemFactory.BuildRound(_currentStudent);
+            bool includeDistractors = _sanityCorruption == null || _sanityCorruption.ShouldShowDistractors;
+            var datas = AnmeldungItemFactory.BuildRound(_currentStudent, includeDistractors);
             _currentItems = new List<DraggableItem>();
 
             int count = Mathf.Min(datas.Count, _itemTransforms.Count);

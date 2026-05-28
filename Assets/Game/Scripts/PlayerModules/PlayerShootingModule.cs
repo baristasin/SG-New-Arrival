@@ -1,4 +1,4 @@
-using Game.Scripts.GunModules.ProjectileGuns;
+using Game.Scripts.GunModules;
 using Game.Scripts.UI;
 using UnityEngine;
 
@@ -7,11 +7,10 @@ namespace Game.Scripts.PlayerModules
     public class PlayerShootingModule : MonoBehaviour
     {
         [SerializeField] private GameObject[] _weapons;
-        [SerializeField] private ProjectileGunData[] _weaponData;
         [SerializeField] private BottomGunUI _bottomGunUI;
 
         private int _currentIndex = -1;
-        private ProjectileGunBase _currentGun;
+        private WeaponBase _current;
 
         private void Awake()
         {
@@ -26,19 +25,10 @@ namespace Game.Scripts.PlayerModules
                     EquipWeapon(i);
             }
 
-            if (_currentGun == null) return;
+            if (_current == null) return;
 
-            if (Input.GetMouseButton(1))
-            {
-                _currentGun.ShowAimIndicator();
-
-                if (Input.GetMouseButton(0))
-                    _currentGun.TryShoot();
-            }
-            else
-            {
-                _currentGun.HideAimIndicator();
-            }
+            // aimHeld = RMB (the to-be-removed aim mechanic), fireHeld = LMB.
+            _current.Tick(Input.GetMouseButton(1), Input.GetMouseButton(0));
         }
 
         private void EquipWeapon(int index)
@@ -49,12 +39,9 @@ namespace Game.Scripts.PlayerModules
                 _weapons[i].SetActive(i == index);
 
             _currentIndex = index;
-            _currentGun = _weapons[index].GetComponent<ProjectileGunBase>();
+            _current = _weapons[index].GetComponent<WeaponBase>();
 
             _bottomGunUI.Select(index);
-            
-            if (_currentGun != null && _weaponData.Length > index)
-                _currentGun.InitializeGun(_weaponData[index]);
         }
     }
 }

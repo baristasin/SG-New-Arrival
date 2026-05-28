@@ -23,10 +23,7 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private TextMeshProUGUI _placeOfBirth;
         
         [SerializeField] private TextMeshProUGUI _dateOfBirth;
-        
-        [SerializeField] private Sprite[] _studentSprites;
 
-        
         public override void Initialize(StudentProfile data)
         {
             base.Initialize(data);
@@ -38,18 +35,9 @@ namespace Game.Scripts.ApartmentHunting
             _nationality.text = data.Nationality;
             _dateOfBirth.text = data.DateOfBirth;
             _placeOfBirth.text = data.PlaceOfBirth;
-            _studentImage.sprite = GetSpriteForId(data.IdNumber);
-        }
-        
-        private Sprite GetSpriteForId(int id)
-        {
-            int index = id;
-            if (_studentSprites != null && index >= 0 && index < _studentSprites.Length)
-                return _studentSprites[index];
 
-            Debug.LogWarning($"[StudentPaperBase] No sprite for player Id {id} " +
-                             $"(assigned {_studentSprites?.Length ?? 0} sprites).");
-            return null;
+            if (_studentImage != null && ApartmentHuntingManager.Active != null)
+                _studentImage.sprite = ApartmentHuntingManager.Active.GetStudentSpriteForId(data.IdNumber);
         }
     }
 }

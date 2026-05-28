@@ -1,5 +1,4 @@
 using System;
-using FMODUnity;
 using UnityEngine;
 
 namespace Game.Scripts.GunModules.ProjectileGuns
