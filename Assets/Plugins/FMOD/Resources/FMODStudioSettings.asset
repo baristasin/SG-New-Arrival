@@ -403,8 +403,15 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - Day-Environment
+  - Guns
+  - Music
+  - Night-Environment
+  - SFX
+  - Zombies
   BanksToLoad:
   - Day-Environment
   - Guns
