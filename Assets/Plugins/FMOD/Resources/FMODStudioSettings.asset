@@ -408,8 +408,8 @@ MonoBehaviour:
   Banks:
   - Day-Environment
   - Guns
+  - Music
   - Night-Environment
-  - Night-Music
   - SFX
   - Zombies
   BanksToLoad:
