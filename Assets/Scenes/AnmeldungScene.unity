@@ -192,6 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3750b7769ccc43ac95153da8b5ab7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Anmeldung.AnmeldungSanityCorruption
+  _spinDuration: 40
+  _trembleIntervalRange: {x: 1.5, y: 3}
+  _trembleIntensity: 20
+  _trembleDuration: 0.8
 --- !u!4 &218320913
 Transform:
   m_ObjectHideFlags: 0

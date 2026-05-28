@@ -44,6 +44,7 @@ namespace Game.Scripts.SanityModules
             OnStageChanged?.Invoke(Stage);
         }
 
+        [Button]
         public void Drain(float amount) => SetSanity(Sanity - amount);
 
         public void SetSanity(float value)

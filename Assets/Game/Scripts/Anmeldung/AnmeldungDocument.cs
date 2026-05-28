@@ -32,24 +32,23 @@ namespace Game.Scripts.Anmeldung
         [Button]
         public void StartShaking(float intensity, float duration)
         {
-            StopEffects();
+            _moveTween?.Kill();   // only kill the position tween — leaves rotation alone
             _moveTween = _rectTransform.DOShakeAnchorPos(duration, intensity, 10, 90, false, true)
                 .SetLoops(-1, LoopType.Restart);
         }
 
-        [Button]
-        public void StartRotating(float angle, float speed)
+        // One-shot shake (no loop) that doesn't kill the rotation — used for the periodic tremble
+        // at Critical sanity while the paper is spinning.
+        public void ShakeOnce(float intensity, float duration)
         {
-            StopEffects();
-            _rotateTween = _rectTransform.DOLocalRotate(new Vector3(0, 0, angle), speed)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine);
+            _moveTween?.Kill();
+            _moveTween = _rectTransform.DOShakeAnchorPos(duration, intensity, 10, 90, false, true);
         }
 
         [Button]
         public void StartSpinning(float speed)
         {
-            StopEffects();
+            _rotateTween?.Kill();   // only kill the rotation tween — leaves position alone
             _rotateTween = _rectTransform.DOLocalRotate(new Vector3(0, 0, 360f), speed, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Restart)
                 .SetEase(Ease.Linear);

@@ -71,7 +71,8 @@ namespace Game.Scripts.Anmeldung
 
         private IEnumerator SlideInItems()
         {
-            var datas = AnmeldungItemFactory.BuildRound(_currentStudent);
+            bool includeDistractors = _sanityCorruption == null || _sanityCorruption.ShouldShowDistractors;
+            var datas = AnmeldungItemFactory.BuildRound(_currentStudent, includeDistractors);
             _currentItems = new List<DraggableItem>();
 
             int count = Mathf.Min(datas.Count, _itemTransforms.Count);

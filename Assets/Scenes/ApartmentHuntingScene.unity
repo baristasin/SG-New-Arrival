@@ -524,9 +524,23 @@ MonoBehaviour:
   - {fileID: 1223333314}
   - {fileID: 2110814514}
   _softnessXByStage: 320000005a0000008c000000c8000000
-  _scratchOverlays: []
-  _scratchCountByStage: 00000000010000000200000003000000
-  _flickerInterval: {x: 0.1, y: 0.5}
+  _screens:
+  - BrokenParent: {fileID: 1223333311}
+    TvStaticParent: {fileID: 1499466131}
+    MirrorBrokens: 0
+  - BrokenParent: {fileID: 2110814511}
+    TvStaticParent: {fileID: 1345523298}
+    MirrorBrokens: 1
+  _brokenPrefabs:
+  - {fileID: 7550267117108538701, guid: 9260d80e2db5f445eb1fc2de0e72267d, type: 3}
+  - {fileID: 9025255758797422953, guid: b23601462f3b14688b096e6debbae7b9, type: 3}
+  - {fileID: 8366043472200024831, guid: 2a049e7f16d1d440d8fe830c69690c80, type: 3}
+  - {fileID: 5090232460445384640, guid: 57baded2fcbd24860b3d7d4da4495a66, type: 3}
+  _brokenCountByStage: 00000000010000000200000004000000
+  _tvStaticPrefab: {fileID: 8577453593938184121, guid: c4ca91cd69aa743b7828c012e9177ba1, type: 3}
+  _tvStaticVisibleTime: 2
+  _tvStaticFadeTime: 0.5
+  _tvStaticIntervalRange: {x: 7, y: 8}
 --- !u!4 &590600045
 Transform:
   m_ObjectHideFlags: 0
@@ -854,6 +868,41 @@ MonoBehaviour:
   _apartmentDatabase: {fileID: 11400000, guid: b888f2a2b770a496bbc48ca33e7969d3, type: 2}
   _apartmentPaperSlider: {fileID: 1499466132}
   _studentPaperSlider: {fileID: 1345523299}
+  _apartmentSprites:
+  - {fileID: 21300000, guid: ad9b804b67b374e50a184c5756a5ae1b, type: 3}
+  - {fileID: 21300000, guid: 5275bd85b9872408a8df9d57341cf8f1, type: 3}
+  - {fileID: 21300000, guid: 9c266da48667748948adc043eb9952e9, type: 3}
+  - {fileID: 21300000, guid: 470783203a1344ac98125d13d0edfb23, type: 3}
+  - {fileID: 21300000, guid: 57354ac0af6c643fda3d4d6db58adf2e, type: 3}
+  - {fileID: 21300000, guid: 98f47aaacc9b64a5392a1a3a4faf998b, type: 3}
+  - {fileID: 21300000, guid: 248da41fadfbf4f819319d82a466c6ee, type: 3}
+  - {fileID: 21300000, guid: 2f330547fc3004f92845380fc2c007c2, type: 3}
+  - {fileID: 21300000, guid: dfd48d089e2b44fd980eb09438407ebf, type: 3}
+  - {fileID: 21300000, guid: 51ff70247e6bc42d9b89bb4a4249144c, type: 3}
+  - {fileID: 21300000, guid: 8ba1fe59627ab44d0b5cdf127e13d566, type: 3}
+  - {fileID: 21300000, guid: 633f91f206c1c49edae002bc39f057fa, type: 3}
+  - {fileID: 21300000, guid: a1b60166c68cd47e6b8b22259b131604, type: 3}
+  - {fileID: 21300000, guid: 33bc833a67df24ff9b1b861f8c6b84d8, type: 3}
+  - {fileID: 21300000, guid: 376b08ccdef564b07bbffa25007d9ad1, type: 3}
+  - {fileID: 21300000, guid: a00f101cd5d2b4289b6d836cdda84785, type: 3}
+  - {fileID: 21300000, guid: e723daddcd4964456a4639967f3f3993, type: 3}
+  - {fileID: 21300000, guid: c29153e8071e74b2ab36bf1d156df982, type: 3}
+  - {fileID: 21300000, guid: b1d27251946144998a2755f31e07cad4, type: 3}
+  - {fileID: 21300000, guid: a20b55b6e794646a6808e1d6d1572baf, type: 3}
+  - {fileID: 21300000, guid: 43bcc4f82dc4f474d98895a707718ee2, type: 3}
+  - {fileID: 21300000, guid: 192fb956e1349438482f3cd2c53b5f25, type: 3}
+  - {fileID: 21300000, guid: 2377907ee195a41da957ff6989ec70f3, type: 3}
+  _studentSprites:
+  - {fileID: 21300000, guid: c148167f6ed0449e18b6dd0fa9c5f097, type: 3}
+  - {fileID: 21300000, guid: 54c866fc19164469aa116d2ea5491186, type: 3}
+  - {fileID: 21300000, guid: 538db22a1d29c444fb32d4d5f79b4500, type: 3}
+  - {fileID: 21300000, guid: 3ee923b3148124e78b5dcf90bc86b7a9, type: 3}
+  - {fileID: 21300000, guid: 7e26c34c018fe405b9adc43f18694bda, type: 3}
+  - {fileID: 21300000, guid: 86bfc2b7ed58b43d2a5dfb1045130aaa, type: 3}
+  - {fileID: 21300000, guid: b83cb6e881ff849cca25bd8a3f3c7b7a, type: 3}
+  - {fileID: 21300000, guid: 8366a867abb5444f48ba489b54ccc45e, type: 3}
+  - {fileID: 21300000, guid: 3296366e0d58a45eeb54b297c67c4790, type: 3}
+  - {fileID: 21300000, guid: 05a35ff0587b54956b9ad2baabe58560, type: 3}
 --- !u!4 &1135595447
 Transform:
   m_ObjectHideFlags: 0
