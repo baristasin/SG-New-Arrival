@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 [System.Serializable]
 public struct AudioParameter
@@ -19,6 +21,8 @@ public struct AudioParameter
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager _instance;
+    
+    private readonly Dictionary<string, EventInstance> _noOverlapInstances = new();
 
     public static AudioManager Instance
     {
@@ -127,7 +131,92 @@ public class AudioManager : MonoBehaviour
         instance.start();
         instance.release();
     }
+    
+    /// <summary>
+    /// No overlap 3D sound
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="eventRef"></param>
+    /// <param name="worldPosition"></param>
+    /// <returns></returns>
+    public void PlayOneShotNoOverlap(string key, EventReference eventRef, Vector3 worldPosition)
+    {
+        if (!_noOverlapInstances.TryGetValue(key, out EventInstance instance) || !instance.isValid())
+        {
+            instance = RuntimeManager.CreateInstance(eventRef);
+            _noOverlapInstances[key] = instance;
+        }
 
+        instance.getPlaybackState(out PLAYBACK_STATE state);
+
+        if (state == PLAYBACK_STATE.PLAYING || state == PLAYBACK_STATE.STARTING)
+        {
+            return;
+        }
+
+        instance.set3DAttributes(RuntimeUtils.To3DAttributes(worldPosition));
+        instance.start();
+    }
+    
+    /// <summary>
+    /// 2D Overlap sound
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="eventRef"></param>
+    /// <returns></returns>
+    public void PlayOneShotNoOverlap(string key, EventReference eventRef)
+    {
+        if (!_noOverlapInstances.TryGetValue(key, out EventInstance instance) || !instance.isValid())
+        {
+            instance = RuntimeManager.CreateInstance(eventRef);
+            _noOverlapInstances[key] = instance;
+        }
+
+        instance.getPlaybackState(out PLAYBACK_STATE state);
+
+        if (state == PLAYBACK_STATE.PLAYING || state == PLAYBACK_STATE.STARTING)
+        {
+            return ;
+        }
+
+        instance.start();
+    }
+    
+    /// <summary>
+    /// For moving objects
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="eventRef"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public void PlayOneShotNoOverlapAttached(string key, EventReference eventRef, GameObject target)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("[AudioManager] Target is null.");
+            return;
+        }
+
+        if (!_noOverlapInstances.TryGetValue(key, out EventInstance instance) || !instance.isValid())
+        {
+            instance = RuntimeManager.CreateInstance(eventRef);
+            _noOverlapInstances[key] = instance;
+        }
+
+        instance.getPlaybackState(out PLAYBACK_STATE state);
+
+        if (state == PLAYBACK_STATE.PLAYING || state == PLAYBACK_STATE.STARTING)
+        {
+            return;
+        }
+
+        // Attach every time before starting.
+        RuntimeManager.AttachInstanceToGameObject(instance, target.transform, true);
+
+        instance.start();
+
+    }
+    
     // ---------------------------
     // Loops / controllable sounds
     // Caller stores the returned EventInstance.
@@ -196,6 +285,33 @@ public class AudioManager : MonoBehaviour
         if (!instance.isValid()) return;
         instance.setPaused(paused);
     }
+    
+    public void StopNoOverlap(string key, STOP_MODE stopMode = STOP_MODE.ALLOWFADEOUT)
+    {
+        if (!_noOverlapInstances.TryGetValue(key, out EventInstance instance) || !instance.isValid())
+        {
+            return;
+        }
+
+        instance.stop(stopMode);
+    }
+
+    public void ReleaseNoOverlap(string key)
+    {
+        if (!_noOverlapInstances.TryGetValue(key, out EventInstance instance))
+        {
+            return;
+        }
+
+        if (instance.isValid())
+        {
+            instance.stop(STOP_MODE.IMMEDIATE);
+            instance.release();
+        }
+
+        _noOverlapInstances.Remove(key);
+    }
+
 
     public void Stop(ref EventInstance instance, FMOD.Studio.STOP_MODE stopMode = FMOD.Studio.STOP_MODE.ALLOWFADEOUT)
     {
