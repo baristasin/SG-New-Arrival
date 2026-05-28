@@ -25,6 +25,8 @@ namespace Game.Scripts.StudentData
         public string FormerAddressAbroad;
         public bool HasPreviousSchufa;
 
+        public VisaData Visa;
+
         public string FullName => $"{FirstName} {LastName}";
     }
 }

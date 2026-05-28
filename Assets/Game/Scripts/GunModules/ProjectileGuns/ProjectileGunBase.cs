@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using UnityEngine;
 
 namespace Game.Scripts.GunModules.ProjectileGuns
@@ -27,6 +28,8 @@ namespace Game.Scripts.GunModules.ProjectileGuns
 
         private float _fireTimer;
 
+        [SerializeField] private EventReference _stapleGunEvent;
+        
         public virtual void InitializeGun(ProjectileGunData projectileGunData)
         {
             _projectileGunData = projectileGunData;
@@ -35,6 +38,7 @@ namespace Game.Scripts.GunModules.ProjectileGuns
         public void TryShoot()
         {
             if (_fireTimer > 0f) return;
+            AudioManager.Instance.PlayOneShotAttached(_stapleGunEvent, gameObject);
             _fireTimer = _projectileGunData.FireRate;
             if (_muzzleEffect != null) _muzzleEffect.Play();
             Fire();
