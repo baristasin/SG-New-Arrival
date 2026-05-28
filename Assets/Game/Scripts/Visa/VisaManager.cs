@@ -38,6 +38,7 @@ namespace Game.Scripts.Visa
         private IClickableDocument _hoveredDocument;
         private int _studentIndex;
         private bool _isTransitioning;
+        private bool _firstLoad = true;   // first appearance snaps home; later loads slide in
 
         // Raised after a student's documents (re)load, and before the current ones leave, so
         // UI such as the checklist can slide in / out and reset itself.
@@ -67,7 +68,17 @@ namespace Game.Scripts.Visa
             ResetInteraction();
             _studentIndex = Mathf.Clamp(index, 0, _studentDatabase.Students.Count - 1);
             PopulateDocuments(_studentDatabase.Students[_studentIndex]);
-            PlayEntrance();
+
+            if (_firstLoad)
+            {
+                SnapAllHome();
+                _firstLoad = false;
+            }
+            else
+            {
+                PlayEntrance();
+            }
+
             StudentLoaded?.Invoke();
         }
 
@@ -109,6 +120,16 @@ namespace Game.Scripts.Visa
             }
         }
 
+        // Place active docs directly at their home pose with no animation (used on first load).
+        private void SnapAllHome()
+        {
+            foreach (var doc in Documents())
+            {
+                if (!doc.IsActive) continue;
+                doc.SnapHome();
+            }
+        }
+
         private float PlayExit()
         {
             float maxEnd = 0f;
@@ -118,7 +139,7 @@ namespace Game.Scripts.Visa
                 if (!doc.IsActive) continue;
                 float delay = i * _stagger;
                 doc.SlideOut(delay);
-                maxEnd = Mathf.Max(maxEnd, delay + doc.SlideDuration);
+                maxEnd = Mathf.Max(maxEnd, delay + doc.SlideOutDuration);
                 i++;
             }
             return maxEnd;

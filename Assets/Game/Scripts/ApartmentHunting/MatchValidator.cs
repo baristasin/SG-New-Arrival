@@ -9,8 +9,8 @@ namespace Game.Scripts.ApartmentHunting
         public bool DormitoryMatch;
         public bool SchufaMatch;
 
-        public int CorrectCount => (PriceMatch ? 1 : 0) + (AnmeldungMatch ? 1 : 0) + (DormitoryMatch ? 1 : 0);
-        public int TotalRules => 3;
+        public int CorrectCount => (PriceMatch ? 1 : 0) + (AnmeldungMatch ? 1 : 0) + (DormitoryMatch ? 1 : 0) + (SchufaMatch ? 1 : 0);
+        public int TotalRules => 4;
         public bool IsFullMatch => CorrectCount == TotalRules;
     }
 
