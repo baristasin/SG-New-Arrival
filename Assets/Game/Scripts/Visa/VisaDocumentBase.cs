@@ -148,5 +148,12 @@ namespace Game.Scripts.Visa
             _isAnimating = false;
             SetHighlight(false);
         }
+
+        // Kill in-flight slide/open/close tweens before the transform is torn down (scene unload).
+        // Without this, DOTween writes to the dead transform next frame and throws.
+        private void OnDestroy()
+        {
+            transform.DOKill();
+        }
     }
 }

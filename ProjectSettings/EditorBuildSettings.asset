@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DayCity.unity
     guid: 537b8dc4017a443aea51b489086baf4a
   - enabled: 1
-    path: Assets/Scenes/ZombieCombatTestScene.unity
+    path: Assets/Scenes/NightCity.unity
     guid: f28856a0ca7f3417fb139ce1c20ea8df
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

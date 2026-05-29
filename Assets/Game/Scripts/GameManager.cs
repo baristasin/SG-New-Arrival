@@ -73,6 +73,7 @@ namespace Game.Scripts
         {
             WireMainMenu();
             ShowMainMenuOnBoot();
+            WireSanity();
         }
 
         private void Update()
@@ -101,6 +102,24 @@ namespace Game.Scripts
         {
             UIManager.Instance?.MainMenu?.Show();
             SetState(GameState.MainMenu);
+        }
+
+        private void WireSanity()
+        {
+            var sanity = SanityManager.Instance;
+            if (sanity == null) return;
+            sanity.OnSanityChanged -= HandleSanityChanged;
+            sanity.OnSanityChanged += HandleSanityChanged;
+        }
+
+        // Sanity-0 detector. Fires the sleep-to-night pipeline once when sanity bottoms out
+        // during a minigame or the city walk (late drain). EndDayBySleepRoutine sets state to
+        // Sleeping immediately, so subsequent ticks early-return here.
+        private void HandleSanityChanged(float normalized)
+        {
+            if (normalized > 0f) return;
+            if (State != GameState.Minigame && State != GameState.CityRoaming) return;
+            StartCoroutine(EndDayBySleepRoutine());
         }
 
         // ── Public flow API ────────────────────────────────────────────────────
@@ -149,7 +168,14 @@ namespace Game.Scripts
             return _dayMinigames[i];
         }
 
-        [Button] public void NightFinished() { /* slice 6 */ }
+        // Called by the zombie combat layer (slice 6) when the night ends — all zombies down,
+        // player dead, or cathedral destroyed. Triggers the post-night summary + next-day load.
+        [Button]
+        public void NightFinished()
+        {
+            if (State != GameState.NightCombat) return;
+            StartCoroutine(NightFinishedRoutine());
+        }
 
         // ── Flow coroutines ────────────────────────────────────────────────────
 
@@ -234,6 +260,58 @@ namespace Game.Scripts
                 SanityManager.Instance.DrainPerSecond = balance.SanityDrainPerSecond;
 
             SetState(GameState.Minigame);
+        }
+
+        private IEnumerator EndDayBySleepRoutine()
+        {
+            SetState(GameState.Sleeping);
+            SanityManager.Instance.DrainPerSecond = 0f;
+            Clock.Pause();
+
+            var ui = UIManager.Instance;
+            ui.DayHUD.Hide();   // fire-and-forget; fades out while eyelids close
+
+            // Eyelids close → explanation panel → wait for click
+            yield return ui.EyeClose.Play();
+
+            // Cover with loading, then hide the eye (its fade-out plays underneath).
+            yield return ui.Loading.Show().WaitForCompletion();
+            ui.EyeClose.Hide();
+
+            SetState(GameState.LoadingNight);
+            float t0 = Time.unscaledTime;
+            yield return SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene);
+            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+
+            yield return ui.Loading.Hide().WaitForCompletion();
+
+            // One-click input-warning screen before combat actually starts. NightUI / GameHUD /
+            // BottomGunUI live in the NightCity scene itself — already active behind this intro.
+            yield return ui.NightIntro.Play();
+
+            SetState(GameState.NightCombat);
+            // Zombie fight runs here. The night layer calls NightFinished() when it's over.
+        }
+
+        private IEnumerator NightFinishedRoutine()
+        {
+            SetState(GameState.DayRewards);
+            var ui = UIManager.Instance;
+
+            yield return ui.DayRewards.Play(CurrentDay);
+
+            CurrentDay++;
+            SetState(GameState.LoadingCity);
+
+            yield return ui.Loading.Show().WaitForCompletion();
+            float t0 = Time.unscaledTime;
+            yield return SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene);
+            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+            yield return ui.Loading.Hide().WaitForCompletion();
+
+            yield return BeginDay();
         }
 
         // Once 10:00 ticks past, start bleeding sanity until the player reaches a station.
