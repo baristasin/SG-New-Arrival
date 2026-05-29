@@ -1615,6 +1615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3991083014600529675}
+  - component: {fileID: 8165823749271047908}
   m_Layer: 0
   m_Name: International_Office
   m_TagString: Untagged
@@ -1630,7 +1631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307591938813832512}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.031243334, y: -0.38246435, z: 0.012941406, w: 0.9233512}
+  m_LocalRotation: {x: 0.03124375, y: -0.38246456, z: 0.012941585, w: 0.9233511}
   m_LocalPosition: {x: -139.9, y: 4.8, z: -1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -1641,6 +1642,21 @@ Transform:
   - {fileID: 8107860920412533512}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 3.876, y: -45, z: 0}
+--- !u!114 &8165823749271047908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307591938813832512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093a650ac607b4ea28a4870e68cea2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.City.MinigameStation
+  _id: 2
+  _root: {fileID: 1307591938813832512}
+  _manager: {fileID: 0}
 --- !u!1 &1308129127928208756
 GameObject:
   m_ObjectHideFlags: 0

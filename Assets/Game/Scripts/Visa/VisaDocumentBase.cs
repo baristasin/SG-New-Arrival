@@ -47,11 +47,18 @@ namespace Game.Scripts.Visa
 
         protected virtual void Awake()
         {
-            // Scene-placed documents capture their authored pose here. Spawned documents are
-            // instantiated at their target pose too, so this still records the correct spot
-            // (the spawn flow also re-captures it after the slide-in, which is harmless).
+            // Capture the authored desk pose as "home" first — that's where SlideIn will tween to.
             SetOriginalPose();
             SetHighlight(false);
+
+            // Then teleport off-screen to the slide anchor so the doc is HIDDEN while the
+            // tutorial is up. BeginGame's SlideIn (called after the tutorial closes) tweens
+            // it back from here to home. If no anchor is wired, the doc stays at home.
+            if (_slideAnchor != null)
+            {
+                transform.position = _slideAnchor.position;
+                transform.rotation = _originalRotation;
+            }
         }
 
         public void SetOriginalPose()

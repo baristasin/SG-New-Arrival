@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Visa
 {
-    public class VisaManager : MonoBehaviour
+    public class VisaManager : MonoBehaviour, IMinigameManager
     {
         [Header("Data")]
         [SerializeField] private StudentDatabase _studentDatabase;
@@ -38,7 +38,6 @@ namespace Game.Scripts.Visa
         private IClickableDocument _hoveredDocument;
         private int _studentIndex;
         private bool _isTransitioning;
-        private bool _firstLoad = true;   // first appearance snaps home; later loads slide in
 
         // Raised after a student's documents (re)load, and before the current ones leave, so
         // UI such as the checklist can slide in / out and reset itself.
@@ -50,7 +49,9 @@ namespace Game.Scripts.Visa
                 ? _studentDatabase.Students[_studentIndex]
                 : null;
 
-        private void Start()
+        // Called by MinigameStation after the tutorial closes. Loads the first student and plays
+        // the entrance slide-in (papers travel from their slideAnchor to their placed positions).
+        public void BeginGame()
         {
             SetCloseButtonVisible(false);
             LoadStudent(0);
@@ -68,17 +69,7 @@ namespace Game.Scripts.Visa
             ResetInteraction();
             _studentIndex = Mathf.Clamp(index, 0, _studentDatabase.Students.Count - 1);
             PopulateDocuments(_studentDatabase.Students[_studentIndex]);
-
-            if (_firstLoad)
-            {
-                SnapAllHome();
-                _firstLoad = false;
-            }
-            else
-            {
-                PlayEntrance();
-            }
-
+            PlayEntrance();
             StudentLoaded?.Invoke();
         }
 

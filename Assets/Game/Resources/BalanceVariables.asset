@@ -15,7 +15,7 @@ MonoBehaviour:
   ZombieLureDistance: 100
   ZombieAttackDistance: 16
   MaxSanity: 100
-  SanityDrainPerSecond: 0
+  SanityDrainPerSecond: 0.4
   LateDrainPerSecond: 0.5
   StableThreshold: 75
   UnsettledThreshold: 50

@@ -74,10 +74,18 @@ namespace Game.Scripts.Anmeldung
 
         public void OnDrag(PointerEventData eventData)
         {
-            Ray ray = _mainCamera.ScreenPointToRay(eventData.position);
-            Plane plane = new Plane(_canvas.transform.forward, _canvas.transform.position);
-            if (plane.Raycast(ray, out float distance))
-                _rectTransform.position = ray.GetPoint(distance);
+            // Use the camera the EventSystem used to press this object — guaranteed correct
+            // even when Cinemachine moves the main camera between stations. Falls back to the
+            // serialized _mainCamera for sanity.
+            Camera cam = eventData.pressEventCamera != null ? eventData.pressEventCamera : _mainCamera;
+            var canvasRect = _canvas.transform as RectTransform;
+            if (canvasRect == null) return;
+
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
+                    canvasRect, eventData.position, cam, out Vector3 worldPoint))
+            {
+                _rectTransform.position = worldPoint;
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
