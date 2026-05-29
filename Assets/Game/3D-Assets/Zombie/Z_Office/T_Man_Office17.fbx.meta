@@ -3,7 +3,12 @@ guid: acbbc876b89ea6c44af0c491bd325fcf
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZBaked
+    second: {fileID: 2800000, guid: 79db044cd27323b4aa2dceb06baed458, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
