@@ -27,7 +27,12 @@ namespace Game.Scripts.Visa
         private void Awake()
         {
             _rect = transform as RectTransform;
-            if (_rect != null) _home = _rect.anchoredPosition;
+            if (_rect == null) return;
+
+            // Capture authored home pos first, then snap off-screen so the checklist is HIDDEN
+            // while the tutorial is up. OnStudentLoaded → SlideIn tweens it back from here.
+            _home = _rect.anchoredPosition;
+            _rect.anchoredPosition = _home + new Vector2(_slideOffsetX, 0f);
         }
 
         private void OnEnable()

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Visa
 {
-    public class VisaManager : MonoBehaviour
+    public class VisaManager : MonoBehaviour, IMinigameManager
     {
         [Header("Data")]
         [SerializeField] private StudentDatabase _studentDatabase;
@@ -49,7 +49,9 @@ namespace Game.Scripts.Visa
                 ? _studentDatabase.Students[_studentIndex]
                 : null;
 
-        private void Start()
+        // Called by MinigameStation after the tutorial closes. Loads the first student and plays
+        // the entrance slide-in (papers travel from their slideAnchor to their placed positions).
+        public void BeginGame()
         {
             SetCloseButtonVisible(false);
             LoadStudent(0);
@@ -109,6 +111,16 @@ namespace Game.Scripts.Visa
             }
         }
 
+        // Place active docs directly at their home pose with no animation (used on first load).
+        private void SnapAllHome()
+        {
+            foreach (var doc in Documents())
+            {
+                if (!doc.IsActive) continue;
+                doc.SnapHome();
+            }
+        }
+
         private float PlayExit()
         {
             float maxEnd = 0f;
@@ -118,7 +130,7 @@ namespace Game.Scripts.Visa
                 if (!doc.IsActive) continue;
                 float delay = i * _stagger;
                 doc.SlideOut(delay);
-                maxEnd = Mathf.Max(maxEnd, delay + doc.SlideDuration);
+                maxEnd = Mathf.Max(maxEnd, delay + doc.SlideOutDuration);
                 i++;
             }
             return maxEnd;

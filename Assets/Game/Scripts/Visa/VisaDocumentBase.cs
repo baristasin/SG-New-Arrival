@@ -9,11 +9,13 @@ namespace Game.Scripts.Visa
         bool IsAnimating { get; }
         bool IsActive { get; }
         float SlideDuration { get; }
+        float SlideOutDuration { get; }
         void Open();
         void Close();
         void SetHighlight(bool on);
         void SlideIn(float delay);
         void SlideOut(float delay);
+        void SnapHome();
     }
 
     public abstract class VisaDocumentBase<TData> : MonoBehaviour, IClickableDocument
@@ -22,8 +24,11 @@ namespace Game.Scripts.Visa
         [SerializeField] private float _animDuration = 0.4f;
 
         [Header("Round entrance / exit slide")]
-        [SerializeField] private Vector3 _slideOffset = new Vector3(-15f, 0f, 0f);
-        [SerializeField] private float _slideDuration = 0.5f;
+        [Tooltip("World-space Transform the doc slides from on entry and to on exit. Place an empty " +
+                 "GameObject off the side of the desk and drag it here.")]
+        [SerializeField] private Transform _slideAnchor;
+        [SerializeField] private float _slideDuration = 0.5f;       // entrance speed
+        [SerializeField] private float _slideOutDuration = 0.25f;   // exit speed (usually a bit faster)
 
         // Yellow hover highlight (e.g. an outline sprite child). Optional — toggled on hover.
         [SerializeField] private GameObject _highlight;
@@ -33,6 +38,7 @@ namespace Game.Scripts.Visa
         public bool IsAnimating => _isAnimating;
         public bool IsActive => gameObject.activeSelf;
         public float SlideDuration => _slideDuration;
+        public float SlideOutDuration => _slideOutDuration;
 
         private Vector3 _originalPosition;
         private Quaternion _originalRotation;
@@ -41,11 +47,18 @@ namespace Game.Scripts.Visa
 
         protected virtual void Awake()
         {
-            // Scene-placed documents capture their authored pose here. Spawned documents are
-            // instantiated at their target pose too, so this still records the correct spot
-            // (the spawn flow also re-captures it after the slide-in, which is harmless).
+            // Capture the authored desk pose as "home" first — that's where SlideIn will tween to.
             SetOriginalPose();
             SetHighlight(false);
+
+            // Then teleport off-screen to the slide anchor so the doc is HIDDEN while the
+            // tutorial is up. BeginGame's SlideIn (called after the tutorial closes) tweens
+            // it back from here to home. If no anchor is wired, the doc stays at home.
+            if (_slideAnchor != null)
+            {
+                transform.position = _slideAnchor.position;
+                transform.rotation = _originalRotation;
+            }
         }
 
         public void SetOriginalPose()
@@ -93,7 +106,7 @@ namespace Game.Scripts.Visa
                 .OnComplete(() => _isAnimating = false);
         }
 
-        // Snap off-screen (table pose + offset), then glide to the table pose. delay staggers papers.
+        // Snap to the slide anchor's world position, then glide to the original (placed) pose.
         public void SlideIn(float delay)
         {
             transform.DOKill();
@@ -101,14 +114,15 @@ namespace Game.Scripts.Visa
             _isAnimating = true;
             SetHighlight(false);
 
-            transform.position = _originalPosition + _slideOffset;
+            Vector3 startPos = _slideAnchor != null ? _slideAnchor.position : _originalPosition;
+            transform.position = startPos;
             transform.rotation = _originalRotation;
 
             transform.DOMove(_originalPosition, _slideDuration).SetEase(Ease.OutQuad).SetDelay(delay)
                 .OnComplete(() => _isAnimating = false);
         }
 
-        // Glide off-screen from wherever the paper is, straightening it if it was open.
+        // Glide off to the slide anchor's world position (straightens rotation on the way out).
         public void SlideOut(float delay)
         {
             transform.DOKill();
@@ -116,9 +130,23 @@ namespace Game.Scripts.Visa
             _isAnimating = true;
             SetHighlight(false);
 
-            transform.DOMove(_originalPosition + _slideOffset, _slideDuration).SetEase(Ease.InQuad).SetDelay(delay)
+            Vector3 targetPos = _slideAnchor != null ? _slideAnchor.position : _originalPosition;
+
+            transform.DOMove(targetPos, _slideOutDuration).SetEase(Ease.InQuad).SetDelay(delay)
                 .OnComplete(() => _isAnimating = false);
-            transform.DORotateQuaternion(_originalRotation, _slideDuration).SetEase(Ease.InQuad).SetDelay(delay);
+            transform.DORotateQuaternion(_originalRotation, _slideOutDuration).SetEase(Ease.InQuad).SetDelay(delay);
+        }
+
+        // Snap to the placed (original) pose with no animation. Used on the very first appearance
+        // so docs just "are there" instead of sliding in.
+        public void SnapHome()
+        {
+            transform.DOKill();
+            transform.position = _originalPosition;
+            transform.rotation = _originalRotation;
+            _isOpen = false;
+            _isAnimating = false;
+            SetHighlight(false);
         }
     }
 }

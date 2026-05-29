@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Anmeldung
 {
-    public class AnmeldungManager : MonoBehaviour
+    public class AnmeldungManager : MonoBehaviour, IMinigameManager
     {
         [SerializeField] private StudentDatabase _studentDatabase;
         [SerializeField] private List<AnmeldungDocument> _anmeldungDocuments;
@@ -30,7 +30,9 @@ namespace Game.Scripts.Anmeldung
 
         private int _points;
 
-        private void Start()
+        // Called by MinigameStation after the tutorial closes. Paper + items slide in here, not
+        // on Start, so they don't appear behind the fullscreen tutorial sheet.
+        public void BeginGame()
         {
             StartCoroutine(StartRound());
         }
