@@ -26611,6 +26611,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: 0ba11a4c51ec54b0489854c2f839a1aa, type: 2}
   _slashThreshold: 10
   _weaponLength: 5
+  _handleBackExtent: 1
   _weaponRadius: 1
   _hitCooldown: 0.1
   _targetLayer:
@@ -41975,7 +41976,7 @@ MonoBehaviour:
   _totalGroups: 5
   _waves:
   - Entries:
-    - ZombieCount: 30
+    - ZombieCount: 150
       DelayAfter: 20
   - Entries:
     - ZombieCount: 30
@@ -42154,6 +42155,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1557994311}
     m_Modifications:
+    - target: {fileID: 1288113037300390182, guid: c19992de9fdda4dd8a3f1fe384911b52, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1850528454596839248, guid: c19992de9fdda4dd8a3f1fe384911b52, type: 3}
       propertyPath: _playerHealth
       value: 
@@ -42170,6 +42175,10 @@ PrefabInstance:
       propertyPath: _buildingHealthBar
       value: 
       objectReference: {fileID: 2047022365}
+    - target: {fileID: 2164546927738783515, guid: c19992de9fdda4dd8a3f1fe384911b52, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3206761263276871665, guid: c19992de9fdda4dd8a3f1fe384911b52, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

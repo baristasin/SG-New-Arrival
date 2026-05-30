@@ -12,6 +12,9 @@ namespace Game.Scripts.PlayerModules
 
         public event Action<int> OnHealthChanged;
 
+        public int CurrentHealth => _playerCurrentHealth;
+        public int MaxHealth => _playerStartingHealth;
+
         private Color _originalColor;
         private Coroutine _flashCoroutine;
         private int _playerCurrentHealth;

@@ -26,9 +26,17 @@ namespace Game.Scripts.UI.Screens
         private void OnEnable()
         {
             if (_playerHealth != null && _playerHealthBar != null)
+            {
                 _playerHealth.OnHealthChanged += HandlePlayerHealthChanged;
+                // Push the current value so the bar reflects the player's starting health
+                // without having to wait for the first damage tick.
+                _playerHealthBar.SetHealth(_playerHealth.CurrentHealth);
+            }
             if (_buildingHealth != null && _buildingHealthBar != null)
+            {
                 _buildingHealth.OnHealthChanged += _buildingHealthBar.UpdateBar;
+                _buildingHealthBar.UpdateBar(_buildingHealth.CurrentHealth);
+            }
         }
 
         private void OnDisable()

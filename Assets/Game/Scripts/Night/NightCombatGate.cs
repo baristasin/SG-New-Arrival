@@ -1,5 +1,6 @@
 using Game.Scripts.PlayerModules;
 using Game.Scripts.ZombieModules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Scripts.Night
@@ -58,6 +59,7 @@ namespace Game.Scripts.Night
         }
 
         // Public so it can also be wired to a debug button or test hook.
+        [Button]
         public void BeginCombat()
         {
             if (_combatStarted) return;
