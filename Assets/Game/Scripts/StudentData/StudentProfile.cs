@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Game.Scripts.StudentData
 {
@@ -24,6 +25,11 @@ namespace Game.Scripts.StudentData
         public string Wohnungsgeber;
         public string FormerAddressAbroad;
         public bool HasPreviousSchufa;
+
+        // Free-form flavour text shown on the student paper. Enrollment Status + Schufa stay
+        // derived from the booleans, so no separate text for those.
+        [TextArea] public string BudgetText;
+        [TextArea] public string LengthOfStayText;
 
         public VisaData Visa;
 

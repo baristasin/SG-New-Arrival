@@ -27,10 +27,11 @@ namespace Game.Scripts.ApartmentHunting
         {
             base.Initialize(data);
             _apartmentNameText.text = data.Name;
-            _priceStoryText.text = data.PriceCategory.ToString();
-            _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung ? "Yes anmeldung" : "No anmeldung";
+            // Free-form flavour text from the database; Type still comes straight from the enum.
+            _priceStoryText.text = data.PriceText;
+            _anmeldungStoryText.text = data.AnmeldungText;
             _dormitoryStoryText.text = data.Type.ToString();
-            _schufaStoryText.text = data.RequiresSchufa ? "Yes schufa" : "No schufa";
+            _schufaStoryText.text = data.SchufaText;
 
             if (_addressText != null)
                 _addressText.text = data.Address;
