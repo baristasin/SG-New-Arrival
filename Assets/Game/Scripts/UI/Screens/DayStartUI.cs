@@ -23,7 +23,11 @@ namespace Game.Scripts.UI.Screens
         private bool _dismissed;
         private DayStartImage _activeEntry;
 
-        public IEnumerator Play(int day)
+        // onShown fires right after the fade-in finishes — caller uses it to instantly hide the
+        // Loading cover that was sitting behind this screen during the scene transition.
+        // onDismissed fires after the click but before the fade-out — caller uses it to bring
+        // the Loading cover up in advance so the fade-out happens behind cover.
+        public IEnumerator Play(int day, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var d in _dayStarts)
                 if (d.Root != null) d.Root.SetActive(false);
@@ -34,7 +38,9 @@ namespace Game.Scripts.UI.Screens
 
             _dismissed = false;
             yield return Show().WaitForCompletion();
+            onShown?.Invoke();
             while (!_dismissed) yield return null;
+            onDismissed?.Invoke();
             yield return Hide().WaitForCompletion();
 
             _activeEntry.Root.SetActive(false);

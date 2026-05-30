@@ -15,5 +15,8 @@ namespace Game.Scripts.StudentData
         public PriceCategory PriceCategory;
         public string PriceNotes;
         public ApartmentType Type;
+
+        // Monthly rent in € — formatted on the paper as "{RentAmount} per month".
+        public int RentAmount;
     }
 }

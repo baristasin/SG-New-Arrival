@@ -73,6 +73,7 @@ namespace Game.Scripts
         {
             WireMainMenu();
             ShowMainMenuOnBoot();
+            WireSanity();
         }
 
         private void Update()
@@ -101,6 +102,24 @@ namespace Game.Scripts
         {
             UIManager.Instance?.MainMenu?.Show();
             SetState(GameState.MainMenu);
+        }
+
+        private void WireSanity()
+        {
+            var sanity = SanityManager.Instance;
+            if (sanity == null) return;
+            sanity.OnSanityChanged -= HandleSanityChanged;
+            sanity.OnSanityChanged += HandleSanityChanged;
+        }
+
+        // Sanity-0 detector. Fires the sleep-to-night pipeline once when sanity bottoms out
+        // during a minigame or the city walk (late drain). EndDayBySleepRoutine sets state to
+        // Sleeping immediately, so subsequent ticks early-return here.
+        private void HandleSanityChanged(float normalized)
+        {
+            if (normalized > 0f) return;
+            if (State != GameState.Minigame && State != GameState.CityRoaming) return;
+            StartCoroutine(EndDayBySleepRoutine());
         }
 
         // ── Public flow API ────────────────────────────────────────────────────
@@ -149,7 +168,14 @@ namespace Game.Scripts
             return _dayMinigames[i];
         }
 
-        [Button] public void NightFinished() { /* slice 6 */ }
+        // Called by the zombie combat layer (slice 6) when the night ends — all zombies down,
+        // player dead, or cathedral destroyed. Triggers the post-night summary + next-day load.
+        [Button]
+        public void NightFinished()
+        {
+            if (State != GameState.NightCombat) return;
+            StartCoroutine(NightFinishedRoutine());
+        }
 
         // ── Flow coroutines ────────────────────────────────────────────────────
 
@@ -160,8 +186,10 @@ namespace Game.Scripts
 
             var ui = UIManager.Instance;
 
+            // Cover with Loading FIRST (instant) so MainMenu's fade-out happens behind cover —
+            // no scene/skybox flash during the gap.
+            ui.Loading.Show();
             yield return ui.MainMenu.Hide().WaitForCompletion();
-            yield return ui.Loading.Show().WaitForCompletion();
 
             // Clamp to a minimum duration so the screen doesn't blink off on fast loads.
             float t0 = Time.unscaledTime;
@@ -169,7 +197,7 @@ namespace Game.Scripts
             float remain = _minLoadingDuration - (Time.unscaledTime - t0);
             if (remain > 0f) yield return new WaitForSeconds(remain);
 
-            yield return ui.Loading.Hide().WaitForCompletion();
+            // BeginDay shows DayStart over Loading, then hides Loading once DayStart fully covers.
             yield return BeginDay();
         }
 
@@ -188,7 +216,10 @@ namespace Game.Scripts
             Clock.OnHourPassed -= HandleHourPassedCity;
             Clock.OnHourPassed += HandleHourPassedCity;
 
-            yield return ui.DayStart.Play(CurrentDay);
+            // DayStart fades in OVER Loading; once it fully covers, hide Loading underneath
+            // (instant, invisible to player). DayStart then waits for click and fades out,
+            // revealing DayCity cleanly.
+            yield return ui.DayStart.Play(CurrentDay, onShown: () => ui.Loading.Hide());
 
             ui.DayHUD.Show();
             Clock.Resume();
@@ -208,20 +239,27 @@ namespace Game.Scripts
             SanityManager.Instance.DrainPerSecond = 0f;   // freeze drain across the transition
 
             var ui = UIManager.Instance;
-            ui.DayHUD.Hide();                              // fire-and-forget; fades while loading shows
-            yield return ui.Loading.Show().WaitForCompletion();
+
+            // Cover with Loading FIRST so DayHUD's fade-out and the camera switch happen behind cover.
+            ui.Loading.Show();
+            ui.DayHUD.Hide();   // fire-and-forget; fades behind Loading
             yield return new WaitForSeconds(_minigameTransitionDuration);
 
             CurrentCity.EnterStation(id);
 
-            yield return ui.Loading.Hide().WaitForCompletion();
-
-            // First-time tutorial per minigame; flag persists via PlayerPrefs.
+            // First-time tutorial: fades in over Loading → hide Loading once shown → wait click
+            // → tutorial fades out, revealing minigame scene.
             if (!TutorialFlags.HasSeen(id))
             {
                 SetState(GameState.Tutorial);
-                yield return ui.Tutorial.Play(id);
+                yield return ui.Tutorial.Play(id, onShown: () => ui.Loading.Hide());
                 TutorialFlags.MarkSeen(id);
+            }
+            else
+            {
+                // No tutorial this time — just drop the cover; the minigame's slide-in carries
+                // the visual continuity.
+                ui.Loading.Hide();
             }
 
             // Now that the player has read the tutorial (or skipped it on repeat plays), kick
@@ -234,6 +272,58 @@ namespace Game.Scripts
                 SanityManager.Instance.DrainPerSecond = balance.SanityDrainPerSecond;
 
             SetState(GameState.Minigame);
+        }
+
+        private IEnumerator EndDayBySleepRoutine()
+        {
+            SetState(GameState.Sleeping);
+            SanityManager.Instance.DrainPerSecond = 0f;
+            Clock.Pause();
+
+            var ui = UIManager.Instance;
+            ui.DayHUD.Hide();   // fire-and-forget; fades out behind the eyelids
+
+            // Eyelids close → explanation panel → wait for click. EyeClose stays "shown" after Play.
+            yield return ui.EyeClose.Play();
+
+            // Cover with Loading (instant) so EyeClose's fade-out and the scene load happen
+            // behind cover — no NightCity flash before the intro card.
+            ui.Loading.Show();
+            ui.EyeClose.Hide();
+
+            SetState(GameState.LoadingNight);
+            float t0 = Time.unscaledTime;
+            yield return SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene);
+            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+
+            // NightIntro fades in over Loading → hide Loading once shown → wait click → NightIntro
+            // fades out, revealing NightCity cleanly.
+            yield return ui.NightIntro.Play(onShown: () => ui.Loading.Hide());
+
+            SetState(GameState.NightCombat);
+            // Zombie fight runs here. The night layer calls NightFinished() when it's over.
+        }
+
+        private IEnumerator NightFinishedRoutine()
+        {
+            SetState(GameState.DayRewards);
+            var ui = UIManager.Instance;
+
+            // DayRewards fades in over NightCity. After click, raise Loading BEFORE the fade-out
+            // so the player never sees the bare NightCity again during the transition.
+            yield return ui.DayRewards.Play(CurrentDay, onDismissed: () => ui.Loading.Show());
+
+            CurrentDay++;
+            SetState(GameState.LoadingCity);
+
+            float t0 = Time.unscaledTime;
+            yield return SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene);
+            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+
+            // BeginDay's DayStart.Play handles Loading.Hide once DayStart fully covers.
+            yield return BeginDay();
         }
 
         // Once 10:00 ticks past, start bleeding sanity until the player reaches a station.

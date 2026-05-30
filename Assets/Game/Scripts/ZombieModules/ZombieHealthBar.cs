@@ -15,10 +15,13 @@ namespace Game.Scripts.ZombieModules
 
         private bool _isTargetDead;
 
+        // Exposed so the pool can clear its target → bar map when this bar is returned.
+        public Transform Target => _target;
+
         public void Show(Transform target, int remainingHealth, int maxHealth)
         {
             _target = target;
-            _fillImage.fillAmount = (float)remainingHealth / maxHealth;
+            _fillImage.fillAmount = maxHealth > 0 ? Mathf.Max(0f, (float)remainingHealth / maxHealth) : 0f;
             _isTargetDead = remainingHealth <= 0;
             gameObject.SetActive(true);
 
@@ -43,6 +46,20 @@ namespace Game.Scripts.ZombieModules
         private IEnumerator HideAfterDelay()
         {
             yield return new WaitForSeconds(_displayDuration);
+            gameObject.SetActive(false);
+            ReturnToPool();
+        }
+
+        // Called by the pool / ZombieController.ZombieDead the moment the zombie dies, so the
+        // bar disappears in the same frame instead of lingering for the death animation.
+        public void HideImmediate()
+        {
+            if (_hideCoroutine != null)
+            {
+                StopCoroutine(_hideCoroutine);
+                _hideCoroutine = null;
+            }
+            gameObject.SetActive(false);
             ReturnToPool();
         }
 
@@ -53,8 +70,8 @@ namespace Game.Scripts.ZombieModules
                 StopCoroutine(_hideCoroutine);
                 _hideCoroutine = null;
             }
-
-            _target = null;
+            // Keep _target set — the pool reads it to remove its target → bar mapping. The next
+            // Show() call will overwrite it.
             ZombieHealthBarPool.Return(this);
         }
     }

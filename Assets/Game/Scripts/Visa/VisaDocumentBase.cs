@@ -45,10 +45,28 @@ namespace Game.Scripts.Visa
         private bool _isOpen;
         private bool _isAnimating;
 
+        // Highlight isn't a child of the document (it lives on the canvas, behind everything,
+        // for render order). We capture its offset in the doc's local space and snap it to the
+        // doc each LateUpdate so it travels with every slide / open / close / spin.
+        private Vector3 _highlightLocalPos;
+        private Quaternion _highlightLocalRot;
+        private bool _trackHighlight;
+
         protected virtual void Awake()
         {
             // Capture the authored desk pose as "home" first — that's where SlideIn will tween to.
             SetOriginalPose();
+
+            // Capture the highlight's offset relative to the document while both are still in
+            // their authored world poses. LateUpdate will re-apply this offset every frame so
+            // the highlight rides along with the doc.
+            if (_highlight != null)
+            {
+                _highlightLocalPos = transform.InverseTransformPoint(_highlight.transform.position);
+                _highlightLocalRot = Quaternion.Inverse(transform.rotation) * _highlight.transform.rotation;
+                _trackHighlight = true;
+            }
+
             SetHighlight(false);
 
             // Then teleport off-screen to the slide anchor so the doc is HIDDEN while the
@@ -59,6 +77,15 @@ namespace Game.Scripts.Visa
                 transform.position = _slideAnchor.position;
                 transform.rotation = _originalRotation;
             }
+        }
+
+        // Keeps the highlight glued to the document's current pose. Runs after tweens (which
+        // tick in Update) write the doc transform, so the highlight is never one frame behind.
+        private void LateUpdate()
+        {
+            if (!_trackHighlight || _highlight == null) return;
+            _highlight.transform.position = transform.TransformPoint(_highlightLocalPos);
+            _highlight.transform.rotation = transform.rotation * _highlightLocalRot;
         }
 
         public void SetOriginalPose()
@@ -147,6 +174,13 @@ namespace Game.Scripts.Visa
             _isOpen = false;
             _isAnimating = false;
             SetHighlight(false);
+        }
+
+        // Kill in-flight slide/open/close tweens before the transform is torn down (scene unload).
+        // Without this, DOTween writes to the dead transform next frame and throws.
+        private void OnDestroy()
+        {
+            transform.DOKill();
         }
     }
 }

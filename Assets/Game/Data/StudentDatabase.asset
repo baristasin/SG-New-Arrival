@@ -32,12 +32,14 @@ MonoBehaviour:
     Wohnungsgeber: "M\xFCller Wohnen GmbH"
     FormerAddressAbroad: Getreidegasse 4, 5020 Salzburg, Austria
     HasPreviousSchufa: 1
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC450 per month."
     Visa:
       PassportId: AT3940218
       PassportIssued: 2020-01-01
       PassportExpiryDate: 2030-01-01
       AdmissionDeadline: 
-      FinancialFunds: 0
+      FinancialFunds: -232
       MonthlyRelease: 0
       Iban: DE12 1007 0000 0123 4567 89
       LanguageCertLevel: 4
@@ -75,6 +77,8 @@ MonoBehaviour:
     Wohnungsgeber: "K\xF6lner Studierendenwerk"
     FormerAddressAbroad: El-Tahrir Square 12, Cairo, Egypt
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "Hmm\u2026 I can afford max. \u20AC250 per month."
     Visa:
       PassportId: A94820194
       PassportIssued: 2018-05-01
@@ -118,6 +122,8 @@ MonoBehaviour:
     Wohnungsgeber: Karl Hauser (Private Landlord)
     FormerAddressAbroad: "Avenida Paulista 1000, S\xE3o Paulo, Brazil"
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "I've just landed, but there's nowhere to sleep. I've got \u20AC200."
     Visa:
       PassportId: BR5820491
       PassportIssued: 2018-10-01
@@ -161,6 +167,8 @@ MonoBehaviour:
     Wohnungsgeber: WG-Gesucht Vermietung
     FormerAddressAbroad: 14 Park Street, Bristol, UK
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "My budget is quite high. I've got \u20AC1,000."
     Visa:
       PassportId: 552194038
       PassportIssued: 2014-02-01
@@ -204,6 +212,8 @@ MonoBehaviour:
     Wohnungsgeber: Zement Immobilien AG
     FormerAddressAbroad: Carrer de Mallorca 250, Barcelona, Spain
     HasPreviousSchufa: 1
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC650 per month."
     Visa:
       PassportId: PAA830192
       PassportIssued: 2018-04-01
@@ -247,6 +257,8 @@ MonoBehaviour:
     Wohnungsgeber: "K\xF6lner Studierendenwerk"
     FormerAddressAbroad: 5 Garki Way, Abuja, Nigeria
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC500 per month."
     Visa:
       PassportId: A09482315
       PassportIssued: 2020-11-01
@@ -290,6 +302,8 @@ MonoBehaviour:
     Wohnungsgeber: Rhein-Wohnen GmbH
     FormerAddressAbroad: 21 Shijo-dori, Kyoto, Japan
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "My budget is quite high. I've got \u20AC800."
     Visa:
       PassportId: TR7301942
       PassportIssued: 2016-01-01
@@ -333,6 +347,8 @@ MonoBehaviour:
     Wohnungsgeber: Sabine Schneider (Private Landlord)
     FormerAddressAbroad: 405 Michigan Ave, Chicago, USA
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "Hmm\u2026 I can afford max. \u20AC300 per month."
     Visa:
       PassportId: 483029481
       PassportIssued: 2021-02-01
@@ -376,6 +392,8 @@ MonoBehaviour:
     Wohnungsgeber: L.E. Housing Group
     FormerAddressAbroad: 88 Marine Drive, Mumbai, India
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "I've just landed, but there's nowhere to sleep. I've got \u20AC900."
     Visa:
       PassportId: Z6409123<
       PassportIssued: 2022-05-01
@@ -419,6 +437,8 @@ MonoBehaviour:
     Wohnungsgeber: "Stiftung Sch\xF6ner Wohnen"
     FormerAddressAbroad: 102 Xinyi Road, Taipei, Taiwan
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC400 per month."
     Visa:
       PassportId: X30291482
       PassportIssued: 2020-04-01

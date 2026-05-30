@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 namespace Game.Scripts.UI.Screens
 {
-    // Loading overlay shown across real scene loads and during the short in-scene minigame
-    // transition. Subscribes to SceneLoader.OnProgress on Show and unsubscribes on Hide so the
-    // bar stays in sync without listening when invisible.
+    // Loading overlay shown across real scene loads and the short in-scene minigame transition.
+    // Lives at the BOTTOM of the UIManager canvas (renders behind every other screen) and uses
+    // INSTANT show/hide — no fade. The screen sitting in front of it (MainMenu, DayStart, etc.)
+    // does the visible fading; Loading just acts as a permanent opaque backdrop while it's up
+    // so the underlying scene is never briefly visible between fades.
     public class LoadingScreenUI : UIScreen
     {
         [Tooltip("Optional radial/horizontal fill image. Null = no bar, just the overlay.")]
@@ -16,15 +18,31 @@ namespace Game.Scripts.UI.Screens
 
         public override Tween Show()
         {
+            if (IsShown) return null;
+            IsShown = true;
+
+            _canvasGroup.DOKill();
+            _canvasGroup.alpha = 1f;
+            _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.interactable = true;
+
             SetProgress(0f);
             if (SceneLoader.Instance != null) SceneLoader.Instance.OnProgress += SetProgress;
-            return base.Show();
+            return null;
         }
 
         public override Tween Hide()
         {
+            if (!IsShown) return null;
+            IsShown = false;
+
+            _canvasGroup.DOKill();
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.blocksRaycasts = false;
+            _canvasGroup.interactable = false;
+
             if (SceneLoader.Instance != null) SceneLoader.Instance.OnProgress -= SetProgress;
-            return base.Hide();
+            return null;
         }
 
         public void SetProgress(float p)

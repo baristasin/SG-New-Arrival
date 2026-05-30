@@ -27,10 +27,16 @@ namespace Game.Scripts.ApartmentHunting
         {
             base.Initialize(data);
             _apartmentNameText.text = data.Name;
-            _priceStoryText.text = data.PriceCategory.ToString();
-            _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung ? "Yes anmeldung" : "No anmeldung";
+            // Price uses the int rent amount; Anmeldung + Schufa derive from the booleans; Type
+            // stays straight from the enum.
+            _priceStoryText.text = $"{data.RentAmount}€ per month";
+            _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung
+                ? "Can be used for registration"
+                : "It is only for short stays";
             _dormitoryStoryText.text = data.Type.ToString();
-            _schufaStoryText.text = data.RequiresSchufa ? "Yes schufa" : "No schufa";
+            _schufaStoryText.text = data.RequiresSchufa
+                ? "You must provide Schufa credit report"
+                : "There is no need for Schufa";
 
             if (_addressText != null)
                 _addressText.text = data.Address;

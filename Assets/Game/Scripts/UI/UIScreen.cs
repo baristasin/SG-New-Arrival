@@ -14,7 +14,7 @@ namespace Game.Scripts.UI
         [SerializeField] protected CanvasGroup _canvasGroup;
         [SerializeField] protected float _fadeDuration = 0.25f;
 
-        public bool IsShown { get; private set; }
+        public bool IsShown { get; protected set; }
 
         protected virtual void Awake()
         {

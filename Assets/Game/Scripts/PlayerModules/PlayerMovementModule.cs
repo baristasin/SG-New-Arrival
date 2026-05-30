@@ -37,27 +37,33 @@ namespace Game.Scripts.PlayerModules
 
             Vector3 moveDir = camForward * v + camRight * h;
             if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
+            bool isMoving = moveDir.sqrMagnitude > 0.0001f;
 
-            if (moveDir.sqrMagnitude > 0.0001f)
+            if (isMoving)
             {
                 _agent.Move(moveDir * _moveSpeed * Time.deltaTime);
-                AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
+                // AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
             }
+
+            // Rotation: decoupled from movement. RMB wins (face the cursor) and is computed even
+            // while WASD is held. If RMB is up and the aim direction is degenerate (mouse near
+            // the player), fall back to the movement direction. This way the character always
+            // rotates when ANY input asks for it.
+            Vector3 facing = Vector3.zero;
 
             if (Input.GetMouseButton(1))
             {
                 Vector3 aimDir = GetAimDirection();
                 aimDir.y = 0f;
-                if (aimDir.sqrMagnitude > 0.0001f)
-                {
-                    Quaternion target = Quaternion.LookRotation(aimDir.normalized);
-                    transform.rotation = Quaternion.RotateTowards(
-                        transform.rotation, target, _rotationSpeed * Time.deltaTime);
-                }
+                if (aimDir.sqrMagnitude > 0.0001f) facing = aimDir;
             }
-            else if (moveDir.sqrMagnitude > 0.0001f)
+
+            if (facing.sqrMagnitude < 0.0001f && isMoving)
+                facing = moveDir;
+
+            if (facing.sqrMagnitude > 0.0001f)
             {
-                Quaternion target = Quaternion.LookRotation(moveDir.normalized);
+                Quaternion target = Quaternion.LookRotation(facing.normalized);
                 transform.rotation = Quaternion.RotateTowards(
                     transform.rotation, target, _rotationSpeed * Time.deltaTime);
             }

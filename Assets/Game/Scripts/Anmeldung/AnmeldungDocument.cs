@@ -66,5 +66,15 @@ namespace Game.Scripts.Anmeldung
         {
             StopEffects();
         }
+
+        // Kill any active tweens before Unity tears the transform down. Without this, the
+        // infinite spin/shake loops keep running for one more frame after the GameObject is
+        // destroyed (e.g. when DayCity unloads on sanity-0 → NightCity load) and DOTween
+        // raises a MissingReferenceException on the dead RectTransform.
+        private void OnDestroy()
+        {
+            _moveTween?.Kill();
+            _rotateTween?.Kill();
+        }
     }
 }

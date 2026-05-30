@@ -109,5 +109,11 @@ namespace Game.Scripts.Anmeldung
             transform.SetParent(_originalParent);
             _rectTransform.DOLocalMove(_originalPosition, 0.2f).SetEase(Ease.OutBack);
         }
+
+        // Kill in-flight snap/return tweens before the transform is torn down (scene unload).
+        private void OnDestroy()
+        {
+            transform.DOKill();
+        }
     }
 }

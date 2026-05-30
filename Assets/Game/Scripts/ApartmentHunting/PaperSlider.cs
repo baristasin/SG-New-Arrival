@@ -73,6 +73,55 @@ namespace Game.Scripts.ApartmentHunting
             DOVirtual.DelayedCall(_slideDuration, () => _isSliding = false);
         }
 
+        // Append one new page at the right edge of the strip. Used to refill the slider after
+        // SlideOutCurrent so the deck never runs dry.
+        public void AddPage(TData data)
+        {
+            var paper = Instantiate(_paperPrefab, PageParent);
+            paper.Initialize(data);
+            int newIndex = _pages.Count;
+            _pages.Add(paper);
+            paper.RectTransform.anchoredPosition = new Vector2((newIndex - _currentIndex) * _pageWidth, 0f);
+        }
+
+        // Slide the current page off to the left like SlideOutCurrent but DON'T destroy it —
+        // teleport it to the end of the strip so the player can still reach it by swiping. Used
+        // for the apartment side where every entry must remain accessible after being matched.
+        public void RecycleCurrent(System.Action onComplete = null)
+        {
+            if (_isSliding || _pages.Count == 0) return;
+
+            _isSliding = true;
+            var current = _pages[_currentIndex];
+
+            current.RectTransform.DOAnchorPosX(-_pageWidth, _slideDuration).SetEase(Ease.InQuad)
+                .OnComplete(() =>
+                {
+                    // Move current to the back of the list (recycle, not destroy).
+                    _pages.RemoveAt(_currentIndex);
+                    _pages.Add(current);
+
+                    if (_currentIndex >= _pages.Count) _currentIndex = _pages.Count - 1;
+
+                    _isSliding = false;
+
+                    // Snap the recycled page to its new off-screen-right slot with no animation.
+                    int recycledIdx = _pages.Count - 1;
+                    current.RectTransform.anchoredPosition =
+                        new Vector2((recycledIdx - _currentIndex) * _pageWidth, 0f);
+
+                    // Slide the rest into their new positions so the next page becomes current.
+                    for (int i = 0; i < _pages.Count; i++)
+                    {
+                        if (i == recycledIdx) continue;
+                        float targetX = (i - _currentIndex) * _pageWidth;
+                        _pages[i].RectTransform.DOAnchorPosX(targetX, _slideDuration).SetEase(Ease.OutQuad);
+                    }
+
+                    onComplete?.Invoke();
+                });
+        }
+
         public void SlideOutCurrent(System.Action onComplete = null)
         {
             if (_isSliding || _pages.Count == 0) return;

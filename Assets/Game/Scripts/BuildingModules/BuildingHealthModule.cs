@@ -14,6 +14,9 @@ namespace Game.Scripts.BuildingModules
 
         public event Action<int> OnHealthChanged;
 
+        public int CurrentHealth => _buildingCurrentHealth;
+        public int MaxHealth => _buildingStartingHealth;
+
         private Color _originalColor;
         private Vector3 _originalScale;
         private Tween _scaleTween;

@@ -22,7 +22,7 @@ namespace Game.Scripts.UI
         [SerializeField] private TutorialUI _tutorial;
         [SerializeField] private EyeCloseUI _eyeClose;
         [SerializeField] private DayRewardsUI _dayRewards;
-        [SerializeField] private NightUI _nightUI;
+        [SerializeField] private NightIntroUI _nightIntro;
 
         public Canvas Canvas => _canvas;
         public SanityBar SanityBar => _sanityBar;
@@ -34,6 +34,6 @@ namespace Game.Scripts.UI
         public TutorialUI Tutorial => _tutorial;
         public EyeCloseUI EyeClose => _eyeClose;
         public DayRewardsUI DayRewards => _dayRewards;
-        public NightUI NightUI => _nightUI;
+        public NightIntroUI NightIntro => _nightIntro;
     }
 }

@@ -23,6 +23,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 0
+    RentAmount: 240
   - Id: 2
     Name: "S\xFCdstadt Cozy Nest"
     Address: Chlodwigplatz 4, 50678 Cologne
@@ -33,6 +34,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 1
+    RentAmount: 450
   - Id: 3
     Name: Ehrenfeld Creative Hub
     Address: Venloer Str. 230, 50823 Cologne
@@ -43,6 +45,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 2
+    RentAmount: 520
   - Id: 4
     Name: No-Fun-Allowed Fort
     Address: Marzellenstr. 44, 50667 Cologne
@@ -53,6 +56,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: Per night basis
     Type: 3
+    RentAmount: 200
   - Id: 5
     Name: Modern Lindenthal Flat
     Address: "D\xFCrener Str. 145, 50931 Cologne"
@@ -63,6 +67,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 850
   - Id: 6
     Name: Deutz Riverside Studio
     Address: Gotenring 12, 50679 Cologne
@@ -73,6 +78,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 790
   - Id: 7
     Name: Nippes Altbau Charm
     Address: Neusser Str. 312, 50733 Cologne
@@ -83,6 +89,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 2
+    RentAmount: 410
   - Id: 8
     Name: Club Mate Hostel
     Address: Richard-Wagner-Str. 39, 50674 Cologne
@@ -93,6 +100,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: Boutique hostel
     Type: 3
+    RentAmount: 480
   - Id: 9
     Name: Belgisches Viertel Loft
     Address: "Br\xFCsseler Str. 88, 50674 Cologne"
@@ -103,6 +111,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 920
   - Id: 10
     Name: "S\xFClz Student Base"
     Address: "Z\xFClpicher Str. 280, 50937 Cologne"
@@ -113,6 +122,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 0
+    RentAmount: 280
   - Id: 11
     Name: Agnesviertel Temporary Home
     Address: Neusser Platz 7, 50670 Cologne
@@ -123,6 +133,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 1
+    RentAmount: 380
   - Id: 12
     Name: Kalk Shared Living
     Address: "Kalker Hauptstra\xDFe 142, 51103 Cologne"
@@ -133,6 +144,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 2
+    RentAmount: 230
   - Id: 13
     Name: The Hangover Headquarters
     Address: Barbarossaplatz 1, 50674 Cologne
@@ -143,6 +155,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: Dorm bed basis
     Type: 3
+    RentAmount: 260
   - Id: 14
     Name: "M\xFClheim Starter Flat"
     Address: Frankfurter Str. 55, 51065 Cologne
@@ -153,6 +166,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 4
+    RentAmount: 610
   - Id: 15
     Name: Rodenkirchen Rhine View
     Address: "Hauptstra\xDFe 22, 50996 Cologne"
@@ -163,6 +177,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 720
   - Id: 16
     Name: Braunsfeld Business Studio
     Address: Aachener Str. 400, 50933 Cologne
@@ -173,6 +188,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 880
   - Id: 17
     Name: Zollstock Cozy Room
     Address: "Herthastra\xDFe 18, 50969 Cologne"
@@ -183,6 +199,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 2
+    RentAmount: 490
   - Id: 18
     Name: Altstadt Tourist & Longstay
     Address: Heumarkt 3, 50667 Cologne
@@ -193,6 +210,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 3
+    RentAmount: 180
   - Id: 19
     Name: Chorweiler Highrise
     Address: Florenzer Str. 5, 50765 Cologne
@@ -203,6 +221,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 4
+    RentAmount: 295
   - Id: 20
     Name: Riehl Green Living
     Address: Stammheimer Str. 90, 50735 Cologne
@@ -213,6 +232,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 1
+    RentAmount: 340
   - Id: 21
     Name: "S\xFClz Cozy Attic"
     Address: Berrenrather Str. 210, 50937 Cologne
@@ -223,6 +243,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 2
+    RentAmount: 460
   - Id: 22
     Name: "K\xF6lner Studierendenwerk - M\xFCngersdorf"
     Address: Aachener Str. 750, 50933 Cologne
@@ -233,6 +254,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 0
+    RentAmount: 225
   - Id: 23
     Name: Ehrenfeld Industrial Loft
     Address: "Lichtstra\xDFe 45, 50825 Cologne"
@@ -243,6 +265,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 950
   - Id: 24
     Name: Missed Connection Central
     Address: Mauritiussteinweg 11, 50676 Cologne
@@ -253,6 +276,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: Hotel/Hostel hybrid
     Type: 3
+    RentAmount: 530
   - Id: 25
     Name: Deutz Fairground Sublet
     Address: "Deutz-M\xFClheimer Str. 30, 50679 Cologne"
@@ -263,6 +287,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 1
+    RentAmount: 420
   - Id: 26
     Name: Lindenthal Family Dependance
     Address: Gleueler Str. 180, 50935 Cologne
@@ -273,6 +298,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: 
     Type: 4
+    RentAmount: 810
   - Id: 27
     Name: Nippes Community Flat
     Address: "Wilhelmstra\xDFe 12, 50733 Cologne"
@@ -283,6 +309,7 @@ MonoBehaviour:
     PriceCategory: 1
     PriceNotes: 
     Type: 2
+    RentAmount: 580
   - Id: 28
     Name: Kalk Bright Studio
     Address: "Trimbornstra\xDFe 22, 51105 Cologne"
@@ -293,6 +320,7 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 4
+    RentAmount: 270
   - Id: 29
     Name: Belgisches Viertel Short Stay
     Address: Maastrichter Str. 15, 50674 Cologne
@@ -303,6 +331,7 @@ MonoBehaviour:
     PriceCategory: 2
     PriceNotes: Furnished
     Type: 1
+    RentAmount: 890
   - Id: 30
     Name: Porz Riverside Starter
     Address: "Hauptstra\xDFe 410, 51143 Cologne"
@@ -313,3 +342,4 @@ MonoBehaviour:
     PriceCategory: 0
     PriceNotes: 
     Type: 4
+    RentAmount: 250
