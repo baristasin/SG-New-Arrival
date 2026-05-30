@@ -23,7 +23,10 @@ namespace Game.Scripts.UI.Screens
         private bool _dismissed;
         private DayRewardImage _activeEntry;
 
-        public IEnumerator Play(int day)
+        // onShown fires after fade-in — caller hides Loading cover here.
+        // onDismissed fires after click but before fade-out — caller raises Loading cover here
+        // so the fade-out happens behind cover (no underlying scene flash).
+        public IEnumerator Play(int day, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var r in _rewards)
                 if (r.Root != null) r.Root.SetActive(false);
@@ -34,7 +37,9 @@ namespace Game.Scripts.UI.Screens
 
             _dismissed = false;
             yield return Show().WaitForCompletion();
+            onShown?.Invoke();
             while (!_dismissed) yield return null;
+            onDismissed?.Invoke();
             yield return Hide().WaitForCompletion();
 
             _activeEntry.Root.SetActive(false);

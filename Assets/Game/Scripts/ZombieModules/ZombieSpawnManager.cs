@@ -35,8 +35,9 @@ namespace Game.Scripts.ZombieModules
 
         private void Awake()
         {
+            // Pool is built eagerly; waves are kicked off externally by NightCombatGate once
+            // the NightIntro overlay closes — so zombies aren't spawning behind the intro.
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
-            StartWaves();
         }
 
         [Button]

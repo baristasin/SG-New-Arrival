@@ -31,11 +31,18 @@ namespace Game.Scripts.ApartmentHunting
         {
             base.Initialize(data);
             _studentNameText.text = data.FullName;
-            // Budget + Length Stay come from the database now; Enrollment + Schufa stay derived.
+            // Budget is free-form per student; Length-of-Stay, Enrollment and Schufa all derive
+            // from booleans with the longer flavour lines.
             _budgetStoryText.text = data.BudgetText;
-            _lengthOfStayText.text = data.LengthOfStayText;
-            _enrollmentStoryText.text = data.IsEnrolled ? "Enrolled" : "Not Enrolled";
-            _schufaRecord.text = data.HasPreviousSchufa ? "Yes schufa" : "No schufa";
+            _lengthOfStayText.text = data.IsExchangeStudent
+                ? "I'm an exchange student for next 3 months."
+                : "I'm thrilled to be starting my master's programme soon!";
+            _enrollmentStoryText.text = data.IsEnrolled
+                ? "Yes, I'm enrolled. It's so exciting!"
+                : "I am not enrolled. I can't live in the dormitories";
+            _schufaRecord.text = data.HasPreviousSchufa
+                ? "I'm already registered in Germany. I can get a Schufa report."
+                : "It's my first time in Germany";
             _nationality.text = data.Nationality;
             _dateOfBirth.text = data.DateOfBirth;
             _placeOfBirth.text = data.PlaceOfBirth;

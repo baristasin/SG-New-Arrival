@@ -23,7 +23,10 @@ namespace Game.Scripts.UI.Screens
         private bool _dismissed;
         private TutorialImage _activeEntry;
 
-        public IEnumerator Play(MinigameId id)
+        // onShown fires after the fade-in — caller hides the Loading cover here.
+        // onDismissed fires after the click but before the fade-out — caller can raise Loading
+        // again if the next step needs it.
+        public IEnumerator Play(MinigameId id, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var t in _tutorials)
                 if (t.Root != null) t.Root.SetActive(false);
@@ -34,7 +37,9 @@ namespace Game.Scripts.UI.Screens
 
             _dismissed = false;
             yield return Show().WaitForCompletion();
+            onShown?.Invoke();
             while (!_dismissed) yield return null;
+            onDismissed?.Invoke();
             yield return Hide().WaitForCompletion();
 
             _activeEntry.Root.SetActive(false);

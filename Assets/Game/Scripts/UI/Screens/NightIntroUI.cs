@@ -10,11 +10,16 @@ namespace Game.Scripts.UI.Screens
     {
         private bool _dismissed;
 
-        public IEnumerator Play()
+        // onShown fires after fade-in — caller hides Loading cover here.
+        // onDismissed fires after click but before fade-out — caller can raise cover for the
+        // next transition if needed.
+        public IEnumerator Play(System.Action onShown = null, System.Action onDismissed = null)
         {
             _dismissed = false;
             yield return Show().WaitForCompletion();
+            onShown?.Invoke();
             while (!_dismissed) yield return null;
+            onDismissed?.Invoke();
             yield return Hide().WaitForCompletion();
         }
 

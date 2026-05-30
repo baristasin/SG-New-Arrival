@@ -441,12 +441,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -578,12 +578,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -715,12 +715,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -852,12 +852,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1139,14 +1139,3 @@ MonoBehaviour:
   _addressText: {fileID: 4581533691023521975}
   _landlordText: {fileID: 6276125416105825832}
   _apartmentImage: {fileID: 7932842356364253119}
-  _apartmentSprites:
-  - {fileID: 21300000, guid: ad9b804b67b374e50a184c5756a5ae1b, type: 3}
-  - {fileID: 21300000, guid: 5275bd85b9872408a8df9d57341cf8f1, type: 3}
-  - {fileID: 21300000, guid: 9c266da48667748948adc043eb9952e9, type: 3}
-  - {fileID: 21300000, guid: 470783203a1344ac98125d13d0edfb23, type: 3}
-  - {fileID: 21300000, guid: 57354ac0af6c643fda3d4d6db58adf2e, type: 3}
-  - {fileID: 21300000, guid: 98f47aaacc9b64a5392a1a3a4faf998b, type: 3}
-  - {fileID: 21300000, guid: 248da41fadfbf4f819319d82a466c6ee, type: 3}
-  - {fileID: 21300000, guid: 2f330547fc3004f92845380fc2c007c2, type: 3}
-  - {fileID: 21300000, guid: dfd48d089e2b44fd980eb09438407ebf, type: 3}
-  - {fileID: 21300000, guid: 51ff70247e6bc42d9b89bb4a4249144c, type: 3}

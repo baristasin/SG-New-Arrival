@@ -34,6 +34,8 @@ namespace Game.Scripts.Anmeldung
         // on Start, so they don't appear behind the fullscreen tutorial sheet.
         public void BeginGame()
         {
+            _currentRound = 0;
+            _points = 0;
             StartCoroutine(StartRound());
         }
 
@@ -50,11 +52,13 @@ namespace Game.Scripts.Anmeldung
             yield return SlideInItems();
         }
 
+        // Sequential for the first pass through the database, then random for every round after
+        // — sanity (not the deck) decides when the day ends, so we never run out of students.
         private StudentProfile PickStudentForRound(int round)
         {
-            if (_studentDatabase == null || _studentDatabase.Students.Count == 0)
-                return null;
-            return _studentDatabase.Students[round % _studentDatabase.Students.Count];
+            var list = _studentDatabase != null ? _studentDatabase.Students : null;
+            if (list == null || list.Count == 0) return null;
+            return round < list.Count ? list[round] : list[Random.Range(0, list.Count)];
         }
 
         private IEnumerator SlideInAnmeldungPaper()

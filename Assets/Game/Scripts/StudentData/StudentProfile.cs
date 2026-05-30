@@ -26,10 +26,12 @@ namespace Game.Scripts.StudentData
         public string FormerAddressAbroad;
         public bool HasPreviousSchufa;
 
-        // Free-form flavour text shown on the student paper. Enrollment Status + Schufa stay
-        // derived from the booleans, so no separate text for those.
+        // Exchange (3-month) vs full master's programme — drives the Length-of-Stay line on the
+        // student paper. True = exchange, false = master's.
+        public bool IsExchangeStudent;
+
+        // Free-form flavour text per student — Budget is fully unique, so it stays as data.
         [TextArea] public string BudgetText;
-        [TextArea] public string LengthOfStayText;
 
         public VisaData Visa;
 

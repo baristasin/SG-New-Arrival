@@ -37,6 +37,7 @@ namespace Game.Scripts.Visa
         private IClickableDocument _openDocument;
         private IClickableDocument _hoveredDocument;
         private int _studentIndex;
+        private int _completedRounds;   // sequential for the first pass, then random
         private bool _isTransitioning;
 
         // Raised after a student's documents (re)load, and before the current ones leave, so
@@ -54,6 +55,7 @@ namespace Game.Scripts.Visa
         public void BeginGame()
         {
             SetCloseButtonVisible(false);
+            _completedRounds = 0;
             LoadStudent(0);
         }
 
@@ -74,13 +76,16 @@ namespace Game.Scripts.Visa
         }
 
         // Wire the "next / approve" button here. Current papers slide out, then the next
-        // student's papers slide in. Loops back to the first student after the last.
+        // student's papers slide in. Sequential for the first pass through the database, then
+        // every subsequent pick is random — sanity decides when the day ends.
         public void NextStudent()
         {
             if (_isTransitioning || _studentDatabase == null || _studentDatabase.Students.Count == 0)
                 return;
 
-            int next = (_studentIndex + 1) % _studentDatabase.Students.Count;
+            _completedRounds++;
+            int count = _studentDatabase.Students.Count;
+            int next = _completedRounds < count ? _completedRounds : Random.Range(0, count);
             StartCoroutine(TransitionTo(next));
         }
 
