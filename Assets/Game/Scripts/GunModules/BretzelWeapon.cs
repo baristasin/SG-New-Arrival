@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    // Bretzel: while held, throws a spinning pretzel on a slow cadence (WeaponData.FireInterval).
-    // The pretzel flies a boomerang loop out to WeaponData.Range and back to the (moving) player
-    // over _flightTime, hitting every zombie along its path once per throw. Medium damage, no knockback.
+    // Bretzel boomerang. Hierarchy: Player → Bretzel (this script) → Model. transform.forward
+    // is the throw direction; transform.position is the orbit centre and is read every frame
+    // so the arc tracks the player. Model has no collider; damage is dealt by OverlapSphere
+    // at the model's position.
     public class BretzelWeapon : WeaponBase
     {
-        [SerializeField] private Transform _muzzle;     // origin + aim (forward)
-        [SerializeField] private Transform _pretzel;    // the thrown visual (hidden at rest)
-        [SerializeField] private LayerMask _targetLayerMask;
+        [SerializeField] private Transform _model;            // the thrown child
+        [SerializeField] private LayerMask _targetLayerMask;  // zombie layer
 
-        [Header("Boomerang flight")]
+        [Header("Flight")]
         [SerializeField] private float _flightTime = 1.5f;
-        [SerializeField] private float _arcWidth = 2.5f;   // sideways curve amplitude
+        [SerializeField] private float _arcWidth = 2.5f;
         [SerializeField] private float _spinSpeed = 720f;
         [SerializeField] private float _hitRadius = 0.7f;
 
@@ -32,21 +32,14 @@ namespace Game.Scripts.GunModules
         {
             _isThrowing = false;
             _cooldown = 0f;
-            if (_pretzel != null) _pretzel.gameObject.SetActive(false);
+            SnapHome();
         }
 
         public override void Tick(bool aimHeld, bool fireHeld)
         {
             if (_cooldown > 0f) _cooldown -= Time.deltaTime;
-
-            if (_isThrowing)
-            {
-                AdvanceThrow();
-                return;
-            }
-
-            if (aimHeld && fireHeld && _cooldown <= 0f)
-                StartThrow();
+            if (_isThrowing) { Advance(); return; }
+            if (aimHeld && fireHeld && _cooldown <= 0f) StartThrow();
         }
 
         private void StartThrow()
@@ -55,50 +48,50 @@ namespace Game.Scripts.GunModules
             _flightProgress = 0f;
             _cooldown = _data.FireInterval;
 
-            _throwDir = _muzzle.forward;
-            _throwDir.y = 0f;
-            _throwDir.Normalize();
-            _throwRight = _muzzle.right;
+            Vector3 fwd = transform.forward;
+            fwd.y = 0f;
+            _throwDir = fwd.sqrMagnitude > 0.0001f ? fwd.normalized : Vector3.forward;
+            _throwRight = Vector3.Cross(Vector3.up, _throwDir);
 
             _hitThisThrow.Clear();
             _clearedAtMidpoint = false;
-            if (_pretzel != null) _pretzel.gameObject.SetActive(true);
+
+            _model.SetParent(null, true);   // unparent so world-position writes are clean
         }
 
-        private void AdvanceThrow()
+        private void Advance()
         {
             _flightProgress += Time.deltaTime;
             float u = Mathf.Clamp01(_flightProgress / _flightTime);
 
-            float forward = Mathf.Sin(u * Mathf.PI) * _data.Range;          // 0 -> range -> 0
-            float lateral = Mathf.Sin(u * 2f * Mathf.PI) * _arcWidth;       // right on the way out, left back
+            float forward = Mathf.Sin(u * Mathf.PI) * _data.Range;        // 0 → range → 0
+            float lateral = Mathf.Sin(u * 2f * Mathf.PI) * _arcWidth;     // right out, left back
 
-            _pretzel.position = _muzzle.position + _throwDir * forward + _throwRight * lateral;
-            _pretzel.Rotate(0f, _spinSpeed * Time.deltaTime, 0f, Space.Self);
+            // Orbit centre = our position THIS frame → arc moves with the player.
+            _model.position = transform.position + _throwDir * forward + _throwRight * lateral;
+            _model.Rotate(0f, _spinSpeed * Time.deltaTime, 0f, Space.Self);
 
-            // At the farthest point, reset hits so the return pass can hit the same zombies again.
-            if (u >= 0.5f && !_clearedAtMidpoint)
-            {
-                _hitThisThrow.Clear();
-                _clearedAtMidpoint = true;
-            }
+            if (u >= 0.5f && !_clearedAtMidpoint) { _hitThisThrow.Clear(); _clearedAtMidpoint = true; }
+            HitAtModel();
 
-            HitAlongPath();
-
-            if (_flightProgress >= _flightTime)
-            {
-                _isThrowing = false;
-                _pretzel.gameObject.SetActive(false);
-            }
+            if (_flightProgress >= _flightTime) { _isThrowing = false; SnapHome(); }
         }
 
-        private void HitAlongPath()
+        private void SnapHome()
         {
-            int count = Physics.OverlapSphereNonAlloc(_pretzel.position, _hitRadius, _buffer, _targetLayerMask);
-            for (int i = 0; i < count; i++)
+            if (_model == null) return;
+            _model.SetParent(transform, false);
+            _model.localPosition = Vector3.zero;
+            _model.localRotation = Quaternion.identity;
+        }
+
+        private void HitAtModel()
+        {
+            int n = Physics.OverlapSphereNonAlloc(_model.position, _hitRadius, _buffer, _targetLayerMask);
+            for (int i = 0; i < n; i++)
             {
                 var col = _buffer[i];
-                if (!_hitThisThrow.Add(col)) continue;   // each zombie only once per throw
+                if (!_hitThisThrow.Add(col)) continue;
                 if (ZombieRegistry.TryGetHealth(col, out var health))
                     health.GetHit(_data.Damage);
             }
