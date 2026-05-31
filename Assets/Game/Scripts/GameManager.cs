@@ -283,13 +283,17 @@ namespace Game.Scripts
             var ui = UIManager.Instance;
             ui.DayHUD.Hide();   // fire-and-forget; fades out behind the eyelids
 
-            // Eyelids close → explanation panel → wait for click. EyeClose stays "shown" after Play.
+            // Eyelids close → narrative explanation → wait for click. EyeClose stays "shown" after Play.
             yield return ui.EyeClose.Play();
 
-            // Cover with Loading (instant) so EyeClose's fade-out and the scene load happen
-            // behind cover — no NightCity flash before the intro card.
-            ui.Loading.Show();
-            ui.EyeClose.Hide();
+            // Today's reward card on top of the closed eye. On dismiss we raise Loading (instant)
+            // and fade EyeClose out in parallel with DayRewards' own fade — both end behind cover.
+            SetState(GameState.DayRewards);
+            yield return ui.DayRewards.Play(CurrentDay, onDismissed: () =>
+            {
+                ui.Loading.Show();
+                ui.EyeClose.Hide();
+            });
 
             SetState(GameState.LoadingNight);
             float t0 = Time.unscaledTime;
@@ -307,15 +311,13 @@ namespace Game.Scripts
 
         private IEnumerator NightFinishedRoutine()
         {
-            SetState(GameState.DayRewards);
             var ui = UIManager.Instance;
-
-            // DayRewards fades in over NightCity. After click, raise Loading BEFORE the fade-out
-            // so the player never sees the bare NightCity again during the transition.
-            yield return ui.DayRewards.Play(CurrentDay, onDismissed: () => ui.Loading.Show());
-
             CurrentDay++;
             SetState(GameState.LoadingCity);
+
+            // Rewards are shown BEFORE the night now (in EndDayBySleepRoutine), so the night
+            // end just covers and transitions straight to the next day's intro.
+            ui.Loading.Show();
 
             float t0 = Time.unscaledTime;
             yield return SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene);
