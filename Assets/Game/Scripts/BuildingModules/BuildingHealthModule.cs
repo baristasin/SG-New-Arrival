@@ -10,7 +10,7 @@ namespace Game.Scripts.BuildingModules
         [SerializeField] private Renderer _renderer;
         [SerializeField] private int _buildingStartingHealth;
         
-        [SerializeField] private EventReference _buildingDamageEvent;
+        // [SerializeField] private EventReference _buildingDamageEvent;
 
         public event Action<int> OnHealthChanged;
 
@@ -44,7 +44,7 @@ namespace Game.Scripts.BuildingModules
             _colorTween = _renderer.material.DOColor(Color.red, 0.1f).SetEase(Ease.OutQuad)
                 .OnComplete(() => _renderer.material.DOColor(_originalColor, 0.2f).SetEase(Ease.InQuad));
 
-            AudioManager.Instance.PlayOneShot(_buildingDamageEvent, transform.position);
+            // AudioManager.Instance.PlayOneShot(_buildingDamageEvent, transform.position);
         }
     }
 }

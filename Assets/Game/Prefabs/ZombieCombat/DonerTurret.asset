@@ -16,7 +16,7 @@ MonoBehaviour:
   RewardDay: 0
   Category: 1
   Damage: 20
-  Range: 10
+  Range: 6
   FireInterval: 0.4
   Knockback: 0
   Noise: 1

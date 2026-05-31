@@ -28,6 +28,9 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private float _buildingHalfWidth = 30f;
         [SerializeField] private int _initialPoolSize = 50;
         [SerializeField] private int _totalGroups = 5;
+        [Tooltip("Seconds between each zombie spawned inside a wave entry. Prevents the big " +
+                 "single-frame instantiate hitch when an entry has many zombies.")]
+        [SerializeField] private float _spawnInterval = 0.08f;
         [SerializeField] private WaveData[] _waves;
 
         private static Pool<ZombieController> _pool;
@@ -53,7 +56,12 @@ namespace Game.Scripts.ZombieModules
                 foreach (var entry in wave.Entries)
                 {
                     for (int i = 0; i < entry.ZombieCount; i++)
+                    {
                         SpawnZombie();
+                        // Drip the spawns out so a 50-zombie entry doesn't hitch the frame.
+                        if (i < entry.ZombieCount - 1 && _spawnInterval > 0f)
+                            yield return new WaitForSeconds(_spawnInterval);
+                    }
 
                     yield return new WaitForSeconds(entry.DelayAfter);
                 }

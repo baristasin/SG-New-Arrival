@@ -1,3 +1,4 @@
+using System;
 using Game.Scripts.PlayerModules;
 using Game.Scripts.ZombieModules;
 using Sirenix.OdinInspector;
@@ -42,6 +43,14 @@ namespace Game.Scripts.Night
             // (e.g. a hot-reload). Catch it up so we don't sit locked forever.
             if (!_combatStarted && GameManager.Instance != null &&
                 GameManager.Instance.State == GameState.NightCombat)
+            {
+                BeginCombat();
+            }
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown("space"))
             {
                 BeginCombat();
             }
