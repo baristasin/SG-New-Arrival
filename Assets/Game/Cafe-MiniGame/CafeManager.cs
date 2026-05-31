@@ -1,17 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using TMPro;
 
 public class CafeManager : MonoBehaviour
 {
     [Header("Setup")]
     public List<Table> allTables;
     public GameObject GuestPrefab;
+
+    public TextMeshProUGUI scoreText;
     
     private Table[,] tableGrid = new Table[5, 5]; 
     
     private Queue<GuestData> guestQueue = new Queue<GuestData>();
     private GuestData currentGuest;
+  
 
 
     
@@ -26,6 +30,7 @@ public class CafeManager : MonoBehaviour
         InitializeTableGrid();
         InitializeGuestQueue();
         SpawnNextGuest();
+        scoreText.text = "Score: 00";
     }
 
     void Update()
@@ -82,7 +87,7 @@ public class CafeManager : MonoBehaviour
     }
 
     void SpawnNextGuest()
-    {
+    {   scoreText.text = $"Score: {CalculateFinalScore()}";
         if (guestQueue.Count > 0)
         {
             currentGuest = guestQueue.Dequeue();
@@ -178,7 +183,7 @@ public class CafeManager : MonoBehaviour
 
         SpawnNextGuest();
     }
-    public void CalculateFinalScore()
+    public int CalculateFinalScore()
     {
         Debug.Log("All seats taken final score is...");
 
@@ -231,6 +236,7 @@ public class CafeManager : MonoBehaviour
         finalScore += synergyBonus;
         Debug.Log($"Synergie-Bonus/Malus total: {synergyBonus} Points.");
         Debug.Log($"=== final result: {finalScore} points ===");
+        return finalScore;
     }
 
     // copare two spots
