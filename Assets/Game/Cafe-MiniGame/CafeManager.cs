@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using TMPro;
+using UnityEngine.UI;
 
 public class CafeManager : MonoBehaviour
 {
@@ -16,12 +17,18 @@ public class CafeManager : MonoBehaviour
     private Queue<GuestData> guestQueue = new Queue<GuestData>();
     private GuestData currentGuest;
   
+    [Header("UI-Setup")]
+    public GameObject introPanel;
+    public Image portraitImage;
+    public TextMeshProUGUI speechBubbleText;
 
 
     
     [Header("Active Guest Interaction")]
     public GameObject activeGuestObject; 
     public Transform spawnPoint;
+
+    public List<GuestCreationData> guestDeckEditorList;
 
     private GameObject waitingGuestVisuals;
 
@@ -30,7 +37,7 @@ public class CafeManager : MonoBehaviour
         InitializeTableGrid();
         InitializeGuestQueue();
         SpawnNextGuest();
-        scoreText.text = "Score: 00";
+        scoreText.text = "Score: 0";
     }
 
     void Update()
@@ -56,6 +63,29 @@ public class CafeManager : MonoBehaviour
     // Create a deck of guests
     void InitializeGuestQueue()
     {
+        List<GuestData> temporaryList = new List<GuestData>();
+
+        foreach(GuestCreationData editorGuest in guestDeckEditorList)
+        {
+           List<GuestData.InterestType> likes = new List<GuestData.InterestType> { editorGuest.like1, editorGuest.like2 };
+            
+            temporaryList.Add(new GuestData(
+                editorGuest.name, 
+                likes, 
+                editorGuest.dislike, 
+                editorGuest.portraitSprite, 
+                editorGuest.dynamicCharacterPrefab
+            )); 
+        }
+
+        ShuffleList(temporaryList);
+
+        foreach (GuestData guest in temporaryList)
+        {
+            guestQueue.Enqueue(guest);
+        }
+
+        /*
         var BG = GuestData.InterestType.Boardgames;
         var MU = GuestData.InterestType.Music;
         var BE = GuestData.InterestType.Beer;
@@ -84,9 +114,24 @@ public class CafeManager : MonoBehaviour
         guestQueue.Enqueue(new GuestData("Concert-Goer 2", new List<GuestData.InterestType> { MU, BE }, BG));
         guestQueue.Enqueue(new GuestData("Concert-Goer 3", new List<GuestData.InterestType> { MU, BK }, BG));
         guestQueue.Enqueue(new GuestData("Concert-Goer 4", new List<GuestData.InterestType> { MU, BE }, BK));
+        */
+
     }
 
-    void SpawnNextGuest()
+    private void ShuffleList<T>(List<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    public void SpawnNextGuest()
     {   scoreText.text = $"Score: {CalculateFinalScore()}";
         if (guestQueue.Count > 0)
         {
@@ -94,10 +139,40 @@ public class CafeManager : MonoBehaviour
             
             Debug.Log($"NextGuest: {currentGuest.Name}. Likes: {currentGuest.Likes[0]} & {currentGuest.Likes[1]}. Hates: {currentGuest.Dislike}");
 
+            if(introPanel != null) introPanel.SetActive(true);
+            if (portraitImage != null && currentGuest.Portrait != null)
+            {
+                portraitImage.sprite = currentGuest.Portrait;
+            }
+
+            if (speechBubbleText != null)
+            {
+                string spriteLike1 = GetSpriteAssetName(currentGuest.Likes[0]);
+                string spriteLike2 = GetSpriteAssetName(currentGuest.Likes[1]);
+                string spriteDislike = GetSpriteAssetName(currentGuest.Dislike);
+
+                speechBubbleText.text = $"Hi, my name is {currentGuest.Name}. I like: <sprite=\"{spriteLike1}\" index=0> and" +
+                                        $"<sprite=\"{spriteLike2}\" index=0>\n and I hate: <sprite=\"{spriteDislike}\" index=0>";
+            }
+
             //spawn guest nexto Hazem
-            if (GuestPrefab != null && spawnPoint != null)
+            if (spawnPoint != null)
             {
                 Vector3 waitPosition = spawnPoint.position + new Vector3(1.5f, 0, 0);
+
+                GameObject prefabToSpawn = currentGuest.CharacterPrefab != null ? currentGuest.CharacterPrefab : GuestPrefab;
+
+                if (prefabToSpawn != null)
+                {
+                    waitingGuestVisuals = Instantiate(prefabToSpawn, waitPosition, spawnPoint.rotation);
+                    GuestVisuals guestVisuals = waitingGuestVisuals.GetComponent<GuestVisuals>();
+                    if (guestVisuals != null)
+                    {
+                        guestVisuals.SetupSpeechBubble(currentGuest);
+                    }
+                }
+
+                /*
                 waitingGuestVisuals = Instantiate(GuestPrefab, waitPosition, spawnPoint.rotation);
 
                 //adjust speechBubblo
@@ -105,7 +180,7 @@ public class CafeManager : MonoBehaviour
                 if (guestVisuals != null)
                 {
                     guestVisuals.SetupSpeechBubble(currentGuest);
-                }
+                }*/
             }
 
 
@@ -122,7 +197,21 @@ public class CafeManager : MonoBehaviour
         }
         else
         {
-            CalculateFinalScore();
+            speechBubbleText.text = $"Congratulations! Everyone is seated.\n "+
+                                    $"Your final score is: {CalculateFinalScore()} ";
+            //CalculateFinalScore();
+        }
+    }
+
+    private string GetSpriteAssetName(GuestData.InterestType interest)
+    {
+        switch (interest)
+        {
+            case GuestData.InterestType.Books:      return "icons8-offenes-buch-64";
+            case GuestData.InterestType.Boardgames: return "icons8-joystick-64";
+            case GuestData.InterestType.Music:      return "icons8-musiknoten-64";
+            case GuestData.InterestType.Beer:       return "icons8-bier-64";
+            default:                                return "";
         }
     }
 
@@ -262,6 +351,17 @@ public class CafeManager : MonoBehaviour
         if (spotA.myGuest.Likes.Contains(spotB.myGuest.Dislike)) scoreDelta -= 2;
 
         return scoreDelta;
+    }
+
+    [System.Serializable]
+    public struct GuestCreationData
+    {
+        public string name;
+        public GuestData.InterestType like1;
+        public GuestData.InterestType like2;
+        public GuestData.InterestType dislike;
+        public Sprite portraitSprite;
+        public GameObject dynamicCharacterPrefab;
     }
 
     

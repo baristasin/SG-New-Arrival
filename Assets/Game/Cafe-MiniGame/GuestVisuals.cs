@@ -1,32 +1,26 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GuestVisuals : MonoBehaviour
 {
     [Header("UI Elements")]
-    public GameObject speechBubbleCanvas;
     public GameObject sittingBubbleCanvas;
-
-    public TextMeshProUGUI speechText;
     public TextMeshProUGUI sittingSpeechText;
 
     void Start()
     {
-        speechBubbleCanvas.SetActive(true);
         sittingBubbleCanvas.SetActive(false);
     }
     public void SetupSpeechBubble(GuestData data)
     {
-        if (speechText != null && data != null)
+        if (sittingBubbleCanvas != null && data != null)
         {
             //Get those Names
             string spriteLike1 = GetSpriteAssetName(data.Likes[0]);
             string spriteLike2 = GetSpriteAssetName(data.Likes[1]);
             string spriteDislike = GetSpriteAssetName(data.Dislike);
 
-            // SpeechBubble Text
-            speechText.text =           $"Like: <sprite=\"{spriteLike1}\" index=0> & <sprite=\"{spriteLike2}\" index=0>\n" +
-                                        $"Hate: <sprite=\"{spriteDislike}\" index=0>";
             sittingSpeechText.text =    $"<sprite=\"{spriteLike1}\" index=0> & <sprite=\"{spriteLike2}\" index=0>\n" + $"<sprite=\"{spriteDislike}\" index=0>";
         }
     }
@@ -43,13 +37,8 @@ public class GuestVisuals : MonoBehaviour
             default:                                return "";
         }
     }
-
     public void HideSpeechBubble()
     {
-        if (speechBubbleCanvas != null)
-        {
-            speechBubbleCanvas.SetActive(false);
-            sittingBubbleCanvas.SetActive(true);
-        }
+        sittingBubbleCanvas.SetActive(true);
     }
 }
