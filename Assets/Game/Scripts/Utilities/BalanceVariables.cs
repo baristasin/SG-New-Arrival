@@ -30,5 +30,15 @@ namespace Game.Scripts.Utilities
         
         public float ZombieLureDistance;
         public float ZombieAttackDistance;
-    }    
+
+        [Header("Sanity")]
+        public float MaxSanity = 100f;
+        public float SanityDrainPerSecond = 1f;   // drain while in a minigame (the "1-by-1" drop)
+        public float LateDrainPerSecond = 0.5f;    // drain while late (past 10AM) — used by the flow later
+
+        [Header("Sanity stage thresholds (sanity >= ...)")]
+        public float StableThreshold = 75f;        // >= 75 : Stable
+        public float UnsettledThreshold = 50f;     // >= 50 : Unsettled
+        public float DisturbedThreshold = 25f;     // >= 25 : Disturbed, else Critical
+    }
 }

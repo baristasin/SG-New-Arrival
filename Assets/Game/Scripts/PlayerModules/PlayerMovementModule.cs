@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,13 @@ namespace Game.Scripts.PlayerModules
         [SerializeField] private float _moveSpeed = 4f;
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private PlayerAnimationModule _animationModule;
+
+        [Tooltip("On = character always faces the mouse cursor (combat/aim mode). " +
+                 "Off = character faces its movement direction (exploration mode).")]
+        [SerializeField] private bool _faceMouseDirection = true;
+
+        [SerializeField] private EventReference _footstepEvent;
 
         private void Awake()
         {
@@ -34,27 +42,36 @@ namespace Game.Scripts.PlayerModules
 
             Vector3 moveDir = camForward * v + camRight * h;
             if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
+            bool isMoving = moveDir.sqrMagnitude > 0.0001f;
 
-            if (moveDir.sqrMagnitude > 0.0001f)
+            if (isMoving)
+            {
                 _agent.Move(moveDir * _moveSpeed * Time.deltaTime);
+                // AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
+            }
 
-            if (Input.GetMouseButton(1))
+            // _faceMouseDirection toggles which way the body looks. On = combat/aim feel
+            // (NightCity). Off = third-person exploration feel (DayCity).
+            Vector3 facing = Vector3.zero;
+            if (_faceMouseDirection)
             {
                 Vector3 aimDir = GetAimDirection();
                 aimDir.y = 0f;
-                if (aimDir.sqrMagnitude > 0.0001f)
-                {
-                    Quaternion target = Quaternion.LookRotation(aimDir.normalized);
-                    transform.rotation = Quaternion.RotateTowards(
-                        transform.rotation, target, _rotationSpeed * Time.deltaTime);
-                }
+                if (aimDir.sqrMagnitude > 0.0001f) facing = aimDir;
             }
-            else if (moveDir.sqrMagnitude > 0.0001f)
+            else if (isMoving)
             {
-                Quaternion target = Quaternion.LookRotation(moveDir.normalized);
+                facing = moveDir;
+            }
+
+            if (facing.sqrMagnitude > 0.0001f)
+            {
+                Quaternion target = Quaternion.LookRotation(facing.normalized);
                 transform.rotation = Quaternion.RotateTowards(
                     transform.rotation, target, _rotationSpeed * Time.deltaTime);
             }
+
+            if (_animationModule != null) _animationModule.SetMoving(isMoving);
         }
 
         private Vector3 GetAimDirection()

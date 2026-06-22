@@ -366,12 +366,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -715,12 +715,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: I'm thrilled to be starting my master's programme soon!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8fc93d99fc344b04855346de3022b43, type: 2}
   m_sharedMaterial: {fileID: -5636047233872293619, guid: f8fc93d99fc344b04855346de3022b43, type: 2}
@@ -852,12 +852,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1126,12 +1126,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
-  m_fontSizeMax: 26
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1410,20 +1410,9 @@ MonoBehaviour:
   _studentImage: {fileID: 8100297286815403163}
   _studentNameText: {fileID: 3472034504597854319}
   _budgetStoryText: {fileID: 457392149292095949}
-  _visaStoryText: {fileID: 8039879628970244507}
+  _lengthOfStayText: {fileID: 8039879628970244507}
   _enrollmentStoryText: {fileID: 229175337039671093}
   _schufaRecord: {fileID: 7162774147916089605}
   _nationality: {fileID: 1252886731942089816}
   _placeOfBirth: {fileID: 7007788207491202567}
   _dateOfBirth: {fileID: 1873091977759956831}
-  _studentSprites:
-  - {fileID: 21300000, guid: c148167f6ed0449e18b6dd0fa9c5f097, type: 3}
-  - {fileID: 21300000, guid: 54c866fc19164469aa116d2ea5491186, type: 3}
-  - {fileID: 21300000, guid: 538db22a1d29c444fb32d4d5f79b4500, type: 3}
-  - {fileID: 21300000, guid: 3ee923b3148124e78b5dcf90bc86b7a9, type: 3}
-  - {fileID: 21300000, guid: 7e26c34c018fe405b9adc43f18694bda, type: 3}
-  - {fileID: 21300000, guid: 86bfc2b7ed58b43d2a5dfb1045130aaa, type: 3}
-  - {fileID: 21300000, guid: b83cb6e881ff849cca25bd8a3f3c7b7a, type: 3}
-  - {fileID: 21300000, guid: 8366a867abb5444f48ba489b54ccc45e, type: 3}
-  - {fileID: 21300000, guid: 3296366e0d58a45eeb54b297c67c4790, type: 3}
-  - {fileID: 21300000, guid: 05a35ff0587b54956b9ad2baabe58560, type: 3}

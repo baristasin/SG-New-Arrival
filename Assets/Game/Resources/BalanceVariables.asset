@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Utilities.BalanceVariables
   ZombieLureDistance: 100
   ZombieAttackDistance: 16
+  MaxSanity: 100
+  SanityDrainPerSecond: 0.4
+  LateDrainPerSecond: 0.5
+  StableThreshold: 75
+  UnsettledThreshold: 50
+  DisturbedThreshold: 25

@@ -32,6 +32,12 @@ namespace Game.Scripts.ZombieModules
         private List<ZombieBaseNode> _allNodes = new List<ZombieBaseNode>();
         private Node _topNode;
         private bool _isInitialized;
+        private float _danceUntil;
+
+        // Refreshed each frame by the Ampelmännchen turret while this zombie is in its dance area;
+        // expires shortly after, so the zombie resumes once it leaves the area / the light changes.
+        public bool IsDancing => Time.time < _danceUntil;
+        public void Dance(float duration) => _danceUntil = Time.time + duration;
 
         public void Setup(Vector3 buildingHitPoint, int tickGroup, int totalGroups)
         {
@@ -39,6 +45,7 @@ namespace Game.Scripts.ZombieModules
             _tickGroup = tickGroup;
             _totalGroups = totalGroups;
             _collider.enabled = true;
+            _danceUntil = 0f;
 
             ZombieRegistry.Register(_collider, _zombieHealthModule);
             Initialize();
@@ -46,9 +53,15 @@ namespace Game.Scripts.ZombieModules
 
         public void ZombieDead()
         {
+            // Tear down the floating health bar instantly — don't wait for LateUpdate or for
+            // the death animation to finish.
+            ZombieHealthBarPool.HideFor(transform);
+            ZombieSpawnManager.RegisterKill();
+
             UnregisterZombie();
             _collider.enabled = false;
             _isInitialized = false;
+            _zombieMovementModule.StopForDeath();
             StartCoroutine(DeathSequence());
         }
 
@@ -80,6 +93,7 @@ namespace Game.Scripts.ZombieModules
 
         private Node ConstructBehaviourTree()
         {
+            var knockbackNode = new IsKnockedBackNode();
             var dancingNode = new DancingNode();
             var checkHealthNode = new CheckHealthNode();
             var isBeingLuredNode = new IsBeingLuredNode();
@@ -88,6 +102,7 @@ namespace Game.Scripts.ZombieModules
             var tryToAttackNode = new TryToAttackNode();
             var goToAttackTargetNode = new GoToAttackTargetNode();
 
+            _allNodes.Add(knockbackNode);
             _allNodes.Add(dancingNode);
             _allNodes.Add(checkHealthNode);
             _allNodes.Add(isBeingLuredNode);
@@ -147,6 +162,7 @@ namespace Game.Scripts.ZombieModules
             // ROOT SELECTOR
             return new Selector(new List<Node>
             {
+                knockbackNode,
                 dancingNode,
                 surviveAndSpecialSequence,
                 attackPlayerSequence,

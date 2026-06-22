@@ -23,34 +23,27 @@ namespace Game.Scripts.ApartmentHunting
         
         [SerializeField] private Image _apartmentImage;
 
-        [SerializeField] private Sprite[] _apartmentSprites;
-
         public override void Initialize(ApartmentEntry data)
         {
             base.Initialize(data);
             _apartmentNameText.text = data.Name;
-            _priceStoryText.text = data.PriceCategory.ToString();
-            _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung ? "Yes anmeldung" : "No anmeldung";
+            // Price uses the int rent amount; Anmeldung + Schufa derive from the booleans; Type
+            // stays straight from the enum.
+            _priceStoryText.text = $"{data.RentAmount}€ per month";
+            _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung
+                ? "Can be used for registration"
+                : "It is only for short stays";
             _dormitoryStoryText.text = data.Type.ToString();
-            _schufaStoryText.text = data.RequiresSchufa ? "Yes schufa" : "No schufa";
-            
+            _schufaStoryText.text = data.RequiresSchufa
+                ? "You must provide Schufa credit report"
+                : "There is no need for Schufa";
+
             if (_addressText != null)
                 _addressText.text = data.Address;
             if (_landlordText != null)
                 _landlordText.text = data.Landlord;
-            if (_apartmentImage != null)
-                _apartmentImage.sprite = GetSpriteForId(data.Id);
-        }
-
-        private Sprite GetSpriteForId(int id)
-        {
-            int index = id - 1;
-            if (_apartmentSprites != null && index >= 0 && index < _apartmentSprites.Length)
-                return _apartmentSprites[index];
-
-            Debug.LogWarning($"[ApartmentPaperBase] No sprite for apartment Id {id} " +
-                             $"(assigned {_apartmentSprites?.Length ?? 0} sprites).");
-            return null;
+            if (_apartmentImage != null && ApartmentHuntingManager.Active != null)
+                _apartmentImage.sprite = ApartmentHuntingManager.Active.GetApartmentSpriteForId(data.Id);
         }
     }
 }

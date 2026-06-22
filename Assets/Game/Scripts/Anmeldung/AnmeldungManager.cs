@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Anmeldung
 {
-    public class AnmeldungManager : MonoBehaviour
+    public class AnmeldungManager : MonoBehaviour, IMinigameManager
     {
         [SerializeField] private StudentDatabase _studentDatabase;
         [SerializeField] private List<AnmeldungDocument> _anmeldungDocuments;
@@ -20,6 +20,7 @@ namespace Game.Scripts.Anmeldung
 
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private AnmeldungSanityCorruption _sanityCorruption;
 
         private AnmeldungDocument _currentAnmeldung;
         private List<DraggableItem> _currentItems;
@@ -29,8 +30,12 @@ namespace Game.Scripts.Anmeldung
 
         private int _points;
 
-        private void Start()
+        // Called by MinigameStation after the tutorial closes. Paper + items slide in here, not
+        // on Start, so they don't appear behind the fullscreen tutorial sheet.
+        public void BeginGame()
         {
+            _currentRound = 0;
+            _points = 0;
             StartCoroutine(StartRound());
         }
 
@@ -47,11 +52,13 @@ namespace Game.Scripts.Anmeldung
             yield return SlideInItems();
         }
 
+        // Sequential for the first pass through the database, then random for every round after
+        // — sanity (not the deck) decides when the day ends, so we never run out of students.
         private StudentProfile PickStudentForRound(int round)
         {
-            if (_studentDatabase == null || _studentDatabase.Students.Count == 0)
-                return null;
-            return _studentDatabase.Students[round % _studentDatabase.Students.Count];
+            var list = _studentDatabase != null ? _studentDatabase.Students : null;
+            if (list == null || list.Count == 0) return null;
+            return round < list.Count ? list[round] : list[Random.Range(0, list.Count)];
         }
 
         private IEnumerator SlideInAnmeldungPaper()
@@ -63,11 +70,15 @@ namespace Game.Scripts.Anmeldung
                 .SetEase(Ease.OutQuad).WaitForCompletion();
 
             _currentSlots = _currentAnmeldung.Slots;
+
+            if (_sanityCorruption != null)
+                _sanityCorruption.SetPaper(_currentAnmeldung);
         }
 
         private IEnumerator SlideInItems()
         {
-            var datas = AnmeldungItemFactory.BuildRound(_currentStudent);
+            bool includeDistractors = _sanityCorruption == null || _sanityCorruption.ShouldShowDistractors;
+            var datas = AnmeldungItemFactory.BuildRound(_currentStudent, includeDistractors);
             _currentItems = new List<DraggableItem>();
 
             int count = Mathf.Min(datas.Count, _itemTransforms.Count);

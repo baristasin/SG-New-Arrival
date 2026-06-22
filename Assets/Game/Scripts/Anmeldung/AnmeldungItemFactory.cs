@@ -8,7 +8,7 @@ namespace Game.Scripts.Anmeldung
 {
     public static class AnmeldungItemFactory
     {
-        public static List<DraggableItemData> BuildRound(StudentProfile student)
+        public static List<DraggableItemData> BuildRound(StudentProfile student, bool includeDistractors = true)
         {
             if (student == null)
                 throw new ArgumentNullException(nameof(student));
@@ -20,11 +20,14 @@ namespace Game.Scripts.Anmeldung
                 Make(PaperItemCategory.LandlordCertificate, student.Wohnungsgeber),
                 Make(PaperItemCategory.Address, student.AddressInGermany),
                 Make(PaperItemCategory.MoveInDate, FormatGermanDate(student.MoveInDate)),
-
-                Make(PaperItemCategory.MonthlyIncome, $"€{UnityEngine.Random.Range(600, 2001)}"),
-                Make(PaperItemCategory.DateOfBirth, FormatGermanDate(student.DateOfBirth)),
-                Make(PaperItemCategory.SizeOfApartment, $"{UnityEngine.Random.Range(20, 51)} m²"),
             };
+
+            if (includeDistractors)
+            {
+                items.Add(Make(PaperItemCategory.MonthlyIncome, $"€{UnityEngine.Random.Range(600, 2001)}"));
+                items.Add(Make(PaperItemCategory.DateOfBirth, FormatGermanDate(student.DateOfBirth)));
+                items.Add(Make(PaperItemCategory.SizeOfApartment, $"{UnityEngine.Random.Range(20, 51)} m²"));
+            }
 
             Shuffle(items);
             return items;

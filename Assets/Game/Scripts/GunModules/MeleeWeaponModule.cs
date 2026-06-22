@@ -4,12 +4,16 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    public class MeleeWeaponModule : MonoBehaviour
+    // Swings while held, hitting enemies based on how fast the cursor (this transform) turns.
+    public class MeleeWeaponModule : WeaponBase
     {
         [SerializeField] private float _slashThreshold = 10f;
         [SerializeField] private float _weaponLength = 2.5f;
+        [Tooltip("How far behind the weapon transform the hit-capsule starts. Increase if " +
+                 "zombies right next to the player aren't being hit (the capsule was starting at " +
+                 "the blade pivot and missing the player's own footprint).")]
+        [SerializeField] private float _handleBackExtent = 1f;
         [SerializeField] private float _weaponRadius = 0.5f;
-        [SerializeField] private int _baseDamage = 5;
         [SerializeField] private float _hitCooldown = 0.3f;
         [SerializeField] private LayerMask _targetLayer;
 
@@ -17,26 +21,37 @@ namespace Game.Scripts.GunModules
         private Collider[] _hitBuffer = new Collider[20];
         private Dictionary<Collider, float> _hitTimestamps = new();
 
-        private void Update()
+        private void OnEnable()
+        {
+            _lastAngle = transform.eulerAngles.y;
+        }
+
+        public override void Tick(bool aimHeld, bool fireHeld)
         {
             float currentAngle = transform.eulerAngles.y;
             float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(_lastAngle, currentAngle));
             _lastAngle = currentAngle;
 
-            if (!Input.GetMouseButton(1)) return;
+            if (!aimHeld) return;
 
             if (deltaAngle > _slashThreshold)
+            {
                 Slash(deltaAngle);
+                NotifyFired();
+            }
         }
 
         private void Slash(float speed)
         {
-            Vector3 start = transform.position;
-            Vector3 end = start + transform.forward * _weaponLength;
+            // Extend the capsule BEHIND the weapon pivot too, so zombies on top of the player
+            // are still inside the start sphere and get hit.
+            Vector3 start = transform.position - transform.forward * _handleBackExtent;
+            Vector3 end = transform.position + transform.forward * _weaponLength;
 
             int count = Physics.OverlapCapsuleNonAlloc(start, end, _weaponRadius, _hitBuffer, _targetLayer);
 
-            int damage = (int)(_baseDamage * (speed / _slashThreshold));
+            int baseDamage = _data != null ? _data.Damage : 0;
+            int damage = (int)(baseDamage * (speed / _slashThreshold));
 
             for (int i = 0; i < count; i++)
             {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StudentDatabase
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.StudentData.StudentDatabase
   Students:
-  - IdNumber: 0
+  - IdNumber: 1
     Id: emma-fischer
     FirstName: Emma
     LastName: Fischer
@@ -32,7 +32,33 @@ MonoBehaviour:
     Wohnungsgeber: "M\xFCller Wohnen GmbH"
     FormerAddressAbroad: Getreidegasse 4, 5020 Salzburg, Austria
     HasPreviousSchufa: 1
-  - IdNumber: 1
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC450 per month."
+    Visa:
+      PassportId: AT3940218
+      PassportIssued: 2020-01-01
+      PassportExpiryDate: 2030-01-01
+      AdmissionDeadline: 
+      FinancialFunds: -232
+      MonthlyRelease: 0
+      Iban: DE12 1007 0000 0123 4567 89
+      LanguageCertLevel: 4
+      LanguageCertDate: 2025-10-15
+      LanguageCertProvider: ROEFFEL
+      ApsName: 
+      VisaPaymentOrder: 75
+      TravelInsurancePerson: 
+      PhotosTotal: 0
+      PhotosQuality: 0
+      CheckPassport: 1
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 2
     Id: yasmin-al-amir
     FirstName: Yasmin
     LastName: Al-Amir
@@ -51,7 +77,33 @@ MonoBehaviour:
     Wohnungsgeber: "K\xF6lner Studierendenwerk"
     FormerAddressAbroad: El-Tahrir Square 12, Cairo, Egypt
     HasPreviousSchufa: 0
-  - IdNumber: 2
+    IsExchangeStudent: 0
+    BudgetText: "Hmm\u2026 I can afford max. \u20AC250 per month."
+    Visa:
+      PassportId: A94820194
+      PassportIssued: 2018-05-01
+      PassportExpiryDate: 2028-05-01
+      AdmissionDeadline: 2026-08-31
+      FinancialFunds: 11409
+      MonthlyRelease: 929
+      Iban: DE89 2008 0000 0987 6543 21
+      LanguageCertLevel: 4
+      LanguageCertDate: 2025-11-02
+      LanguageCertProvider: Schiller
+      ApsName: 
+      VisaPaymentOrder: 75
+      TravelInsurancePerson: Harit Al-Amir
+      PhotosTotal: 3
+      PhotosQuality: 1
+      CheckPassport: 1
+      CheckLetterOfAdmission: 1
+      CheckBlockedAccount: 0
+      CheckLanguageCertificate: 1
+      CheckAps: 2
+      CheckVisaPaymentOrder: 1
+      CheckTravelInsurance: 0
+      CheckBiometricPhotos: 1
+  - IdNumber: 3
     Id: lucas-silva
     FirstName: Lucas
     LastName: Silva
@@ -70,7 +122,33 @@ MonoBehaviour:
     Wohnungsgeber: Karl Hauser (Private Landlord)
     FormerAddressAbroad: "Avenida Paulista 1000, S\xE3o Paulo, Brazil"
     HasPreviousSchufa: 0
-  - IdNumber: 3
+    IsExchangeStudent: 0
+    BudgetText: "I've just landed, but there's nowhere to sleep. I've got \u20AC200."
+    Visa:
+      PassportId: BR5820491
+      PassportIssued: 2018-10-01
+      PassportExpiryDate: 2029-10-01
+      AdmissionDeadline: 2025-08-31
+      FinancialFunds: 0
+      MonthlyRelease: 0
+      Iban: DE45 1005 0000 0011 2233 44
+      LanguageCertLevel: 0
+      LanguageCertDate: 
+      LanguageCertProvider: 
+      ApsName: 
+      VisaPaymentOrder: 75
+      TravelInsurancePerson: 
+      PhotosTotal: 0
+      PhotosQuality: 0
+      CheckPassport: 1
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 4
     Id: alex-taylor
     FirstName: Alex
     LastName: Taylor
@@ -86,10 +164,36 @@ MonoBehaviour:
     IsEnrolled: 1
     AddressInGermany: "Karl-Marx-Stra\xDFe 22, 50672 K\xF6ln"
     MoveInDate: 2026-03-20
-    Wohnungsgeber: WG-Gesucht Vermietung (Thomas Klein)
+    Wohnungsgeber: WG-Gesucht Vermietung
     FormerAddressAbroad: 14 Park Street, Bristol, UK
     HasPreviousSchufa: 0
-  - IdNumber: 4
+    IsExchangeStudent: 0
+    BudgetText: "My budget is quite high. I've got \u20AC1,000."
+    Visa:
+      PassportId: 552194038
+      PassportIssued: 2014-02-01
+      PassportExpiryDate: 2024-02-01
+      AdmissionDeadline: 2026-08-31
+      FinancialFunds: 11904
+      MonthlyRelease: 992
+      Iban: DE23 3001 0060 0055 6677 88
+      LanguageCertLevel: 3
+      LanguageCertDate: 2025-12-11
+      LanguageCertProvider: Schiller
+      ApsName: 
+      VisaPaymentOrder: 0
+      TravelInsurancePerson: 
+      PhotosTotal: 2
+      PhotosQuality: 0
+      CheckPassport: 0
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 5
     Id: mateo-fernandez
     FirstName: Mateo
     LastName: Fernandez
@@ -105,10 +209,36 @@ MonoBehaviour:
     IsEnrolled: 0
     AddressInGermany: "Schillerstra\xDFe 5, 50677 K\xF6ln"
     MoveInDate: 2026-04-01
-    Wohnungsgeber: GAG Immobilien AG
+    Wohnungsgeber: Zement Immobilien AG
     FormerAddressAbroad: Carrer de Mallorca 250, Barcelona, Spain
     HasPreviousSchufa: 1
-  - IdNumber: 5
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC650 per month."
+    Visa:
+      PassportId: PAA830192
+      PassportIssued: 2018-04-01
+      PassportExpiryDate: 2028-04-01
+      AdmissionDeadline: 
+      FinancialFunds: 0
+      MonthlyRelease: 0
+      Iban: DE67 5019 0000 0009 8765 43
+      LanguageCertLevel: 0
+      LanguageCertDate: 
+      LanguageCertProvider: 
+      ApsName: 
+      VisaPaymentOrder: 0
+      TravelInsurancePerson: 
+      PhotosTotal: 0
+      PhotosQuality: 0
+      CheckPassport: 1
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 6
     Id: nia-okafor
     FirstName: Nia
     LastName: Okafor
@@ -127,7 +257,33 @@ MonoBehaviour:
     Wohnungsgeber: "K\xF6lner Studierendenwerk"
     FormerAddressAbroad: 5 Garki Way, Abuja, Nigeria
     HasPreviousSchufa: 0
-  - IdNumber: 6
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC500 per month."
+    Visa:
+      PassportId: A09482315
+      PassportIssued: 2020-11-01
+      PassportExpiryDate: 2030-11-01
+      AdmissionDeadline: 2026-08-31
+      FinancialFunds: 12000
+      MonthlyRelease: 1000
+      Iban: DE34 1001 1001 0012 3456 78
+      LanguageCertLevel: 4
+      LanguageCertDate: 2025-12-28
+      LanguageCertProvider: Triolingo
+      ApsName: 
+      VisaPaymentOrder: 37.5
+      TravelInsurancePerson: Nia Okafor
+      PhotosTotal: 3
+      PhotosQuality: 2
+      CheckPassport: 1
+      CheckLetterOfAdmission: 1
+      CheckBlockedAccount: 1
+      CheckLanguageCertificate: 0
+      CheckAps: 2
+      CheckVisaPaymentOrder: 0
+      CheckTravelInsurance: 1
+      CheckBiometricPhotos: 0
+  - IdNumber: 7
     Id: kenji-sato
     FirstName: Kenji
     LastName: Sato
@@ -146,7 +302,33 @@ MonoBehaviour:
     Wohnungsgeber: Rhein-Wohnen GmbH
     FormerAddressAbroad: 21 Shijo-dori, Kyoto, Japan
     HasPreviousSchufa: 0
-  - IdNumber: 7
+    IsExchangeStudent: 0
+    BudgetText: "My budget is quite high. I've got \u20AC800."
+    Visa:
+      PassportId: TR7301942
+      PassportIssued: 2016-01-01
+      PassportExpiryDate: 2026-01-01
+      AdmissionDeadline: 
+      FinancialFunds: 0
+      MonthlyRelease: 0
+      Iban: DE56 5001 0517 0076 5432 10
+      LanguageCertLevel: 0
+      LanguageCertDate: 
+      LanguageCertProvider: 
+      ApsName: 
+      VisaPaymentOrder: 0
+      TravelInsurancePerson: 
+      PhotosTotal: 0
+      PhotosQuality: 0
+      CheckPassport: 0
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 8
     Id: jordan-carter
     FirstName: Jordan
     LastName: Carter
@@ -165,7 +347,33 @@ MonoBehaviour:
     Wohnungsgeber: Sabine Schneider (Private Landlord)
     FormerAddressAbroad: 405 Michigan Ave, Chicago, USA
     HasPreviousSchufa: 0
-  - IdNumber: 8
+    IsExchangeStudent: 0
+    BudgetText: "Hmm\u2026 I can afford max. \u20AC300 per month."
+    Visa:
+      PassportId: 483029481
+      PassportIssued: 2021-02-01
+      PassportExpiryDate: 2031-02-01
+      AdmissionDeadline: 2024-08-31
+      FinancialFunds: 0
+      MonthlyRelease: 0
+      Iban: DE78 1203 0000 0044 3322 11
+      LanguageCertLevel: 5
+      LanguageCertDate: 2026-03-05
+      LanguageCertProvider: Spellit
+      ApsName: 
+      VisaPaymentOrder: 0
+      TravelInsurancePerson: 
+      PhotosTotal: 0
+      PhotosQuality: 0
+      CheckPassport: 1
+      CheckLetterOfAdmission: 2
+      CheckBlockedAccount: 2
+      CheckLanguageCertificate: 2
+      CheckAps: 2
+      CheckVisaPaymentOrder: 2
+      CheckTravelInsurance: 2
+      CheckBiometricPhotos: 2
+  - IdNumber: 9
     Id: priya-sharma
     FirstName: Priya
     LastName: Sharma
@@ -184,12 +392,38 @@ MonoBehaviour:
     Wohnungsgeber: L.E. Housing Group
     FormerAddressAbroad: 88 Marine Drive, Mumbai, India
     HasPreviousSchufa: 0
-  - IdNumber: 9
+    IsExchangeStudent: 0
+    BudgetText: "I've just landed, but there's nowhere to sleep. I've got \u20AC900."
+    Visa:
+      PassportId: Z6409123<
+      PassportIssued: 2022-05-01
+      PassportExpiryDate: 2032-05-01
+      AdmissionDeadline: 2026-08-31
+      FinancialFunds: 11904
+      MonthlyRelease: 992
+      Iban: DE90 7002 0270 0022 4466 88
+      LanguageCertLevel: 2
+      LanguageCertDate: 2025-08-14
+      LanguageCertProvider: ROEFFEL
+      ApsName: Priya Sharma
+      VisaPaymentOrder: 75
+      TravelInsurancePerson: Priya Sharma
+      PhotosTotal: 3
+      PhotosQuality: 3
+      CheckPassport: 1
+      CheckLetterOfAdmission: 1
+      CheckBlockedAccount: 1
+      CheckLanguageCertificate: 0
+      CheckAps: 1
+      CheckVisaPaymentOrder: 1
+      CheckTravelInsurance: 1
+      CheckBiometricPhotos: 0
+  - IdNumber: 10
     Id: mei-lin
     FirstName: Mei
     LastName: Lin
-    Nationality: Taiwan
-    PlaceOfBirth: Taipei
+    Nationality: China
+    PlaceOfBirth: Beijing
     DateOfBirth: 2000-03-11
     GermanLevel: 5
     EnglishLevel: 4
@@ -200,6 +434,32 @@ MonoBehaviour:
     IsEnrolled: 1
     AddressInGermany: "Am Schlossgarten 2, 50937 K\xF6ln"
     MoveInDate: 2026-04-01
-    Wohnungsgeber: Stiftung Diligentia
+    Wohnungsgeber: "Stiftung Sch\xF6ner Wohnen"
     FormerAddressAbroad: 102 Xinyi Road, Taipei, Taiwan
     HasPreviousSchufa: 0
+    IsExchangeStudent: 0
+    BudgetText: "I think, I can afford \u20AC400 per month."
+    Visa:
+      PassportId: X30291482
+      PassportIssued: 2020-04-01
+      PassportExpiryDate: 2030-04-01
+      AdmissionDeadline: 2025-08-31
+      FinancialFunds: 11904
+      MonthlyRelease: 400
+      Iban: DE21 3705 0198 0000 1234 56
+      LanguageCertLevel: 4
+      LanguageCertDate: 2025-07-31
+      LanguageCertProvider: Spellit
+      ApsName: 
+      VisaPaymentOrder: 75
+      TravelInsurancePerson: Mei Lin
+      PhotosTotal: 3
+      PhotosQuality: 1
+      CheckPassport: 1
+      CheckLetterOfAdmission: 0
+      CheckBlockedAccount: 0
+      CheckLanguageCertificate: 1
+      CheckAps: 0
+      CheckVisaPaymentOrder: 1
+      CheckTravelInsurance: 1
+      CheckBiometricPhotos: 1
