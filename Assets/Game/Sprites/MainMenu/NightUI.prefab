@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277332478290973105}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -460, y: -0.0457}
+  m_AnchoredPosition: {x: 141.00183, y: 471}
   m_SizeDelta: {x: 129.6584, y: 151.2787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22746180609158629
@@ -192,7 +192,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885211559481455302}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -203,7 +203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -630, y: -0.0457}
+  m_AnchoredPosition: {x: -28.998169, y: 471}
   m_SizeDelta: {x: 129.6584, y: 151.2787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2936769797384959822
@@ -815,7 +815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.HealthBarUI
   _fillImage: {fileID: 1288113037300390182}
-  _healthText: {fileID: 0}
   _maxHealth: 0
 --- !u!1 &5004728073656355396
 GameObject:
@@ -1055,7 +1054,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5294067696314287507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1066,7 +1065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: -0.0457}
+  m_AnchoredPosition: {x: -198.99817, y: 471}
   m_SizeDelta: {x: 129.6584, y: 151.2787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1810688440897685153
@@ -1479,7 +1478,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7176808371667717102}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1490,7 +1489,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -290, y: -0.0457}
+  m_AnchoredPosition: {x: 311.0019, y: 471}
   m_SizeDelta: {x: 129.6584, y: 151.2787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7173215977088144585
@@ -1656,10 +1655,10 @@ RectTransform:
   - {fileID: 897348594268794202}
   m_Father: {fileID: 3206761263276871665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 1.3896, y: 163}
-  m_SizeDelta: {x: 1816.6578, y: 226.55658}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -599.6123, y: -377}
+  m_SizeDelta: {x: 614.656, y: 226.55658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5942804970731850596
 CanvasRenderer:
@@ -1855,6 +1854,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b37259bcd36d426788ccb1c49293a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.Screens.NightUI
+  _playerHealth: {fileID: 0}
+  _buildingHealth: {fileID: 0}
+  _playerHealthBar: {fileID: 0}
+  _buildingHealthBar: {fileID: 0}
 --- !u!1 &9211904493574070281
 GameObject:
   m_ObjectHideFlags: 0

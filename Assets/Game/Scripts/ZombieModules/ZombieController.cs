@@ -56,6 +56,7 @@ namespace Game.Scripts.ZombieModules
             // Tear down the floating health bar instantly — don't wait for LateUpdate or for
             // the death animation to finish.
             ZombieHealthBarPool.HideFor(transform);
+            ZombieSpawnManager.RegisterKill();
 
             UnregisterZombie();
             _collider.enabled = false;

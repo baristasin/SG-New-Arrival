@@ -35,7 +35,10 @@ namespace Game.Scripts.GunModules
             if (!aimHeld) return;
 
             if (deltaAngle > _slashThreshold)
+            {
                 Slash(deltaAngle);
+                NotifyFired();
+            }
         }
 
         private void Slash(float speed)

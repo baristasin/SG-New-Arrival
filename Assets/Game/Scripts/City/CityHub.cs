@@ -11,6 +11,9 @@ namespace Game.Scripts.City
     public class CityHub : MonoBehaviour
     {
         [SerializeField] private List<MinigameStation> _stations = new();
+        [Tooltip("Player GameObject in the city. Hidden while a station is active so the body " +
+                 "doesn't show in the background behind the minigame UI.")]
+        [SerializeField] private GameObject _player;
 
         private void OnEnable()  { GameManager.Instance?.RegisterCity(this); }
         private void OnDisable() { GameManager.Instance?.UnregisterCity(this); }
@@ -19,6 +22,7 @@ namespace Game.Scripts.City
             _stations.Find(s => s != null && s.Id == id);
 
         // Disable every other station and enable the target one. Cinemachine handles the camera.
+        // Player is hidden so the city body isn't visible behind the minigame.
         public void EnterStation(MinigameId id)
         {
             foreach (var s in _stations) if (s != null) s.Exit();
@@ -30,13 +34,15 @@ namespace Game.Scripts.City
                 return;
             }
 
+            if (_player != null) _player.SetActive(false);
             station.Enter();
         }
 
-        // Reverse — all stations off; Cinemachine blends back to the city camera automatically.
+        // Reverse — all stations off; Cinemachine blends back to the city camera, player visible.
         public void ExitToCity()
         {
             foreach (var s in _stations) if (s != null) s.Exit();
+            if (_player != null) _player.SetActive(true);
         }
     }
 }

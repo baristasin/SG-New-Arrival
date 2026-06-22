@@ -15,10 +15,10 @@ MonoBehaviour:
   DisplayName: Pfand
   RewardDay: 0
   Category: 1
-  Damage: 20
+  Damage: 60
   Range: 40
-  FireInterval: 1
+  FireInterval: 0.5
   Knockback: 0
-  Noise: 1
+  Noise: 0
   MagazineSize: 0
   ReloadTime: 0

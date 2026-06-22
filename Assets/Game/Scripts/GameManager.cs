@@ -65,6 +65,7 @@ namespace Game.Scripts
         protected override void Awake()
         {
             base.Awake();
+            Application.targetFrameRate = 50;
             if (Instance != this) return;        // a duplicate was destroyed by the base
             Clock = new DayClock { SecondsPerInGameMinute = _secondsPerInGameMinute };
         }

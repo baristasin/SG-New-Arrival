@@ -31,16 +31,30 @@ namespace Game.Scripts.ZombieModules
         [Tooltip("Seconds between each zombie spawned inside a wave entry. Prevents the big " +
                  "single-frame instantiate hitch when an entry has many zombies.")]
         [SerializeField] private float _spawnInterval = 0.08f;
-        [SerializeField] private WaveData[] _waves;
+        [Tooltip("Wave data per day. Index = day-1 (element 0 → Day 1). Days past the end of " +
+                 "the list reuse the LAST entry forever (so Day 5+ keeps running the Day 4 wave).")]
+        [UnityEngine.Serialization.FormerlySerializedAs("_waves")]
+        [SerializeField] private WaveData[] _wavesByDay;
 
         private static Pool<ZombieController> _pool;
         private int _spawnCount;
+
+        // Static so any zombie's ZombieDead can bump it without a manager reference. Reset on
+        // each scene load in Awake so old kills don't leak between nights.
+        public static int KillCount { get; private set; }
+        public static void RegisterKill() => KillCount++;
+
+        // Fires once the RunWaves coroutine completes — after this, no more spawns. The night
+        // gate uses it to start watching for "0 zombies left" to declare a success.
+        public event Action OnAllWavesCompleted;
 
         private void Awake()
         {
             // Pool is built eagerly; waves are kicked off externally by NightCombatGate once
             // the NightIntro overlay closes — so zombies aren't spawning behind the intro.
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
+            _spawnCount = 0;
+            KillCount = 0;
         }
 
         [Button]
@@ -51,21 +65,55 @@ namespace Game.Scripts.ZombieModules
 
         private IEnumerator RunWaves()
         {
-            foreach (var wave in _waves)
+            var wave = GetWaveForDay(GameManager.Instance != null ? GameManager.Instance.CurrentDay : 1);
+            if (wave == null || wave.Entries == null || wave.Entries.Length == 0)
             {
-                foreach (var entry in wave.Entries)
-                {
-                    for (int i = 0; i < entry.ZombieCount; i++)
-                    {
-                        SpawnZombie();
-                        // Drip the spawns out so a 50-zombie entry doesn't hitch the frame.
-                        if (i < entry.ZombieCount - 1 && _spawnInterval > 0f)
-                            yield return new WaitForSeconds(_spawnInterval);
-                    }
-
-                    yield return new WaitForSeconds(entry.DelayAfter);
-                }
+                OnAllWavesCompleted?.Invoke();
+                yield break;
             }
+
+            foreach (var entry in wave.Entries)
+            {
+                yield return RunEntry(entry);
+            }
+
+            OnAllWavesCompleted?.Invoke();
+
+            // Survival mode: once the scripted wave finishes, re-run the LAST entry forever so
+            // pressure keeps climbing until the night clock ends combat. NightCombatGate stops
+            // this manager when it ends the night.
+            var last = wave.Entries[wave.Entries.Length - 1];
+            while (true)
+            {
+                yield return RunEntry(last);
+            }
+        }
+
+        private IEnumerator RunEntry(WaveEntry entry)
+        {
+            for (int i = 0; i < entry.ZombieCount; i++)
+            {
+                SpawnZombie();
+                if (i < entry.ZombieCount - 1 && _spawnInterval > 0f)
+                    yield return new WaitForSeconds(_spawnInterval);
+            }
+            yield return new WaitForSeconds(entry.DelayAfter);
+        }
+
+        // Drops extra zombies onto the field outside the wave schedule. NightCombatGate calls
+        // this to penalise loud weapons during Ruhezeit.
+        public void SpawnExtra(int count)
+        {
+            for (int i = 0; i < count; i++) SpawnZombie();
+        }
+
+        // Day 1 → element 0, Day 2 → element 1, … Days past the array length stay on the last
+        // entry so the night never goes silent.
+        private WaveData GetWaveForDay(int day)
+        {
+            if (_wavesByDay == null || _wavesByDay.Length == 0) return null;
+            int idx = Mathf.Clamp(day - 1, 0, _wavesByDay.Length - 1);
+            return _wavesByDay[idx];
         }
 
         public static void DespawnZombie(ZombieController zombie)

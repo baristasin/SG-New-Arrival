@@ -57,6 +57,7 @@ namespace Game.Scripts.GunModules
             _clearedAtMidpoint = false;
 
             _model.SetParent(null, true);   // unparent so world-position writes are clean
+            NotifyFired();
         }
 
         private void Advance()

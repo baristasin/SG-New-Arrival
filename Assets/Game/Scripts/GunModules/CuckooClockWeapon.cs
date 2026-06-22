@@ -51,6 +51,7 @@ namespace Game.Scripts.GunModules
             if (_cuckooSound != null) _cuckooSound.Play();
 
             _model.SetParent(null, true);
+            NotifyFired();
         }
 
         private void Advance()

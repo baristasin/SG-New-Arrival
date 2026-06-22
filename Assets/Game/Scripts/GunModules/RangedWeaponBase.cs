@@ -62,6 +62,7 @@ namespace Game.Scripts.GunModules
 
             if (_muzzleEffect != null) _muzzleEffect.Play();
             Fire();
+            NotifyFired();
 
             if (usesMagazine && AmmoInMagazine <= 0) BeginReload();
         }
