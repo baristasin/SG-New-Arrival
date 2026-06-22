@@ -11,7 +11,12 @@ namespace Game.Scripts.PlayerModules
         [SerializeField] private float _moveSpeed = 4f;
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private NavMeshAgent _agent;
-        
+        [SerializeField] private PlayerAnimationModule _animationModule;
+
+        [Tooltip("On = character always faces the mouse cursor (combat/aim mode). " +
+                 "Off = character faces its movement direction (exploration mode).")]
+        [SerializeField] private bool _faceMouseDirection = true;
+
         [SerializeField] private EventReference _footstepEvent;
 
         private void Awake()
@@ -45,21 +50,19 @@ namespace Game.Scripts.PlayerModules
                 // AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
             }
 
-            // Rotation: decoupled from movement. RMB wins (face the cursor) and is computed even
-            // while WASD is held. If RMB is up and the aim direction is degenerate (mouse near
-            // the player), fall back to the movement direction. This way the character always
-            // rotates when ANY input asks for it.
+            // _faceMouseDirection toggles which way the body looks. On = combat/aim feel
+            // (NightCity). Off = third-person exploration feel (DayCity).
             Vector3 facing = Vector3.zero;
-
-            if (Input.GetMouseButton(1))
+            if (_faceMouseDirection)
             {
                 Vector3 aimDir = GetAimDirection();
                 aimDir.y = 0f;
                 if (aimDir.sqrMagnitude > 0.0001f) facing = aimDir;
             }
-
-            if (facing.sqrMagnitude < 0.0001f && isMoving)
+            else if (isMoving)
+            {
                 facing = moveDir;
+            }
 
             if (facing.sqrMagnitude > 0.0001f)
             {
@@ -67,6 +70,8 @@ namespace Game.Scripts.PlayerModules
                 transform.rotation = Quaternion.RotateTowards(
                     transform.rotation, target, _rotationSpeed * Time.deltaTime);
             }
+
+            if (_animationModule != null) _animationModule.SetMoving(isMoving);
         }
 
         private Vector3 GetAimDirection()

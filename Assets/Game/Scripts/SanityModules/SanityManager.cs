@@ -16,6 +16,10 @@ namespace Game.Scripts.SanityModules
         // Set by the active context: the minigame rate while playing, a slower rate when late, 0 to pause.
         public float DrainPerSecond { get; set; }
 
+        // One-shot override consumed by the next ResetSanity call. Used by NightCombatGate to
+        // carry a reduced starting sanity into the next day based on the previous night's result.
+        private float? _nextStartingSanityOverride;
+
         public float Normalized =>
             BalanceVariables.Instance.MaxSanity > 0f ? Sanity / BalanceVariables.Instance.MaxSanity : 0f;
 
@@ -37,11 +41,21 @@ namespace Game.Scripts.SanityModules
 
         public void ResetSanity()
         {
-            Sanity = BalanceVariables.Instance.MaxSanity;
+            float start = _nextStartingSanityOverride ?? BalanceVariables.Instance.MaxSanity;
+            _nextStartingSanityOverride = null;   // consume — only the next reset uses this
+
+            Sanity = Mathf.Clamp(start, 0f, BalanceVariables.Instance.MaxSanity);
             DrainPerSecond = BalanceVariables.Instance.SanityDrainPerSecond;
             Stage = ComputeStage(Sanity);
             OnSanityChanged?.Invoke(Normalized);
             OnStageChanged?.Invoke(Stage);
+        }
+
+        // Override the value the NEXT ResetSanity call uses. Single-use — consumed on the next
+        // reset. Set this before GameManager.NightFinished() to penalise the upcoming morning.
+        public void SetNextStartingSanity(float value)
+        {
+            _nextStartingSanityOverride = value;
         }
 
         [Button]

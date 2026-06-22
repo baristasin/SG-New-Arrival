@@ -19,6 +19,6 @@ MonoBehaviour:
   Range: 30
   FireInterval: 0.3
   Knockback: 0.5
-  Noise: 1
+  Noise: 2
   MagazineSize: 25
   ReloadTime: 1
