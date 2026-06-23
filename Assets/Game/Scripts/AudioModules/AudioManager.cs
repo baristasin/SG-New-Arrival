@@ -93,6 +93,20 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
+    /// PlayOneShot(worldPosition) with a per-call volume multiplier. Same shape as the standard
+    /// 3D one-shot helper, just with setVolume bolted on. Use this when the caller already
+    /// knows where the sound should originate (e.g. weapon at player position).
+    /// </summary>
+    public void PlayOneShotWithVolume(EventReference eventRef, Vector3 worldPosition, float volume)
+    {
+        EventInstance instance = RuntimeManager.CreateInstance(eventRef);
+        instance.set3DAttributes(RuntimeUtils.To3DAttributes(worldPosition));
+        instance.setVolume(volume);
+        instance.start();
+        instance.release();
+    }
+
+    /// <summary>
     /// One-shots with parameters
     /// FMOD helper PlayOneShot cannot set parameters,
     /// so I create manually

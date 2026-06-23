@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FMODUnity;
 using Game.Scripts.StudentData;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Game.Scripts.Anmeldung
 {
     public class AnmeldungManager : MonoBehaviour, IMinigameManager
     {
+        public static AnmeldungManager Active { get; private set; }
+
         [SerializeField] private StudentDatabase _studentDatabase;
         [SerializeField] private List<AnmeldungDocument> _anmeldungDocuments;
         [SerializeField] private DraggableItem _draggableItemPrefab;
@@ -21,6 +24,28 @@ namespace Game.Scripts.Anmeldung
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private AnmeldungSanityCorruption _sanityCorruption;
+
+        [Header("Audio")]
+        [Tooltip("Played when the player drops an item into ANY slot — instant feedback, " +
+                 "regardless of whether the answer was correct.")]
+        [SerializeField] private EventReference _slotDropEvent;
+        [Tooltip("Played when the Complete / Submit button is pressed at the end of a round.")]
+        [SerializeField] private EventReference _submitEvent;
+
+        private void Awake() { Active = this; }
+        private void OnDestroy() { if (Active == this) Active = null; }
+
+        public void PlaySlotDropFeedback()
+        {
+            if (_slotDropEvent.IsNull) return;
+            AudioManager.Instance.PlayOneShot(_slotDropEvent);
+        }
+
+        public void PlaySubmit()
+        {
+            if (_submitEvent.IsNull) return;
+            AudioManager.Instance.PlayOneShot(_submitEvent);
+        }
 
         private AnmeldungDocument _currentAnmeldung;
         private List<DraggableItem> _currentItems;
@@ -134,6 +159,7 @@ namespace Game.Scripts.Anmeldung
         [Button]
         public void CompletePaper()
         {
+            PlaySubmit();
             CheckCompletion();
         }
 

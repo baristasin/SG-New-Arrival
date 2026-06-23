@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace Game.Scripts.GunModules
         [SerializeField] private Transform _model;            // the cuckoo bird
         [SerializeField] private LayerMask _targetLayerMask;
         [SerializeField] private AudioSource _cuckooSound;
+        [SerializeField] private EventReference _punchEvent;
+        [SerializeField, Range(0f, 2f)] private float _punchVolume = 0.7f;
 
         [Header("Spring punch")]
         [SerializeField] private float _extendTime = 1f;
@@ -52,6 +55,7 @@ namespace Game.Scripts.GunModules
 
             _model.SetParent(null, true);
             NotifyFired();
+            PlayShotSfx(_punchEvent, _punchVolume);
         }
 
         private void Advance()

@@ -22,6 +22,9 @@ namespace Game.Scripts.Anmeldung
 
             _currentItem = incoming;
             _currentItem.SnapToSlot(this);
+
+            // Instant audio feedback on any drop — correctness is judged later at submit time.
+            AnmeldungManager.Active?.PlaySlotDropFeedback();
         }
 
         public void Clear()

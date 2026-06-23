@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -16,8 +18,24 @@ namespace Game.Scripts.GunModules.Turrets
         [SerializeField] private float _skewerRadius = 0.4f;
         [SerializeField] private float _hitCooldown = 0.5f;
 
+        [Header("Audio")]
+        [Tooltip("Looping spin sound while the turret is enabled. Leave null to disable.")]
+        [SerializeField] private EventReference _spinLoopEvent;
+
         private readonly Collider[] _hitBuffer = new Collider[16];
         private readonly Dictionary<Collider, float> _hitTimestamps = new();
+        private EventInstance _spinInstance;
+
+        private void OnEnable()
+        {
+            if (!_spinLoopEvent.IsNull && !_spinInstance.isValid())
+                _spinInstance = AudioManager.Instance.PlayLoopAttached(_spinLoopEvent, gameObject);
+        }
+
+        private void OnDisable()
+        {
+            if (_spinInstance.isValid()) AudioManager.Instance.Stop(ref _spinInstance);
+        }
 
         protected override void OnUpdate()
         {

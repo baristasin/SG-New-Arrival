@@ -112,6 +112,7 @@ namespace Game.Scripts.Visa
             Submit();
             TotalScore += CorrectCount;
 
+            VisaManager.Active?.PlaySubmit();
             if (_visaManager != null) _visaManager.NextStudent();
         }
     }

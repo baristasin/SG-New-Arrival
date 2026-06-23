@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Game.Scripts.GunModules
     {
         [SerializeField] private Transform _model;            // the thrown child
         [SerializeField] private LayerMask _targetLayerMask;  // zombie layer
+        [SerializeField] private EventReference _throwEvent;
+        [SerializeField, Range(0f, 2f)] private float _throwVolume = 0.7f;
 
         [Header("Flight")]
         [SerializeField] private float _flightTime = 1.5f;
@@ -58,6 +61,7 @@ namespace Game.Scripts.GunModules
 
             _model.SetParent(null, true);   // unparent so world-position writes are clean
             NotifyFired();
+            PlayShotSfx(_throwEvent, _throwVolume);
         }
 
         private void Advance()

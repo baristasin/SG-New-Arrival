@@ -27,6 +27,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7127434142712575915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/traffic-light/traffic-light-wait
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/traffic-light/traffic-light-wait
+  Guid:
+    Data1: -289886627
+    Data2: 1127737853
+    Data3: -1659317584
+    Data4: 661754662
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6946779925189959569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/success-mini-game
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/success-mini-game
+  Guid:
+    Data1: -905137088
+    Data2: 1194558311
+    Data3: 1470988716
+    Data4: 852427354
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-6857889906384089907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,9 +96,36 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Zombies.bank
   Name: Zombies
   StudioPath: bank:/Voicelines/Zombies
-  lastModified: 639140415548016450
+  lastModified: 639177644977510599
   FileSizes: []
   Exists: 1
+--- !u!114 &-5326271750783885867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/paper-sound
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/paper-sound
+  Guid:
+    Data1: 1086962342
+    Data2: 1144133470
+    Data3: 502937785
+    Data4: -918598382
+  Banks:
+  - {fileID: -1946333703737582511}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4750907042210610407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,33 +153,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-4234581209570364789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/player/Footstep-1
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/player/Footstep-1
-  Guid:
-    Data1: -137634879
-    Data2: 1308746081
-    Data3: 2050445988
-    Data4: 1391000718
-  Banks:
-  - {fileID: 8988069978858246303}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-3304077908682765422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,10 +168,10 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639140415547996410
+  lastModified: 639177644977184373
   FileSizes:
   - Name: 
-    Value: 1226
+    Value: 2120
   Exists: 1
 --- !u!114 &-2852196418496443435
 MonoBehaviour:
@@ -146,6 +200,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2813292298772747099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/tv-buzzing
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/tv-buzzing
+  Guid:
+    Data1: 1440870493
+    Data2: 1209363027
+    Data3: -452944449
+    Data4: -1284935700
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2475123893213434379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: "event:/music/K\xF6lle Alaaf"
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: "event:/music/K\xF6lle Alaaf"
+  Guid:
+    Data1: -1434650668
+    Data2: 1306244283
+    Data3: -1196787839
+    Data4: -889342754
+  Banks:
+  - {fileID: -360034352547951655}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 165308
+--- !u!114 &-2093737406116401151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/submit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/submit
+  Guid:
+    Data1: -396250177
+    Data2: 1251616098
+    Data3: -541252438
+    Data4: 1828234602
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1946333703737582511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +296,7 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Day-Environment.bank
   Name: Day-Environment
   StudioPath: bank:/Environment/Day-Environment
-  lastModified: 639140415547981377
+  lastModified: 639177644977154317
   FileSizes: []
   Exists: 1
 --- !u!114 &-1216607810391221545
@@ -179,9 +314,108 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639140221027863767
+  lastModified: 639136902718086883
   FileSizes: []
   Exists: 1
+--- !u!114 &-1068596154365938550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/traffic-light/traffic-light-move
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/traffic-light/traffic-light-move
+  Guid:
+    Data1: 1667081406
+    Data2: 1116225378
+    Data3: -141435985
+    Data4: 1487820671
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-360034352547951655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Music/Music
+  lastModified: 639177644977443272
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-276195113886175415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/positive-sound-001
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/positive-sound-001
+  Guid:
+    Data1: -1533823096
+    Data2: 1208167868
+    Data3: -1417012322
+    Data4: 1671616018
+  Banks:
+  - {fileID: -1946333703737582511}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-179066364673466977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/Hast-du-ein-Visum.alp
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/music/Hast-du-ein-Visum.alp
+  Guid:
+    Data1: 129198882
+    Data2: 1177989195
+    Data3: 1796066229
+    Data4: -1478484340
+  Banks:
+  - {fileID: -360034352547951655}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 176013
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,20 +435,37 @@ MonoBehaviour:
   - {fileID: -1216607810391221545}
   - {fileID: 8988069978858246303}
   - {fileID: -6857889906384089907}
+  - {fileID: -360034352547951655}
+  - {fileID: 7774590612080168649}
   EditorEvents:
   - {fileID: -7696349375809349596}
   - {fileID: -4750907042210610407}
   - {fileID: 575127938398685352}
-  - {fileID: 3246671875129821386}
-  - {fileID: -4234581209570364789}
   - {fileID: -2852196418496443435}
+  - {fileID: 2941559353929615727}
+  - {fileID: 5109773647116415181}
+  - {fileID: -276195113886175415}
+  - {fileID: -5326271750783885867}
+  - {fileID: 1375887010269487676}
+  - {fileID: -7127434142712575915}
+  - {fileID: 3967053788156517909}
+  - {fileID: -1068596154365938550}
+  - {fileID: 6868781794689333509}
+  - {fileID: -179066364673466977}
+  - {fileID: -2475123893213434379}
+  - {fileID: 770206886083714352}
+  - {fileID: -6946779925189959569}
+  - {fileID: 6747144272935662613}
+  - {fileID: -2813292298772747099}
+  - {fileID: 7393370419502141137}
+  - {fileID: -2093737406116401151}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1216607810391221545}
   StringsBanks:
   - {fileID: -3304077908682765422}
   cacheVersion: 131858
-  cacheTime: 639140415548016450
+  cacheTime: 639177644977510599
   SerializableEventsDict:
   - key: event:/kolner-dom
     index: 0
@@ -255,7 +506,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &3246671875129821386
+--- !u!114 &770206886083714352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,18 +516,126 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/player/Footstep-Single
+  m_Name: event:/zombies/wall-hit
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/player/Footstep-Single
+  Path: event:/zombies/wall-hit
   Guid:
-    Data1: -1011073499
-    Data2: 1254253173
-    Data3: 2109508229
-    Data4: 654238208
+    Data1: 70211119
+    Data2: 1194435677
+    Data3: -214941023
+    Data4: 1399799614
   Banks:
-  - {fileID: 8988069978858246303}
+  - {fileID: 7774590612080168649}
   IsStream: 0
   Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 0
+--- !u!114 &1375887010269487676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/cuckoo-clock
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/cuckoo-clock
+  Guid:
+    Data1: 732149518
+    Data2: 1302871948
+    Data3: 628918153
+    Data4: -1420304924
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2941559353929615727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/pen-writing-001
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/pen-writing-001
+  Guid:
+    Data1: -794906529
+    Data2: 1118421055
+    Data3: 2089113989
+    Data4: -1162396209
+  Banks:
+  - {fileID: -1946333703737582511}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3967053788156517909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/copy-machine
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/copy-machine
+  Guid:
+    Data1: -310077775
+    Data2: 1243913979
+    Data3: 1939755443
+    Data4: -1441249425
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5109773647116415181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/pen-drawing-001
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/pen-drawing-001
+  Guid:
+    Data1: 1600345465
+    Data2: 1117280926
+    Data3: 69419438
+    Data4: -190491073
+  Banks:
+  - {fileID: -1946333703737582511}
+  IsStream: 0
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -297,7 +656,106 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/Guns.bank
   Name: Guns
   StudioPath: bank:/Guns
-  lastModified: 639140415547996410
+  lastModified: 639177644977176175
+  FileSizes: []
+  Exists: 1
+--- !u!114 &6747144272935662613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/minigame/water-spill
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/minigame/water-spill
+  Guid:
+    Data1: -1303098028
+    Data2: 1221593021
+    Data3: -623962714
+    Data4: -1004091365
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6868781794689333509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/guns/boomerang
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/guns/boomerang
+  Guid:
+    Data1: 1875355612
+    Data2: 1274358072
+    Data3: -415036231
+    Data4: 2080234067
+  Banks:
+  - {fileID: 5985131158796421540}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7393370419502141137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/player/Footstep-Single-2
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/player/Footstep-Single-2
+  Guid:
+    Data1: -409131882
+    Data2: 1317912565
+    Data3: -1737126015
+    Data4: 1301901548
+  Banks:
+  - {fileID: 8988069978858246303}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 250
+--- !u!114 &7774590612080168649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Night-Environment.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Game/Sound/Banks/Desktop/Night-Environment.bank
+  Name: Night-Environment
+  StudioPath: bank:/Environment/Night-Environment
+  lastModified: 639177644977475766
   FileSizes: []
   Exists: 1
 --- !u!114 &8988069978858246303
@@ -315,6 +773,6 @@ MonoBehaviour:
   Path: Assets/Game/Sound/Banks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639140415548006462
+  lastModified: 639177644977492909
   FileSizes: []
   Exists: 1

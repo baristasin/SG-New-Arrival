@@ -1,4 +1,6 @@
+using FMODUnity;
 using Game.Scripts.GunModules.Projectiles;
+using UnityEngine;
 
 namespace Game.Scripts.GunModules.Turrets
 {
@@ -6,6 +8,8 @@ namespace Game.Scripts.GunModules.Turrets
     // next — only one plane in flight at a time. Long range, single target (set FireInterval ~0).
     public class CopyMachineTurret : ProjectileTurretBase
     {
+        [SerializeField] private EventReference _fireEvent;
+
         private Projectile _currentPlane;
 
         protected override bool TryFire()
@@ -15,6 +19,8 @@ namespace Game.Scripts.GunModules.Turrets
                 return false;
 
             _currentPlane = LaunchAtNearest();
+            if (_currentPlane != null && !_fireEvent.IsNull)
+                AudioManager.Instance.PlayOneShot(_fireEvent, transform.position);
             return _currentPlane != null;
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using Game.Scripts.StudentData;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,6 +9,22 @@ namespace Game.Scripts.Visa
 {
     public class VisaManager : MonoBehaviour, IMinigameManager
     {
+        public static VisaManager Active { get; private set; }
+
+        [Header("Audio")]
+        [SerializeField] private EventReference _paperSlideEvent;
+        [SerializeField] private EventReference _penWriteEvent;
+        [SerializeField] private EventReference _submitEvent;
+        [SerializeField] private EventReference _stainEvent;
+
+        private void Awake() { Active = this; }
+        private void OnDestroy() { if (Active == this) Active = null; }
+
+        public void PlayPaperSlide() { if (!_paperSlideEvent.IsNull) AudioManager.Instance.PlayOneShot(_paperSlideEvent); }
+        public void PlayPenWrite()   { if (!_penWriteEvent.IsNull)   AudioManager.Instance.PlayOneShot(_penWriteEvent); }
+        public void PlaySubmit()     { if (!_submitEvent.IsNull)     AudioManager.Instance.PlayOneShot(_submitEvent); }
+        public void PlayStain()      { if (!_stainEvent.IsNull)      AudioManager.Instance.PlayOneShot(_stainEvent); }
+
         [Header("Data")]
         [SerializeField] private StudentDatabase _studentDatabase;
 
@@ -114,6 +131,7 @@ namespace Game.Scripts.Visa
                 doc.SlideIn(i * _stagger);
                 i++;
             }
+            PlayPaperSlide();   // single shot for the whole batch
         }
 
         // Place active docs directly at their home pose with no animation (used on first load).
