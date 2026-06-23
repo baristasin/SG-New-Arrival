@@ -17,6 +17,19 @@ namespace Game.Scripts.Visa
         [SerializeField] private EventReference _submitEvent;
         [SerializeField] private EventReference _stainEvent;
 
+        [Header("Scoring")]
+        [Tooltip("Correct checklist answers needed to reach 100%. The checklist's TotalScore " +
+                 "drives the count — each correctly-checked row across all students adds 1.")]
+        [SerializeField, Min(1)] private int _scoreRequired = 10;
+        [Tooltip("Checklist whose TotalScore is read for the score percent.")]
+        [SerializeField] private VisaChecklist _checklist;
+
+        public int GetScorePercent()
+        {
+            int correct = _checklist != null ? _checklist.TotalScore : 0;
+            return Mathf.Clamp(Mathf.RoundToInt(100f * correct / _scoreRequired), 0, 100);
+        }
+
         private void Awake() { Active = this; }
         private void OnDestroy() { if (Active == this) Active = null; }
 
@@ -73,6 +86,7 @@ namespace Game.Scripts.Visa
         {
             SetCloseButtonVisible(false);
             _completedRounds = 0;
+            if (_checklist != null) _checklist.ResetScore();
             LoadStudent(0);
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace Game.Scripts.UI.Screens
@@ -20,13 +21,17 @@ namespace Game.Scripts.UI.Screens
 
         [SerializeField] private List<DayRewardImage> _rewards = new();
 
+        [Header("Score readout (shared by every day's panel)")]
+        [SerializeField] private TMP_Text _scoreText;
+        [Tooltip("{0} = score percent (0-100).")]
+
         private bool _dismissed;
         private DayRewardImage _activeEntry;
 
         // onShown fires after fade-in — caller hides Loading cover here.
         // onDismissed fires after click but before fade-out — caller raises Loading cover here
         // so the fade-out happens behind cover (no underlying scene flash).
-        public IEnumerator Play(int day, System.Action onShown = null, System.Action onDismissed = null)
+        public IEnumerator Play(int day, int scorePercent, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var r in _rewards)
                 if (r.Root != null) r.Root.SetActive(false);
@@ -34,6 +39,9 @@ namespace Game.Scripts.UI.Screens
             _activeEntry = _rewards.Find(r => r.Day == day);
             if (_activeEntry == null || _activeEntry.Root == null) yield break;
             _activeEntry.Root.SetActive(true);
+
+            Debug.Log($"[DayRewardsUI] Play day={day} score={scorePercent} scoreText={(_scoreText != null ? _scoreText.name : "NULL")}");
+            if (_scoreText != null) _scoreText.text = scorePercent.ToString();
 
             _dismissed = false;
             yield return Show().WaitForCompletion();

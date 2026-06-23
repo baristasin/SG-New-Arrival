@@ -80,6 +80,13 @@ namespace Game.Scripts.Visa
             if (_resultText != null) _resultText.text = string.Empty;
         }
 
+        // Called by VisaManager at BeginGame to wipe the cumulative score for a fresh run.
+        public void ResetScore()
+        {
+            TotalScore = 0;
+            CorrectCount = 0;
+        }
+
         // Wire a Submit/Approve button to this. Score = options matching the answer key.
         public void Submit()
         {

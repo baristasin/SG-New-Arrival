@@ -43,9 +43,13 @@ namespace Game.Scripts
         [SerializeField] private float _secondsPerInGameMinute = 1f;
 
         [Header("Loading")]
-        [Tooltip("Minimum time the loading screen stays up on a real scene load.")]
-        [SerializeField] private float _minLoadingDuration = 2f;
-        [Tooltip("Fixed cover duration for the in-scene minigame transition (no real load).")]
+        [Tooltip("Loading bar fill duration for routine transitions (city↔minigame, sleep→night, " +
+                 "night→day).")]
+        [SerializeField] private float _minLoadingDuration = 3f;
+        [Tooltip("Longer loading bar duration for the first NewGame load — gives the player " +
+                 "time to mash the Complain button.")]
+        [SerializeField] private float _newGameLoadingDuration = 6f;
+        [Tooltip("Legacy field — no longer used; the minigame transition runs through FillBar.")]
         [SerializeField] private float _minigameTransitionDuration = 0.6f;
 
         [Header("Day plan")]
@@ -159,10 +163,8 @@ namespace Game.Scripts
             // Stop the day music — night music kicks in when NightCombatGate.BeginCombat fires.
             MusicController.Instance?.StopAll();
 
-            float t0 = Time.unscaledTime;
-            yield return SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene);
-            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
-            if (remain > 0f) yield return new WaitForSeconds(remain);
+            StartCoroutine(SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene));
+            yield return ui.Loading.FillBar(_minLoadingDuration);
 
             // NightIntro fades in over Loading → hide Loading once shown → wait click → fade out.
             yield return ui.NightIntro.Play(onShown: () => ui.Loading.Hide());
@@ -204,8 +206,9 @@ namespace Game.Scripts
 
         public MinigameId? GetTodayMinigame()
         {
-            int i = CurrentDay - 1;
-            if (i < 0 || i >= _dayMinigames.Count) return null;
+            if (_dayMinigames == null || _dayMinigames.Count == 0) return null;
+            // Wrap so Day N+1 → first minigame, etc. — keeps the rotation going past the list end.
+            int i = ((CurrentDay - 1) % _dayMinigames.Count + _dayMinigames.Count) % _dayMinigames.Count;
             return _dayMinigames[i];
         }
 
@@ -232,11 +235,10 @@ namespace Game.Scripts
             ui.Loading.Show();
             yield return ui.MainMenu.Hide().WaitForCompletion();
 
-            // Clamp to a minimum duration so the screen doesn't blink off on fast loads.
-            float t0 = Time.unscaledTime;
-            yield return SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene);
-            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
-            if (remain > 0f) yield return new WaitForSeconds(remain);
+            // Real scene load runs in parallel; the bar fills over _newGameLoadingDuration so
+            // the player has 5-6 seconds to mash the Complain button.
+            StartCoroutine(SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene));
+            yield return ui.Loading.FillBar(_newGameLoadingDuration);
 
             // BeginDay shows DayStart over Loading, then hides Loading once DayStart fully covers.
             yield return BeginDay();
@@ -288,9 +290,8 @@ namespace Game.Scripts
             // Cover with Loading FIRST so DayHUD's fade-out and the camera switch happen behind cover.
             ui.Loading.Show();
             ui.DayHUD.Hide();   // fire-and-forget; fades behind Loading
-            yield return new WaitForSeconds(_minigameTransitionDuration);
-
             CurrentCity.EnterStation(id);
+            yield return ui.Loading.FillBar(_minLoadingDuration);
 
             // First-time tutorial: fades in over Loading → hide Loading once shown → wait click
             // → tutorial fades out, revealing minigame scene.
@@ -311,10 +312,11 @@ namespace Game.Scripts
             // off the actual minigame — paper slides in, screens slide in, etc.
             CurrentCity.GetStation(id)?.BeginGame();
 
-            // Switch to minigame drain rate; current sanity carries over from city.
+            // Switch to minigame drain rate; current sanity carries over from city. Per-minigame
+            // overrides in BalanceVariables let one minigame burn down faster than another.
             var balance = BalanceVariables.Instance;
             if (balance != null)
-                SanityManager.Instance.DrainPerSecond = balance.SanityDrainPerSecond;
+                SanityManager.Instance.DrainPerSecond = balance.GetMinigameDrain(id);
 
             SetState(GameState.Minigame);
         }
@@ -334,20 +336,25 @@ namespace Game.Scripts
             // Eyelids close → narrative explanation → wait for click. EyeClose stays "shown" after Play.
             yield return ui.EyeClose.Play();
 
+            // Pull the score from whichever station the player was just playing.
+            int score = 0;
+            var todayId = GetTodayMinigame();
+            var station = (todayId.HasValue && CurrentCity != null) ? CurrentCity.GetStation(todayId.Value) : null;
+            if (station != null) score = station.GetScorePercent();
+            Debug.Log($"[GameManager] Sleep score lookup: todayId={todayId} city={CurrentCity} station={station} score={score}");
+
             // Today's reward card on top of the closed eye. On dismiss we raise Loading (instant)
             // and fade EyeClose out in parallel with DayRewards' own fade — both end behind cover.
             SetState(GameState.DayRewards);
-            yield return ui.DayRewards.Play(CurrentDay, onDismissed: () =>
+            yield return ui.DayRewards.Play(CurrentDay, score, onDismissed: () =>
             {
                 ui.Loading.Show();
                 ui.EyeClose.Hide();
             });
 
             SetState(GameState.LoadingNight);
-            float t0 = Time.unscaledTime;
-            yield return SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene);
-            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
-            if (remain > 0f) yield return new WaitForSeconds(remain);
+            StartCoroutine(SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene));
+            yield return ui.Loading.FillBar(_minLoadingDuration);
 
             // NightIntro fades in over Loading → hide Loading once shown → wait click → NightIntro
             // fades out, revealing NightCity cleanly.
@@ -367,10 +374,8 @@ namespace Game.Scripts
             // end just covers and transitions straight to the next day's intro.
             ui.Loading.Show();
 
-            float t0 = Time.unscaledTime;
-            yield return SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene);
-            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
-            if (remain > 0f) yield return new WaitForSeconds(remain);
+            StartCoroutine(SceneLoader.Instance.LoadAsync(SceneLoader.DayCityScene));
+            yield return ui.Loading.FillBar(_minLoadingDuration);
 
             // BeginDay's DayStart.Play handles Loading.Hide once DayStart fully covers.
             yield return BeginDay();

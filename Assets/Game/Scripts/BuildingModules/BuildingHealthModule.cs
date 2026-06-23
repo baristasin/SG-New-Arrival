@@ -23,6 +23,8 @@ namespace Game.Scripts.BuildingModules
         private Tween _colorTween;
         private int _buildingCurrentHealth;
 
+        private Color _damageColor = new Color(0.3f, 0.07f, 0.09f, 1f);
+        
         private void Awake()
         {
             _originalColor = _renderer.material.color;
@@ -41,7 +43,7 @@ namespace Game.Scripts.BuildingModules
             _renderer.material.color = _originalColor;
 
             _scaleTween = transform.DOPunchScale(_originalScale * 0.08f, 0.3f, 6, 0.5f).SetEase(Ease.OutElastic);
-            _colorTween = _renderer.material.DOColor(Color.red, 0.1f).SetEase(Ease.OutQuad)
+            _colorTween = _renderer.material.DOColor(_damageColor, 0.1f).SetEase(Ease.OutQuad)
                 .OnComplete(() => _renderer.material.DOColor(_originalColor, 0.2f).SetEase(Ease.InQuad));
 
             // AudioManager.Instance.PlayOneShot(_buildingDamageEvent, transform.position);
