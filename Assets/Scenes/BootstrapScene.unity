@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 33651058}
   - component: {fileID: 33651057}
   - component: {fileID: 33651056}
+  - component: {fileID: 33651059}
   m_Layer: 5
   m_Name: ControlsButton
   m_TagString: Untagged
@@ -372,6 +373,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33651054}
   m_CullTransparentMesh: 1
+--- !u!114 &33651059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33651054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &44631314
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +664,7 @@ GameObject:
   - component: {fileID: 132764203}
   - component: {fileID: 132764202}
   - component: {fileID: 132764201}
+  - component: {fileID: 132764204}
   m_Layer: 5
   m_Name: SkipButton
   m_TagString: Untagged
@@ -771,6 +785,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132764199}
   m_CullTransparentMesh: 1
+--- !u!114 &132764204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132764199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &164914119
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,6 +873,150 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164914119}
   m_CullTransparentMesh: 1
+--- !u!1 &201782479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 201782482}
+  - component: {fileID: 201782481}
+  - component: {fileID: 201782480}
+  m_Layer: 0
+  m_Name: UIClick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &201782480
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201782479}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 59497b8b55c3f46488d2022961d8a1bb, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &201782481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201782479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6b4605eca2e4e5caed6354e01d9c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.AudioModules.UIClickSounds
+  _clickClip: {fileID: 8300000, guid: 59497b8b55c3f46488d2022961d8a1bb, type: 3}
+  _volume: 1
+--- !u!4 &201782482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201782479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1505.8125, y: -0.00002, z: 4010.2407}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &205673714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,6 +1860,7 @@ GameObject:
   - component: {fileID: 409711339}
   - component: {fileID: 409711338}
   - component: {fileID: 409711337}
+  - component: {fileID: 409711340}
   m_Layer: 5
   m_Name: NewGameButton
   m_TagString: Untagged
@@ -1799,6 +1970,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409711335}
   m_CullTransparentMesh: 1
+--- !u!114 &409711340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409711335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &433173787
 GameObject:
   m_ObjectHideFlags: 0
@@ -3092,6 +3275,66 @@ MonoBehaviour:
   _closeEase: 5
   _openEase: 6
   _explanationRoot: {fileID: 755986556}
+--- !u!1 &698093896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698093898}
+  - component: {fileID: 698093897}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &698093897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698093896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbd689912240420b8cc0c33ff05cf98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.AudioModules.MusicController
+  _dayMusic:
+    Guid:
+      Data1: -1434650668
+      Data2: 1306244283
+      Data3: -1196787839
+      Data4: -889342754
+    Path: "event:/music/K\xF6lle Alaaf"
+  _nightMusic:
+    Guid:
+      Data1: 129198882
+      Data2: 1177989195
+      Data3: 1796066229
+      Data4: -1478484340
+    Path: event:/music/Hast-du-ein-Visum.alp
+  _dayVolume: 0.5
+  _nightVolume: 3
+--- !u!4 &698093898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698093896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1505.813, y: -0.00002, z: 4010.2415}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &716446317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,6 +3630,7 @@ GameObject:
   - component: {fileID: 856386847}
   - component: {fileID: 856386846}
   - component: {fileID: 856386845}
+  - component: {fileID: 856386848}
   m_Layer: 5
   m_Name: SkipButton (2)
   m_TagString: Untagged
@@ -3507,6 +3751,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856386843}
   m_CullTransparentMesh: 1
+--- !u!114 &856386848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856386843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &892246292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,6 +3775,7 @@ GameObject:
   - component: {fileID: 892246294}
   - component: {fileID: 892246293}
   - component: {fileID: 892246296}
+  - component: {fileID: 892246297}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3644,6 +3901,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &892246297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892246292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &931361828
 GameObject:
   m_ObjectHideFlags: 0
@@ -3949,6 +4220,7 @@ GameObject:
   - component: {fileID: 1025901173}
   - component: {fileID: 1025901172}
   - component: {fileID: 1025901171}
+  - component: {fileID: 1025901174}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -4058,6 +4330,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025901169}
   m_CullTransparentMesh: 1
+--- !u!114 &1025901174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025901169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &1038210436
 GameObject:
   m_ObjectHideFlags: 0
@@ -5064,6 +5348,7 @@ GameObject:
   - component: {fileID: 1361838480}
   - component: {fileID: 1361838479}
   - component: {fileID: 1361838478}
+  - component: {fileID: 1361838481}
   m_Layer: 5
   m_Name: SkipButton (1)
   m_TagString: Untagged
@@ -5184,6 +5469,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361838476}
   m_CullTransparentMesh: 1
+--- !u!114 &1361838481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361838476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1 &1369885033
 GameObject:
   m_ObjectHideFlags: 0
@@ -6468,6 +6765,8 @@ MonoBehaviour:
   _minLoadingDuration: 2
   _minigameTransitionDuration: 0.6
   _dayMinigames: 000000000100000002000000
+  _devSkipToNight: 1
+  _devSkipDay: 4
 --- !u!4 &1533353040
 Transform:
   m_ObjectHideFlags: 0
@@ -7748,6 +8047,7 @@ GameObject:
   - component: {fileID: 2086380758}
   - component: {fileID: 2086380757}
   - component: {fileID: 2086380756}
+  - component: {fileID: 2086380759}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -7857,6 +8157,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086380754}
   m_CullTransparentMesh: 1
+--- !u!114 &2086380759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086380754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f513da681d54fd6afe798f2bfc7cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ButtonClickSfx
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7867,3 +8179,5 @@ SceneRoots:
   - {fileID: 454358419}
   - {fileID: 44631317}
   - {fileID: 1509117363}
+  - {fileID: 698093898}
+  - {fileID: 201782482}

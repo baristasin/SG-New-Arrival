@@ -59,6 +59,7 @@ namespace Game.Scripts.Visa
         {
             _selected = status;
             RefreshTicks();
+            VisaManager.Active?.PlayPenWrite();
         }
 
         private void RefreshTicks()

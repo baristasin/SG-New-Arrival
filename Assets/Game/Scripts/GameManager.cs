@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game.Scripts.AudioModules;
 using Game.Scripts.City;
 using Game.Scripts.SanityModules;
 using Game.Scripts.TimeModules;
@@ -51,6 +52,13 @@ namespace Game.Scripts
         [Tooltip("Which minigame plays on day 1, 2, 3, ... in order. Indexed by day-1.")]
         [SerializeField] private List<MinigameId> _dayMinigames = new();
 
+        [Header("Dev")]
+        [Tooltip("DEV ONLY: when checked, NewGame skips straight to NightCity on the given day. " +
+                 "Use it to test the night build (all weapons / turrets unlocked) without playing " +
+                 "the full day cycle.")]
+        [SerializeField] private bool _devSkipToNight;
+        [SerializeField, Range(1, 10)] private int _devSkipDay = 4;
+
         public DayClock Clock { get; private set; }
         public int CurrentDay { get; private set; } = 1;
         public GameState State { get; private set; } = GameState.Boot;
@@ -65,7 +73,7 @@ namespace Game.Scripts
         protected override void Awake()
         {
             base.Awake();
-            Application.targetFrameRate = 50;
+            Application.targetFrameRate = 30;
             if (Instance != this) return;        // a duplicate was destroyed by the base
             Clock = new DayClock { SecondsPerInGameMinute = _secondsPerInGameMinute };
         }
@@ -103,6 +111,8 @@ namespace Game.Scripts
         {
             UIManager.Instance?.MainMenu?.Show();
             SetState(GameState.MainMenu);
+            // Day music runs across the menu too so the boot screen isn't silent.
+            MusicController.Instance?.PlayDay();
         }
 
         private void WireSanity()
@@ -129,7 +139,37 @@ namespace Game.Scripts
         public void StartNewGame()
         {
             if (State != GameState.MainMenu) return;
-            StartCoroutine(NewGameRoutine());
+            if (_devSkipToNight)
+                StartCoroutine(DevSkipToNightRoutine());
+            else
+                StartCoroutine(NewGameRoutine());
+        }
+
+        // DEV ONLY: pretend the player already lived through _devSkipDay-1 days and jump straight
+        // into the night combat scene with the corresponding wave + weapons unlocked.
+        private IEnumerator DevSkipToNightRoutine()
+        {
+            CurrentDay = Mathf.Max(1, _devSkipDay);
+            SetState(GameState.LoadingNight);
+
+            var ui = UIManager.Instance;
+            ui.Loading.Show();
+            yield return ui.MainMenu.Hide().WaitForCompletion();
+
+            // Stop the day music — night music kicks in when NightCombatGate.BeginCombat fires.
+            MusicController.Instance?.StopAll();
+
+            float t0 = Time.unscaledTime;
+            yield return SceneLoader.Instance.LoadAsync(SceneLoader.NightCityScene);
+            float remain = _minLoadingDuration - (Time.unscaledTime - t0);
+            if (remain > 0f) yield return new WaitForSeconds(remain);
+
+            // NightIntro fades in over Loading → hide Loading once shown → wait click → fade out.
+            yield return ui.NightIntro.Play(onShown: () => ui.Loading.Hide());
+
+            // SetState(NightCombat) triggers NightCombatGate.BeginCombat via OnStateChanged,
+            // which starts the spawner + night music + unlocks the player input.
+            SetState(GameState.NightCombat);
         }
 
         public void QuitGame()
@@ -224,6 +264,10 @@ namespace Game.Scripts
 
             ui.DayHUD.Show();
             Clock.Resume();
+
+            // Start (or keep) the daytime music loop. Idempotent — no-op if already playing.
+            MusicController.Instance?.PlayDay();
+
             SetState(GameState.CityRoaming);
         }
 
@@ -280,6 +324,9 @@ namespace Game.Scripts
             SetState(GameState.Sleeping);
             SanityManager.Instance.DrainPerSecond = 0f;
             Clock.Pause();
+
+            // Cut the day music — NightIntro plays in silence, night music kicks in on combat start.
+            MusicController.Instance?.StopAll();
 
             var ui = UIManager.Instance;
             ui.DayHUD.Hide();   // fire-and-forget; fades out behind the eyelids

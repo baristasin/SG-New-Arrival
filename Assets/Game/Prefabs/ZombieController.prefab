@@ -99,6 +99,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.ZombieModules.ZombieCombatModule
   _attackDamage: 1
+  _wallHitEvent:
+    Guid:
+      Data1: 70211119
+      Data2: 1194435677
+      Data3: -214941023
+      Data4: 1399799614
+    Path: event:/zombies/wall-hit
 --- !u!114 &3908395647639066795
 MonoBehaviour:
   m_ObjectHideFlags: 0

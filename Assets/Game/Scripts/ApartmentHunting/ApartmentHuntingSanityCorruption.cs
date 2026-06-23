@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using Game.Scripts.SanityModules;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +46,7 @@ namespace Game.Scripts.ApartmentHunting
         private readonly List<GameObject> _activeBrokens = new();
         private readonly List<GameObject> _tvStaticInstances = new();
         private Coroutine _tvStaticCoroutine;
+        private EventInstance _tvBuzzInstance;
 
         protected override void ApplyStage(SanityStage stage)
         {
@@ -119,6 +122,11 @@ namespace Game.Scripts.ApartmentHunting
 
             if (_tvStaticInstances.Count > 0)
                 _tvStaticCoroutine = StartCoroutine(TvStaticLoop());
+
+            // Audio: start the buzzing loop alongside the visual static.
+            var mgr = ApartmentHuntingManager.Active;
+            if (mgr != null && !mgr.TvBuzzingEvent.IsNull && !_tvBuzzInstance.isValid())
+                _tvBuzzInstance = AudioManager.Instance.PlayLoop(mgr.TvBuzzingEvent);
         }
 
         private void StopTvStatic()
@@ -131,6 +139,9 @@ namespace Game.Scripts.ApartmentHunting
             foreach (var inst in _tvStaticInstances)
                 if (inst != null) Destroy(inst);
             _tvStaticInstances.Clear();
+
+            if (_tvBuzzInstance.isValid())
+                AudioManager.Instance.Stop(ref _tvBuzzInstance);
         }
 
         private IEnumerator TvStaticLoop()

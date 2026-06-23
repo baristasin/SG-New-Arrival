@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FMODUnity;
 using Game.Scripts.StudentData;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,6 +20,13 @@ namespace Game.Scripts.ApartmentHunting
         [Header("Shared sprites (consumed by paper bases via Active)")]
         [SerializeField] private List<Sprite> _apartmentSprites;
         [SerializeField] private List<Sprite> _studentSprites;
+
+        [Header("Audio")]
+        [SerializeField] private EventReference _matchSubmitEvent;
+        [SerializeField] private EventReference _tvBuzzingEvent;
+
+        public void PlayMatchSubmit() { if (!_matchSubmitEvent.IsNull) AudioManager.Instance.PlayOneShot(_matchSubmitEvent); }
+        public EventReference TvBuzzingEvent => _tvBuzzingEvent;
 
         [Header("Tablet slide-in (BeginGame)")]
         [Tooltip("Root of the left tablet (placed off-screen-left in editor). Slides to its target.")]
@@ -99,6 +107,8 @@ namespace Game.Scripts.ApartmentHunting
 
         public void MatchClicked()
         {
+            PlayMatchSubmit();
+
             var apartmentData = _apartmentPaperSlider.CurrentData;
             var studentData = _studentPaperSlider.CurrentData;
 

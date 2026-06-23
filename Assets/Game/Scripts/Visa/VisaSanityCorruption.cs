@@ -120,6 +120,8 @@ namespace Game.Scripts.Visa
             var instance = Instantiate(prefab, paper, false);
             state.Instances.Add(instance);
             state.PrefabIndices.Add(prefabIdx);
+
+            VisaManager.Active?.PlayStain();
         }
 
         private void ClearAllStains()

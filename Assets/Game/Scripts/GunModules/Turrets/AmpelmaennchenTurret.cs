@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -20,13 +22,26 @@ namespace Game.Scripts.GunModules.Turrets
         [SerializeField] private Vector3 _areaHalfExtents = new Vector3(3f, 1.5f, 5f);
         [SerializeField] private float _danceRefresh = 0.25f;
 
+        [Header("Audio")]
+        [Tooltip("One-shot played at each red<->green transition.")]
+        [SerializeField] private EventReference _moveEvent;
+        [Tooltip("Looping ambience that plays only while the light is in the WAIT phase " +
+                 "(the dance phase that holds zombies).")]
+        [SerializeField] private EventReference _waitLoopEvent;
+
         private bool _isGreen;
         private float _phaseTimer;
         private readonly Collider[] _buffer = new Collider[32];
+        private EventInstance _waitInstance;
 
         private void Start()
         {
             SetGreen(false);   // always starts red
+        }
+
+        private void OnDisable()
+        {
+            if (_waitInstance.isValid()) AudioManager.Instance.Stop(ref _waitInstance);
         }
 
         protected override void OnUpdate()
@@ -45,6 +60,16 @@ namespace Game.Scripts.GunModules.Turrets
             _phaseTimer = Random.Range(_minPhase, _maxPhase);
             if (_redLight != null) _redLight.SetActive(!green);
             if (_greenLight != null) _greenLight.SetActive(green);
+
+            // Click on every transition.
+            if (!_moveEvent.IsNull) AudioManager.Instance.PlayOneShot(_moveEvent, transform.position);
+
+            // Wait loop runs during the dance phase.
+            bool dancePhase = _isGreen == _danceOnGreen;
+            if (dancePhase && !_waitLoopEvent.IsNull && !_waitInstance.isValid())
+                _waitInstance = AudioManager.Instance.PlayLoopAttached(_waitLoopEvent, gameObject);
+            else if (!dancePhase && _waitInstance.isValid())
+                AudioManager.Instance.Stop(ref _waitInstance);
         }
 
         private void ApplyDanceInArea()

@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Scripts.AudioModules;
 using Game.Scripts.BuildingModules;
 using Game.Scripts.GunModules;
 using Game.Scripts.PlayerModules;
@@ -129,6 +130,9 @@ namespace Game.Scripts.Night
                 // Catch the case where startHour already meets the Ruhezeit threshold.
                 _ruhezeitActive = _clock.Hour >= _ruhezeitStartHour;
             }
+
+            // Tutorial dismissed → zombies summoned → night music starts.
+            MusicController.Instance?.PlayNight();
         }
 
         // ── Survival clock hooks ──────────────────────────────────────────────────────────
@@ -214,6 +218,9 @@ namespace Game.Scripts.Night
         {
             if (_playerMovement != null) _playerMovement.enabled = false;
             if (_playerShooting != null) _playerShooting.enabled = false;
+
+            // Cut the night music — result panel + next-day load happen in silence.
+            MusicController.Instance?.StopAll();
         }
 
         // Cathedral survival drives the next-day sanity — building at full = ceiling, building

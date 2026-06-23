@@ -1,3 +1,4 @@
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -6,9 +7,13 @@ namespace Game.Scripts.GunModules.ProjectileGuns
     public class StapleGun : RangedWeaponBase
     {
         [SerializeField] private LineRenderer _lineRenderer;
+        [SerializeField] private EventReference _fireEvent;
+        [SerializeField, Range(0f, 2f)] private float _fireVolume = 0.4f;
 
         protected override void Fire()
         {
+            PlayShotSfx(_fireEvent, _fireVolume);
+
             if (!Physics.Raycast(_muzzlePoint.position, _muzzlePoint.forward, out var hit, _data.Range, _targetLayerMask))
                 return;
 

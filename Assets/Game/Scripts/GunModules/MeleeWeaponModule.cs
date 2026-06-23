@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Game.Scripts.GunModules
         [SerializeField] private float _weaponRadius = 0.5f;
         [SerializeField] private float _hitCooldown = 0.3f;
         [SerializeField] private LayerMask _targetLayer;
+        [SerializeField] private EventReference _slashEvent;
+        [SerializeField, Range(0f, 2f)] private float _slashVolume = 0.7f;
 
         private float _lastAngle;
         private Collider[] _hitBuffer = new Collider[20];
@@ -38,6 +41,7 @@ namespace Game.Scripts.GunModules
             {
                 Slash(deltaAngle);
                 NotifyFired();
+                PlayShotSfx(_slashEvent, _slashVolume);
             }
         }
 
