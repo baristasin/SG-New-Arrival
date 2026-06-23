@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: BalanceVariables
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Utilities.BalanceVariables
   ZombieLureDistance: 100
-  ZombieAttackDistance: 16
+  ZombieAttackDistance: 12
   MaxSanity: 100
-  SanityDrainPerSecond: 0.4
-  LateDrainPerSecond: 0.5
+  SanityDrainPerSecond: 1
+  LateDrainPerSecond: 0.8
+  MinigameDrainOverrides:
+  - Minigame: 0
+    DrainPerSecond: 1
+  - Minigame: 1
+    DrainPerSecond: 0.8
+  - Minigame: 2
+    DrainPerSecond: 0.4
   StableThreshold: 75
   UnsettledThreshold: 50
   DisturbedThreshold: 25

@@ -261,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6163211
 Transform:
   m_ObjectHideFlags: 0
@@ -9095,40 +9095,33 @@ MonoBehaviour:
   _spawnInterval: 0.08
   _wavesByDay:
   - Entries:
-    - ZombieCount: 30
+    - ZombieCount: 7
       DelayAfter: 10
-    - ZombieCount: 30
+    - ZombieCount: 9
       DelayAfter: 10
-    - ZombieCount: 40
+    - ZombieCount: 12
       DelayAfter: 0
+  - Entries:
+    - ZombieCount: 9
+      DelayAfter: 10
+    - ZombieCount: 12
+      DelayAfter: 10
+    - ZombieCount: 15
+      DelayAfter: 10
+  - Entries:
+    - ZombieCount: 18
+      DelayAfter: 10
+    - ZombieCount: 21
+      DelayAfter: 10
+    - ZombieCount: 24
+      DelayAfter: 10
   - Entries:
     - ZombieCount: 30
       DelayAfter: 10
     - ZombieCount: 30
       DelayAfter: 10
     - ZombieCount: 40
-      DelayAfter: 0
-  - Entries:
-    - ZombieCount: 30
       DelayAfter: 10
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 40
-      DelayAfter: 0
-  - Entries:
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 40
-      DelayAfter: 0
-  - Entries:
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 40
-      DelayAfter: 0
 --- !u!4 &2003856352
 Transform:
   m_ObjectHideFlags: 0
@@ -9923,7 +9916,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 202c1dd1beef04a4d88b2f1e5b0efc74, type: 3}
+  - {fileID: 2100000, guid: b2aecba21970f41c78296b3669e32a59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10071,7 +10064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.HealthBarUI
   _fillImage: {fileID: 1288113038743161916}
-  _maxHealth: 1000
+  _maxHealth: 500
 --- !u!1 &2266578092601872164
 GameObject:
   m_ObjectHideFlags: 0
@@ -10377,7 +10370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.BuildingModules.BuildingHealthModule
   _renderer: {fileID: 1711813854767181535}
-  _buildingStartingHealth: 1000
+  _buildingStartingHealth: 500
 --- !u!222 &3887969146152049372
 CanvasRenderer:
   m_ObjectHideFlags: 0

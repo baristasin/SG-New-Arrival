@@ -25,6 +25,15 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private EventReference _matchSubmitEvent;
         [SerializeField] private EventReference _tvBuzzingEvent;
 
+        [Header("Scoring")]
+        [Tooltip("Full matches needed to reach 100%. Each FULL match (all 4 criteria correct) " +
+                 "counts as 1.")]
+        [SerializeField, Min(1)] private int _scoreRequired = 10;
+
+        private int _fullMatchCount;
+        public int GetScorePercent() =>
+            Mathf.Clamp(Mathf.RoundToInt(100f * _fullMatchCount / _scoreRequired), 0, 100);
+
         public void PlayMatchSubmit() { if (!_matchSubmitEvent.IsNull) AudioManager.Instance.PlayOneShot(_matchSubmitEvent); }
         public EventReference TvBuzzingEvent => _tvBuzzingEvent;
 
@@ -89,6 +98,7 @@ namespace Game.Scripts.ApartmentHunting
         public void Initialize()
         {
             _studentRound = 0;
+            _fullMatchCount = 0;
 
             // Apartments: load the full list so the player can swipe through every option.
             // Matched ones get recycled to the back in MatchClicked, never destroyed.
@@ -113,10 +123,12 @@ namespace Game.Scripts.ApartmentHunting
             var studentData = _studentPaperSlider.CurrentData;
 
             var result = MatchValidator.Evaluate(studentData, apartmentData);
+            if (result.IsFullMatch) _fullMatchCount++;
             Debug.Log($"[Match] {studentData.FullName} x {apartmentData.Name} — " +
                       $"Price:{result.PriceMatch} Anmeldung:{result.AnmeldungMatch} Dormitory:{result.DormitoryMatch} " +
                       $"Schufa: {result.SchufaMatch} " +
-                      $"=> {(result.IsFullMatch ? "FULL MATCH" : $"{result.CorrectCount}/4")}");
+                      $"=> {(result.IsFullMatch ? "FULL MATCH" : $"{result.CorrectCount}/4")}  " +
+                      $"Total full matches: {_fullMatchCount}/{_scoreRequired}");
 
             // Apartment recycles to the back of the strip — the player can swipe back to it.
             _apartmentPaperSlider.RecycleCurrent();

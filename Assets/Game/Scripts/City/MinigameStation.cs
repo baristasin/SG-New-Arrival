@@ -26,5 +26,12 @@ namespace Game.Scripts.City
             if (_manager is IMinigameManager mg) { mg.BeginGame(); return; }
             Debug.LogWarning($"[MinigameStation] No IMinigameManager wired for {Id}.");
         }
+
+        // Returns 0..100. Used by GameManager at end of day to feed the rewards screen.
+        public int GetScorePercent()
+        {
+            if (_manager is IMinigameManager mg) return mg.GetScorePercent();
+            return 0;
+        }
     }
 }

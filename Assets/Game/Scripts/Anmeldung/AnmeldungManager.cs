@@ -32,6 +32,14 @@ namespace Game.Scripts.Anmeldung
         [Tooltip("Played when the Complete / Submit button is pressed at the end of a round.")]
         [SerializeField] private EventReference _submitEvent;
 
+        [Header("Scoring")]
+        [Tooltip("Correct answers needed to reach 100%. Each correctly-placed slot counts as 1.")]
+        [SerializeField, Min(1)] private int _scoreRequired = 10;
+
+        private int _correctTotal;
+        public int GetScorePercent() =>
+            Mathf.Clamp(Mathf.RoundToInt(100f * _correctTotal / _scoreRequired), 0, 100);
+
         private void Awake() { Active = this; }
         private void OnDestroy() { if (Active == this) Active = null; }
 
@@ -61,6 +69,7 @@ namespace Game.Scripts.Anmeldung
         {
             _currentRound = 0;
             _points = 0;
+            _correctTotal = 0;
             StartCoroutine(StartRound());
         }
 
@@ -166,17 +175,18 @@ namespace Game.Scripts.Anmeldung
         public void CheckCompletion()
         {
             var roundPoints = 0;
-            
+
             foreach (var slot in _currentSlots)
             {
                 if (slot.IsCorrect)
                 {
                     roundPoints++;
                     _points++;
+                    _correctTotal++;
                 }
             }
-            
-            Debug.Log($"Points: {roundPoints}/5");
+
+            Debug.Log($"Points: {roundPoints}/5  Total correct: {_correctTotal}/{_scoreRequired}");
 
             StartCoroutine(OnRoundComplete());
         }
