@@ -9,12 +9,6 @@ using UnityEngine.UI;
 
 namespace Game.Scripts.ApartmentHunting
 {
-    // Sanity corruption for ApartmentHunting (two screens). Three things degrade as sanity drops:
-    //  1) the X softness of the tablets' RectMask2D (default 50) grows;
-    //  2) "broken" prefabs are instantiated under each screen's broken-parent — same process per
-    //     screen, but a screen can be marked Mirror so its brokens are X-flipped (visual variety);
-    //  3) at Critical only, a full-screen "TV static" prefab pulses on each screen in sync:
-    //     visible 2s → fade to 0 over 0.5s → wait 7-8s → repeat. CanvasGroup (preferred) or Image.
     public class ApartmentHuntingSanityCorruption : SanityCorruptionHandler
     {
         [Serializable]

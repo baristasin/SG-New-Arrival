@@ -24,8 +24,12 @@ namespace Game.Scripts.Visa
 
         public int GetScorePercent()
         {
-            int correct = _checklist != null ? _checklist.TotalScore : 0;
-            return Mathf.Clamp(Mathf.RoundToInt(100f * correct / _scoreRequired), 0, 100);
+            if (_checklist == null)
+            {
+                Debug.LogWarning("[VisaManager] _checklist not wired — score will always be 0.");
+                return 0;
+            }
+            return Mathf.Clamp(Mathf.RoundToInt(100f * _checklist.TotalScore / _scoreRequired), 0, 100);
         }
 
         private void Awake() { Active = this; }

@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace Game.Scripts.UI
 {
-    // Base for every fullscreen UI panel under UIManager (MainMenu, Loading, DayStart, DayHUD,
-    // Tutorial, EyeClose, DayRewards). Each owns a CanvasGroup; Show/Hide fades it in/out and
-    // toggles raycast blocking. Screens stay GameObject-active and just become alpha 0 + non-
-    // interactive when hidden — Awake clamps them to the hidden state so they can be wired in
-    // the editor without flashing on load.
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class UIScreen : MonoBehaviour
     {

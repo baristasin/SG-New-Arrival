@@ -4,11 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.UI.Screens
 {
-    // Sanity-0 sleep transition. Two opaque panels (top + bottom) slide toward the middle until
-    // the screen is fully black, then a fullscreen "why we're going to night" explanation panel
-    // appears on top of the black. The player clicks a button on that panel (wired to Dismiss
-    // via Inspector OnClick) and Play returns so the caller can continue into the loading screen
-    // for NightCity.
+
     public class EyeCloseUI : UIScreen
     {
         [SerializeField] private RectTransform _topPanel;
@@ -31,10 +27,7 @@ namespace Game.Scripts.UI.Screens
             if (_bottomPanel != null) _bottomOpenPos = _bottomPanel.anchoredPosition;
             if (_explanationRoot != null) _explanationRoot.SetActive(false);
         }
-
-        // Close eyelids → reveal explanation → wait for click → return. Panels stay closed
-        // and the screen stays shown; the caller is expected to bring up a loading screen and
-        // then Hide() this one once it's covered.
+        
         public IEnumerator Play()
         {
             ResetPanels();
@@ -50,9 +43,7 @@ namespace Game.Scripts.UI.Screens
             while (!_dismissed) yield return null;
             if (_explanationRoot != null) _explanationRoot.SetActive(false);
         }
-
-        // Open the eyelids back up. Currently unused in the production flow (the night loading
-        // screen covers everything) but kept for debug / future "wake up" moments.
+        
         public IEnumerator Open()
         {
             if (_topPanel    != null) _topPanel.DOAnchorPosY(_topOpenPos.y,    _openDuration).SetEase(_openEase);
@@ -61,7 +52,6 @@ namespace Game.Scripts.UI.Screens
             Hide();
         }
 
-        // Wire the explanation panel's continue button to this method via Inspector OnClick.
         public void Dismiss() => _dismissed = true;
 
         private void ResetPanels()

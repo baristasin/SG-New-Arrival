@@ -2,10 +2,6 @@ using UnityEngine;
 
 namespace Game.Scripts.AudioModules
 {
-    // Drop this on any GameObject in a scene to play a looping ambient clip while the scene is
-    // loaded. Plays in Awake (so it's up the moment the scene shows) and stops in OnDisable /
-    // OnDestroy (so the scene unload cleanly silences it). One clip per instance — add another
-    // SceneAmbience GameObject for additional layers.
     [RequireComponent(typeof(AudioSource))]
     public class SceneAmbience : MonoBehaviour
     {

@@ -2,9 +2,6 @@ using System;
 
 namespace Game.Scripts.StudentData
 {
-    // Visa-application data for a student, sourced from the orange columns (S–AO) of the
-    // student profiles spreadsheet. Dates are kept as ISO "yyyy-MM-dd" strings (empty when blank),
-    // matching the convention used by StudentProfile.DateOfBirth / MoveInDate.
     [Serializable]
     public class VisaData
     {

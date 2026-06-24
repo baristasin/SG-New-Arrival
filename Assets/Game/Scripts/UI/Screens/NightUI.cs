@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace Game.Scripts.UI.Screens
 {
-    // Scene-local night combat HUD root. Lives in the NightCity scene because its bindings —
-    // player + cathedral health modules, the EKG bar, the cathedral bar, the night clock — are
-    // all scene objects. Wires their events on enable, unwires on disable.
     public class NightUI : MonoBehaviour
     {
         [SerializeField] private PlayerHealthModule _playerHealth;

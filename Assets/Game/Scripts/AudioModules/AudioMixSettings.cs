@@ -5,10 +5,6 @@ using UnityEngine;
 
 namespace Game.Scripts.AudioModules
 {
-    // Pushes per-bus volumes to FMOD on boot. Lives next to MusicController in the Bootstrap
-    // scene. Each entry is an FMOD bus path (open the FMOD Studio Mixer to find them) plus a
-    // 0–2 multiplier. The Inspector also gets a button to push the current values without a
-    // restart so you can balance levels in Play mode.
     public class AudioMixSettings : MonoBehaviour
     {
         [Serializable]

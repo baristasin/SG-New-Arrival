@@ -5,10 +5,6 @@ using UnityEngine;
 
 namespace Game.Scripts.UI
 {
-    // Persistent, global UI hub. Owns the cross-scene Canvas and hosts every UIScreen — main
-    // menu, loading overlay, day intro, day HUD, tutorial pages, sleep transition, day rewards,
-    // and the night combat HUD. Other systems (GameManager, minigames) reach screens through
-    // the typed properties below.
     public class UIManager : PersistentSingleton<UIManager>
     {
         [SerializeField] private Canvas _canvas;

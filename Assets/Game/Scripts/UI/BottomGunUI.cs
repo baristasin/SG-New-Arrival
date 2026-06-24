@@ -27,9 +27,7 @@ namespace Game.Scripts.UI
             UnSelectAll();
             _gunUIItems[i].Select();
         }
-
-        // Hide icons for weapon slots that haven't been unlocked yet. Called by
-        // PlayerShootingModule.SetUnlockedCount on day load.
+        
         public void SetVisibleCount(int count)
         {
             for (int i = 0; i < _gunUIItems.Count; i++)

@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules.Turrets
 {
-    // Copy machine: launches a homing paper plane, then waits until it lands before launching the
-    // next — only one plane in flight at a time. Long range, single target (set FireInterval ~0).
+
     public class CopyMachineTurret : ProjectileTurretBase
     {
         [SerializeField] private EventReference _fireEvent;

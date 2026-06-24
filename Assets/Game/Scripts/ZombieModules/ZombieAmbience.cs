@@ -5,11 +5,6 @@ using UnityEngine;
 
 namespace Game.Scripts.ZombieModules
 {
-    // Continuous zombie-growl ambience. Spawns N concurrent 2D loop instances — atmospheric
-    // crowd murmur, no spatial attenuation, so it's audible wherever the player stands. Each
-    // instance's volume scales with how many zombies are actually alive (ZombieRegistry.Count)
-    // so the soundscape is loud when the streets are packed and thin when they're cleared.
-    // Lives in NightCity.
     public class ZombieAmbience : MonoBehaviour
     {
         [SerializeField] private EventReference _growlLoopEvent;
@@ -29,8 +24,7 @@ namespace Game.Scripts.ZombieModules
 
             for (int i = 0; i < _voiceCount; i++)
             {
-                // 2D loop — atmosphere, not a worldspace source. Audible at full volume across
-                // the whole map until the crowd is thinned out.
+
                 var inst = AudioManager.Instance.PlayLoop(_growlLoopEvent);
                 _voices.Add(inst);
             }

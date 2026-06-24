@@ -33,9 +33,7 @@ namespace Game.Scripts.ZombieModules
         private Node _topNode;
         private bool _isInitialized;
         private float _danceUntil;
-
-        // Refreshed each frame by the Ampelmännchen turret while this zombie is in its dance area;
-        // expires shortly after, so the zombie resumes once it leaves the area / the light changes.
+        
         public bool IsDancing => Time.time < _danceUntil;
         public void Dance(float duration) => _danceUntil = Time.time + duration;
 
@@ -53,8 +51,6 @@ namespace Game.Scripts.ZombieModules
 
         public void ZombieDead()
         {
-            // Tear down the floating health bar instantly — don't wait for LateUpdate or for
-            // the death animation to finish.
             ZombieHealthBarPool.HideFor(transform);
             ZombieSpawnManager.RegisterKill();
 

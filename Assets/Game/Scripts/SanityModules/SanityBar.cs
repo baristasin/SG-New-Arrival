@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 namespace Game.Scripts.SanityModules
 {
-    // Drives a Filled Image from the SanityManager's normalized value.
     public class SanityBar : MonoBehaviour
     {
-        [SerializeField] private Image _fill;   // Image, Image Type = Filled
+        [SerializeField] private Image _fill;   
 
         private SanityManager _manager;
 

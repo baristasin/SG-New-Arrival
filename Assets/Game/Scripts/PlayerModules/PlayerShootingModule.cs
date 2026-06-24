@@ -8,10 +8,7 @@ namespace Game.Scripts.PlayerModules
     {
         [SerializeField] private GameObject[] _weapons;
         [SerializeField] private BottomGunUI _bottomGunUI;
-
-        // -1 = every weapon in _weapons is selectable. DayUnlocks sets this on Start to clamp
-        // the available slots per day. EquipWeapon refuses anything beyond the count and the
-        // keyboard input loop only listens for unlocked slots.
+        
         public int UnlockedCount { get; private set; } = -1;
 
         private int _currentIndex = -1;
@@ -26,10 +23,7 @@ namespace Game.Scripts.PlayerModules
         {
             UnlockedCount = Mathf.Max(1, count);
             if (_bottomGunUI != null) _bottomGunUI.SetVisibleCount(UnlockedCount);
-
-            // Force-reapply the active state. DayUnlocks runs AFTER Awake and may have toggled
-            // some _weapons children on as part of its day plan; this guarantees that only the
-            // currently equipped slot remains visible.
+            
             int target = _currentIndex >= 0 && _currentIndex < UnlockedCount ? _currentIndex : 0;
             ForceEquip(target);
         }
@@ -58,9 +52,7 @@ namespace Game.Scripts.PlayerModules
             }
 
             if (_current == null) return;
-
-            // Always "aiming" — RMB gating is gone. fireHeld is LMB. Weapons that check both
-            // (e.g. Bretzel, Cuckoo) fire whenever LMB is held.
+            
             _current.Tick(true, Input.GetMouseButton(0));
         }
 

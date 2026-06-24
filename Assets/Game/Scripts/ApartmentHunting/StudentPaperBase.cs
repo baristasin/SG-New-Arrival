@@ -14,7 +14,6 @@ namespace Game.Scripts.ApartmentHunting
 
         [SerializeField] private TextMeshProUGUI _budgetStoryText;
 
-        // Was _visaStoryText; same Inspector slot now drives the LengthOfStayText line.
         [FormerlySerializedAs("_visaStoryText")]
         [SerializeField] private TextMeshProUGUI _lengthOfStayText;
 
@@ -31,8 +30,6 @@ namespace Game.Scripts.ApartmentHunting
         {
             base.Initialize(data);
             _studentNameText.text = data.FullName;
-            // Budget is free-form per student; Length-of-Stay, Enrollment and Schufa all derive
-            // from booleans with the longer flavour lines.
             _budgetStoryText.text = data.BudgetText;
             _lengthOfStayText.text = data.IsExchangeStudent
                 ? "I'm an exchange student for next 3 months."

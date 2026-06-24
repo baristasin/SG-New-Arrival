@@ -6,9 +6,6 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Game.Scripts.AudioModules
 {
-    // Persistent music conductor. One looping track at a time, with idempotent transitions:
-    // PlayDay / PlayNight are safe to call repeatedly (they no-op if the right track is already
-    // running). Lives in the Bootstrap scene next to the other persistent singletons.
     public class MusicController : PersistentSingleton<MusicController>
     {
         public enum Track { None, Day, Night }
@@ -46,6 +43,21 @@ namespace Game.Scripts.AudioModules
         {
             base.Awake();
             if (Instance != this) return;
+        }
+
+
+        private void Update()
+        {
+            if (ActiveTrack == Track.None) return;
+            if (!_current.isValid()) return;
+
+            _current.getPlaybackState(out PLAYBACK_STATE state);
+            if (state != PLAYBACK_STATE.STOPPED) return;
+
+            var resume = ActiveTrack;
+            ActiveTrack = Track.None;
+            if (resume == Track.Day)        Play(_dayMusic,   Track.Day,   _dayVolume);
+            else if (resume == Track.Night) Play(_nightMusic, Track.Night, _nightVolume);
         }
 
         private void OnDestroy()

@@ -3,10 +3,6 @@ using UnityEngine.Splines;
 
 namespace Game.Scripts.Traffic
 {
-    // One road / loop in the city. Reads a SplineContainer (assigned, or auto-grabbed from this
-    // GameObject) and spawns N cars evenly distributed along it at Start. Each car gets its own
-    // randomised speed inside _speedRange and a randomly picked prefab. The route lives in the
-    // DayCity scene; cars are destroyed with the scene on the next sleep / night transition.
     [DisallowMultipleComponent]
     public class TrafficRoute : MonoBehaviour
     {
@@ -36,9 +32,7 @@ namespace Game.Scripts.Traffic
         {
             if (_spline == null || _carPrefabs == null || _carPrefabs.Length == 0 || _carCount <= 0)
                 return;
-
-            // Stratified random: each car picks a t within its own evenly-sized segment, so the
-            // initial gaps vary while two cars can never spawn on top of each other.
+            
             float segment = 1f / _carCount;
             for (int i = 0; i < _carCount; i++)
             {

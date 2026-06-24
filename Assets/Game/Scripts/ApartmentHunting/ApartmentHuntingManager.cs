@@ -27,10 +27,10 @@ namespace Game.Scripts.ApartmentHunting
 
         [SerializeField] private UnityEngine.UI.Button _matchButton;
         [SerializeField] private float _matchCooldown = 2f;
-
-        private int _fullMatchCount;
+        
+        private int _correctCriteriaTotal;
         public int GetScorePercent() =>
-            Mathf.Clamp(Mathf.RoundToInt(100f * _fullMatchCount / _scoreRequired), 0, 100);
+            Mathf.Clamp(Mathf.RoundToInt(100f * _correctCriteriaTotal / (4f * _scoreRequired)), 0, 100);
 
         public void PlayMatchSubmit() { if (!_matchSubmitEvent.IsNull) AudioManager.Instance.PlayOneShot(_matchSubmitEvent); }
         public EventReference TvBuzzingEvent => _tvBuzzingEvent;
@@ -43,17 +43,12 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private Ease _slideEase = Ease.OutQuad;
 
         [SerializeField] private int _studentInitialBufferSize = 2;
-
-        // Sequential counter for student picks; once we've gone through every entry once, the
-        // picker switches to random. Apartments don't have a counter — the strip holds the full
-        // list and matched ones get recycled to the back.
+        
         private int _studentRound;
 
         public Sprite GetApartmentSpriteForId(int id) => LookupById(_apartmentSprites, id);
         public Sprite GetStudentSpriteForId(int id) => LookupById(_studentSprites, id);
-
-        // index = id - 1 (so Id 1 maps to element 0); wraps with modulo if the id is past the
-        // end of the list, so we always return something.
+        
         private static Sprite LookupById(List<Sprite> list, int id)
         {
             if (list == null || list.Count == 0) return null;
@@ -63,10 +58,7 @@ namespace Game.Scripts.ApartmentHunting
 
         private void Awake() => Active = this;
         private void OnDestroy() { if (Active == this) Active = null; }
-
-        // Called by MinigameStation after the tutorial closes. Slides the two tablet screens
-        // from their off-screen editor positions to the assigned target Transforms, then sets
-        // up paper data.
+        
         public void BeginGame()
         {
             StartCoroutine(BeginGameRoutine());
@@ -88,15 +80,11 @@ namespace Game.Scripts.ApartmentHunting
         public void Initialize()
         {
             _studentRound = 0;
-            _fullMatchCount = 0;
+            _correctCriteriaTotal = 0;
             StartCoroutine(LockMatch());
-
-            // Apartments: load the full list so the player can swipe through every option.
-            // Matched ones get recycled to the back in MatchClicked, never destroyed.
+            
             _apartmentPaperSlider.Initialize(_apartmentDatabase.Apartments);
-
-            // Students: small buffer + refill on slide-out. Sequential through the database
-            // for the first pass, then random.
+            
             var initialStudents = new List<StudentProfile>(_studentInitialBufferSize);
             for (int i = 0; i < _studentInitialBufferSize; i++)
             {
@@ -115,12 +103,10 @@ namespace Game.Scripts.ApartmentHunting
             var studentData = _studentPaperSlider.CurrentData;
 
             var result = MatchValidator.Evaluate(studentData, apartmentData);
-            if (result.IsFullMatch) _fullMatchCount++;
+            _correctCriteriaTotal += result.CorrectCount;   
 
-            // Apartment recycles to the back of the strip — the player can swipe back to it.
             _apartmentPaperSlider.RecycleCurrent();
 
-            // Student slides out and is replaced — next sequential, then random after the first pass.
             _studentPaperSlider.SlideOutCurrent(() =>
             {
                 var next = PickNextStudent();
@@ -128,8 +114,6 @@ namespace Game.Scripts.ApartmentHunting
             });
         }
 
-        // Disables the Match button for _matchCooldown seconds so the player can't spam-match
-        // while papers slide.
         private IEnumerator LockMatch()
         {
             if (_matchButton == null) yield break;

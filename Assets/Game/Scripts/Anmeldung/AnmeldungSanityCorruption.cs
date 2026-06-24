@@ -4,15 +4,10 @@ using UnityEngine;
 
 namespace Game.Scripts.Anmeldung
 {
-    // Sanity corruption for the Anmeldung minigame:
-    //  - Stable:     5 necessary items only, no paper effects
-    //  - Unsettled:  + 3 distractor items (the wrong info)
-    //  - Disturbed:  + paper starts spinning
-    //  - Critical:   + a periodic tremble while it spins
-    // AnmeldungManager queries ShouldShowDistractors when building each round.
+
     public class AnmeldungSanityCorruption : SanityCorruptionHandler
     {
-        [SerializeField] private float _spinDuration = 40f;   // seconds per full rotation (higher = slower)
+        [SerializeField] private float _spinDuration = 40f;
 
         [SerializeField] private Vector2 _trembleIntervalRange = new Vector2(1.5f, 3f);
         [SerializeField] private float _trembleIntensity = 4f;
@@ -24,7 +19,6 @@ namespace Game.Scripts.Anmeldung
         public bool ShouldShowDistractors =>
             Sanity != null && Sanity.Stage > SanityStage.Stable;
 
-        // Called by AnmeldungManager whenever a new paper is spawned, so the corruption follows it.
         public void SetPaper(AnmeldungDocument paper)
         {
             _paper = paper;
@@ -41,7 +35,6 @@ namespace Game.Scripts.Anmeldung
             {
                 case SanityStage.Stable:
                 case SanityStage.Unsettled:
-                    // no paper effects (item-count change is driven by ShouldShowDistractors)
                     break;
 
                 case SanityStage.Disturbed:

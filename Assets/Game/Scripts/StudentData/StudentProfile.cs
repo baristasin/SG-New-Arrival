@@ -25,12 +25,9 @@ namespace Game.Scripts.StudentData
         public string Wohnungsgeber;
         public string FormerAddressAbroad;
         public bool HasPreviousSchufa;
-
-        // Exchange (3-month) vs full master's programme — drives the Length-of-Stay line on the
-        // student paper. True = exchange, false = master's.
+        
         public bool IsExchangeStudent;
 
-        // Free-form flavour text per student — Budget is fully unique, so it stays as data.
         [TextArea] public string BudgetText;
 
         public VisaData Visa;

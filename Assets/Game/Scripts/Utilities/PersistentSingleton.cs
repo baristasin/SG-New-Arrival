@@ -2,8 +2,6 @@ using UnityEngine;
 
 namespace Game.Scripts.Utilities
 {
-    // Singleton that survives scene loads. The first instance persists (DontDestroyOnLoad);
-    // a duplicate placed in a later scene destroys itself in Awake.
     public abstract class PersistentSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;

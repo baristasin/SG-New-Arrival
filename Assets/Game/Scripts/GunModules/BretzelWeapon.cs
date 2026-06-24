@@ -5,10 +5,7 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    // Bretzel boomerang. Hierarchy: Player → Bretzel (this script) → Model. transform.forward
-    // is the throw direction; transform.position is the orbit centre and is read every frame
-    // so the arc tracks the player. Model has no collider; damage is dealt by OverlapSphere
-    // at the model's position.
+
     public class BretzelWeapon : WeaponBase
     {
         [SerializeField] private Transform _model;            // the thrown child
@@ -71,7 +68,6 @@ namespace Game.Scripts.GunModules
             float forward = Mathf.Sin(u * Mathf.PI) * _data.Range;        // 0 → range → 0
             float lateral = Mathf.Sin(u * 2f * Mathf.PI) * _arcWidth;     // right out, left back
 
-            // Orbit centre = our position THIS frame → arc moves with the player.
             _model.position = transform.position + _throwDir * forward + _throwRight * lateral;
             _model.Rotate(0f, _spinSpeed * Time.deltaTime, 0f, Space.Self);
 

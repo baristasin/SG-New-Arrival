@@ -44,11 +44,8 @@ namespace Game.Scripts.PlayerModules
             if (isMoving)
             {
                 _agent.Move(moveDir * _moveSpeed * Time.deltaTime);
-                // AudioManager.Instance.PlayOneShotNoOverlapAttached("Footstep-Single-2", _footstepEvent, gameObject);
             }
-
-            // _faceMouseDirection toggles which way the body looks. On = combat/aim feel
-            // (NightCity). Off = third-person exploration feel (DayCity).
+            
             Vector3 facing = Vector3.zero;
             if (_faceMouseDirection)
             {

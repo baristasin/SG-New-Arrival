@@ -6,8 +6,6 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules.Turrets
 {
-    // Dönerspieß: a continuously rotating skewer that damages the zombies its blade sweeps over
-    // (capsule along the skewer + per-zombie hit cooldown), like a hands-free melee weapon.
     public class DonerspiessTurret : TurretBase
     {
         [SerializeField] private Transform _skewer;
@@ -41,9 +39,7 @@ namespace Game.Scripts.GunModules.Turrets
             _skewer.Rotate(0f, _rotationSpeed * Time.deltaTime, 0f, Space.Self);
             SweepDamage();
         }
-
-        // Capsule from the skewer base out along its forward axis = the blade. As the skewer
-        // turns, the capsule sweeps a circle; only zombies it currently overlaps take damage.
+        
         private void SweepDamage()
         {
             Vector3 start = _skewer.position;

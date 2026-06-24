@@ -35,19 +35,13 @@ namespace Game.Scripts.ZombieModules
         private static Pool<ZombieController> _pool;
         private int _spawnCount;
 
-        // Static so any zombie's ZombieDead can bump it without a manager reference. Reset on
-        // each scene load in Awake so old kills don't leak between nights.
         public static int KillCount { get; private set; }
         public static void RegisterKill() => KillCount++;
-
-        // Fires once the RunWaves coroutine completes — after this, no more spawns. The night
-        // gate uses it to start watching for "0 zombies left" to declare a success.
+        
         public event Action OnAllWavesCompleted;
 
         private void Awake()
         {
-            // Pool is built eagerly; waves are kicked off externally by NightCombatGate once
-            // the NightIntro overlay closes — so zombies aren't spawning behind the intro.
             _pool = new Pool<ZombieController>(_zombiePrefab, _initialPoolSize);
             _spawnCount = 0;
             KillCount = 0;
@@ -75,9 +69,7 @@ namespace Game.Scripts.ZombieModules
 
             OnAllWavesCompleted?.Invoke();
 
-            // Survival mode: once the scripted wave finishes, re-run the LAST entry forever so
-            // pressure keeps climbing until the night clock ends combat. NightCombatGate stops
-            // this manager when it ends the night.
+
             var last = wave.Entries[wave.Entries.Length - 1];
             while (true)
             {
@@ -96,15 +88,13 @@ namespace Game.Scripts.ZombieModules
             yield return new WaitForSeconds(entry.DelayAfter);
         }
 
-        // Drops extra zombies onto the field outside the wave schedule. NightCombatGate calls
-        // this to penalise loud weapons during Ruhezeit.
+
         public void SpawnExtra(int count)
         {
             for (int i = 0; i < count; i++) SpawnZombie();
         }
 
-        // Day 1 → element 0, Day 2 → element 1, … Days past the array length stay on the last
-        // entry so the night never goes silent.
+
         private WaveData GetWaveForDay(int day)
         {
             if (_wavesByDay == null || _wavesByDay.Length == 0) return null;

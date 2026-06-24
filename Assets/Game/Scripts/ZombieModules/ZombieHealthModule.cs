@@ -37,9 +37,7 @@ namespace Game.Scripts.ZombieModules
         }
 
         [SerializeField] private float _knockbackDistance = 0.3f;
-
-        // knockbackDistance < 0 uses the zombie's default; weapons (e.g. the cuckoo) can pass a
-        // larger value for a stronger knockback.
+        
         public void GetHit(int damage, Vector3 knockDir = default, float knockbackDistance = -1f)
         {
             _zombieHealth -= damage;

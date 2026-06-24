@@ -27,8 +27,6 @@ namespace Game.Scripts.ApartmentHunting
         {
             base.Initialize(data);
             _apartmentNameText.text = data.Name;
-            // Price uses the int rent amount; Anmeldung + Schufa derive from the booleans; Type
-            // stays straight from the enum.
             _priceStoryText.text = $"{data.RentAmount}€ per month";
             _anmeldungStoryText.text = data.ProvidesWohnungsgeberbescheinigung
                 ? "Can be used for registration"

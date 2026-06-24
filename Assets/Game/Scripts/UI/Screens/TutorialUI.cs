@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace Game.Scripts.UI.Screens
 {
-    // One full-screen tutorial image per minigame. Play(id) hides all and activates the matching
-    // image; the close button INSIDE that image is wired to TutorialUI.Dismiss via Inspector
-    // OnClick (all three buttons can share the same handler — only one image is ever active).
     public class TutorialUI : UIScreen
     {
         [Serializable]
@@ -22,10 +19,7 @@ namespace Game.Scripts.UI.Screens
 
         private bool _dismissed;
         private TutorialImage _activeEntry;
-
-        // onShown fires after the fade-in — caller hides the Loading cover here.
-        // onDismissed fires after the click but before the fade-out — caller can raise Loading
-        // again if the next step needs it.
+        
         public IEnumerator Play(MinigameId id, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var t in _tutorials)
@@ -46,7 +40,6 @@ namespace Game.Scripts.UI.Screens
             _activeEntry = null;
         }
 
-        // Wire each close button's OnClick → TutorialUI.Dismiss in the Inspector.
         public void Dismiss() => _dismissed = true;
     }
 }

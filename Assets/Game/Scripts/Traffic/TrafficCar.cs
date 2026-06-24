@@ -4,10 +4,6 @@ using UnityEngine.Splines;
 
 namespace Game.Scripts.Traffic
 {
-    // Follows a SplineContainer at a fixed speed. TrafficRoute instantiates one per car and
-    // calls Setup with the spline, an initial t value (so cars are spaced along the road), and
-    // a per-instance speed. Loops by default; on a non-looping route the car self-destructs at
-    // the end of the path.
     public class TrafficCar : MonoBehaviour
     {
         private SplineContainer _spline;

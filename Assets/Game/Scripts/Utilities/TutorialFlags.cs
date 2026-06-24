@@ -3,8 +3,6 @@ using UnityEngine;
 
 namespace Game.Scripts.Utilities
 {
-    // Tracks whether the per-minigame fullscreen tutorial has been shown. Persists across sessions
-    // via PlayerPrefs for now; when the save system arrives, swap this store and keep the API.
     public static class TutorialFlags
     {
         private const string KeyPrefix = "Tutorial.";

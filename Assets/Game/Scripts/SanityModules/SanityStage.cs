@@ -1,6 +1,5 @@
 namespace Game.Scripts.SanityModules
 {
-    // Higher = worse. Minigames add more corruption per stage.
     public enum SanityStage
     {
         Stable,      // >= StableThreshold (default 75)

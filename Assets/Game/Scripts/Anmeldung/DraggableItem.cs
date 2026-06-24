@@ -74,9 +74,6 @@ namespace Game.Scripts.Anmeldung
 
         public void OnDrag(PointerEventData eventData)
         {
-            // Use the camera the EventSystem used to press this object — guaranteed correct
-            // even when Cinemachine moves the main camera between stations. Falls back to the
-            // serialized _mainCamera for sanity.
             Camera cam = eventData.pressEventCamera != null ? eventData.pressEventCamera : _mainCamera;
             var canvasRect = _canvas.transform as RectTransform;
             if (canvasRect == null) return;

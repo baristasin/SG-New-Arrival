@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules.Projectiles
 {
-    // Reusable homing projectile: steers toward a target, deals damage on contact (optionally in
-    // a small area), then despawns. Hit detection is OverlapSphere-based (no collider needed).
+
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private float _speed = 12f;
@@ -47,7 +46,6 @@ namespace Game.Scripts.GunModules.Projectiles
             _age += Time.deltaTime;
             if (_age >= _lifeTime) { Despawn(); return; }
 
-            // Drop a target that despawned (pooled zombies deactivate rather than destroy).
             if (_target != null && !_target.gameObject.activeInHierarchy)
                 _target = null;
 
@@ -55,9 +53,7 @@ namespace Game.Scripts.GunModules.Projectiles
             {
                 Vector3 desired = _target.position - transform.position;
 
-                // Once close, stop homing and fly straight. Prevents orbiting a target that has
-                // stalled — e.g. a zombie killed mid-flight by another turret keeps its transform
-                // alive during the death animation but loses its collider, so we can never hit it.
+
                 if (desired.sqrMagnitude <= _lockReleaseDistance * _lockReleaseDistance)
                     _target = null;
                 else

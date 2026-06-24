@@ -49,9 +49,7 @@ namespace Game.Scripts.ZombieModules
             gameObject.SetActive(false);
             ReturnToPool();
         }
-
-        // Called by the pool / ZombieController.ZombieDead the moment the zombie dies, so the
-        // bar disappears in the same frame instead of lingering for the death animation.
+        
         public void HideImmediate()
         {
             if (_hideCoroutine != null)
@@ -70,8 +68,7 @@ namespace Game.Scripts.ZombieModules
                 StopCoroutine(_hideCoroutine);
                 _hideCoroutine = null;
             }
-            // Keep _target set — the pool reads it to remove its target → bar mapping. The next
-            // Show() call will overwrite it.
+
             ZombieHealthBarPool.Return(this);
         }
     }

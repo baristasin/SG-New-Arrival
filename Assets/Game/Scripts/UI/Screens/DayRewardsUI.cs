@@ -7,9 +7,7 @@ using UnityEngine;
 
 namespace Game.Scripts.UI.Screens
 {
-    // One full-screen rewards image per day (Day 1..N). Play(day) hides all and activates the
-    // matching image; the close button inside that image is wired to DayRewardsUI.Dismiss via
-    // Inspector OnClick (every day's button can share the same handler — only one is active).
+
     public class DayRewardsUI : UIScreen
     {
         [Serializable]
@@ -25,10 +23,7 @@ namespace Game.Scripts.UI.Screens
 
         private bool _dismissed;
         private DayRewardImage _activeEntry;
-
-        // onShown fires after fade-in — caller hides Loading cover here.
-        // onDismissed fires after click but before fade-out — caller raises Loading cover here
-        // so the fade-out happens behind cover (no underlying scene flash).
+        
         public IEnumerator Play(int day, int scorePercent, System.Action onShown = null, System.Action onDismissed = null)
         {
             foreach (var r in _rewards)

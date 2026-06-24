@@ -60,9 +60,7 @@ namespace Game.Scripts.Anmeldung
         private int _currentRound;
 
         private int _points;
-
-        // Called by MinigameStation after the tutorial closes. Paper + items slide in here, not
-        // on Start, so they don't appear behind the fullscreen tutorial sheet.
+        
         public void BeginGame()
         {
             _currentRound = 0;
@@ -71,9 +69,7 @@ namespace Game.Scripts.Anmeldung
             StartCoroutine(LockSubmit());
             StartCoroutine(StartRound());
         }
-
-        // Disables the Complete button for _submitCooldown seconds. Called at BeginGame and at
-        // every round start so the player can't mash the button while items slide in.
+        
         private IEnumerator LockSubmit()
         {
             if (_completeButton == null) yield break;
@@ -94,9 +90,7 @@ namespace Game.Scripts.Anmeldung
             yield return SlideInAnmeldungPaper();
             yield return SlideInItems();
         }
-
-        // Sequential for the first pass through the database, then random for every round after
-        // — sanity (not the deck) decides when the day ends, so we never run out of students.
+        
         private StudentProfile PickStudentForRound(int round)
         {
             var list = _studentDatabase != null ? _studentDatabase.Students : null;
@@ -177,7 +171,6 @@ namespace Game.Scripts.Anmeldung
         [Button]
         public void CompletePaper()
         {
-            // Lock the button the INSTANT the player clicks — no spam during the round-complete animation.
             StartCoroutine(LockSubmit());
             PlaySubmit();
             CheckCompletion();
@@ -204,8 +197,6 @@ namespace Game.Scripts.Anmeldung
         {
             yield return SlideOutAll();
             _currentRound++;
-            // Re-lock for the slide-in of the next round. Cooldown starts here so the button
-            // becomes interactable a few seconds after items appear.
             StartCoroutine(LockSubmit());
             yield return StartRound();
         }

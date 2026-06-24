@@ -5,9 +5,7 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules.Turrets
 {
-    // Ampelmännchen: a traffic light that toggles red<->green every 5-6s (always starts red).
-    // During the dance phase (red by default), zombies inside the box-shaped area in front stop
-    // attacking and dance; they resume once they leave the area or the light switches.
+
     public class AmpelmaennchenTurret : TurretBase
     {
         [SerializeField] private float _minPhase = 5f;

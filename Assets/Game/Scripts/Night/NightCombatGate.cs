@@ -11,11 +11,6 @@ using UnityEngine;
 
 namespace Game.Scripts.Night
 {
-    // Scene-local gate for the NightCity combat layer. Two responsibilities:
-    //  1) Lock the player + spawner + HUD until NightIntro closes (state → NightCombat).
-    //  2) Watch the player and building health modules; when either drops to 0, end combat —
-    //     compute the next morning's starting sanity, show the result panel, then trigger
-    //     GameManager.NightFinished() to return to day.
     public class NightCombatGate : MonoBehaviour
     {
         [SerializeField] private ZombieSpawnManager _spawnManager;
@@ -109,15 +104,12 @@ namespace Game.Scripts.Night
             {
                 _clock.ResetClock();
                 _clock.StartClock();
-                // Catch the case where startHour already meets the Ruhezeit threshold.
                 _ruhezeitActive = _clock.Hour >= _ruhezeitStartHour;
             }
 
-            // Tutorial dismissed → zombies summoned → night music starts.
             MusicController.Instance?.PlayNight();
         }
 
-        // ── Survival clock hooks ──────────────────────────────────────────────────────────
 
         private void HandleHourPassed(int newHour)
         {
@@ -127,12 +119,9 @@ namespace Game.Scripts.Night
 
         private void HandleNightEnded()
         {
-            // Reached the end hour with player + building still alive → survival success.
             EndCombatSuccess();
         }
-
-        // ── Noise penalty ─────────────────────────────────────────────────────────────────
-
+        
         private void HandleWeaponFired(NoiseLevel noise)
         {
             if (!_combatStarted || _combatEnded) return;
@@ -144,13 +133,11 @@ namespace Game.Scripts.Night
             if (_spawnManager != null) _spawnManager.SpawnExtra(_noisePenaltyCount);
         }
 
-        // ── End condition ─────────────────────────────────────────────────────────────────
 
         private void HandlePlayerHealth(int hp)   { if (hp <= 0) EndCombatFail(); }
         private void HandleBuildingHealth(int hp) { if (hp <= 0) EndCombatFail(); }
 
-        // Failure path — player or cathedral down. Tomorrow's sanity drops to a lerp between
-        // floor and ceiling based on how much building HP survived.
+
         [Button]
         public void EndCombatFail()
         {
@@ -163,16 +150,14 @@ namespace Game.Scripts.Night
             StartCoroutine(EndCombatFailRoutine(nextSanity));
         }
 
-        // Success path — all waves cleared, both player and building alive. Wave logic calls
-        // this when the last zombie is down; for now it's also exposed as a debug button.
+
         [Button]
         public void EndCombatSuccess()
         {
             if (_combatEnded || !_combatStarted) return;
             _combatEnded = true;
 
-            // Successful nights leave morning sanity at full — no override means ResetSanity
-            // falls back to MaxSanity.
+
             int kills = ZombieSpawnManager.KillCount;
 
             StartCoroutine(EndCombatSuccessRoutine(kills));
@@ -201,12 +186,9 @@ namespace Game.Scripts.Night
             if (_playerMovement != null) _playerMovement.enabled = false;
             if (_playerShooting != null) _playerShooting.enabled = false;
 
-            // Cut the night music — result panel + next-day load happen in silence.
             MusicController.Instance?.StopAll();
         }
-
-        // Cathedral survival drives the next-day sanity — building at full = ceiling, building
-        // gone = floor. Player death without building damage still leaves a strong morning.
+        
         private int ComputeNextDaySanity()
         {
             float pct = 0f;

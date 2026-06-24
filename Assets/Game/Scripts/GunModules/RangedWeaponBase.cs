@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    // Fires Fire() on a fixed cadence while held, with optional magazine + reload.
     public abstract class RangedWeaponBase : WeaponBase
     {
         [SerializeField] protected Transform _muzzlePoint;

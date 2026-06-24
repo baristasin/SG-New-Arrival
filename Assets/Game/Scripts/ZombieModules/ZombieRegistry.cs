@@ -15,9 +15,7 @@ namespace Game.Scripts.ZombieModules
 
         public static bool TryGetHealth(Collider col, out ZombieHealthModule health)
             => _map.TryGetValue(col, out health);
-
-        // Approximate live-zombie count for ambience volume scaling. Tracks colliders registered
-        // by ZombieController.Setup and unregistered by ZombieController.ZombieDead.
+        
         public static int Count => _map.Count;
     }
 }

@@ -51,8 +51,7 @@ namespace Game.Scripts.UI.Screens
             return null;
         }
 
-        // Lerps the bar from 0 to 1 over `duration`. Caller usually starts a real scene load
-        // before this; FillBar then enforces the minimum visible time the player sees the bar.
+
         public IEnumerator FillBar(float duration)
         {
             duration = Mathf.Max(0.01f, duration);
@@ -72,9 +71,7 @@ namespace Game.Scripts.UI.Screens
             p = Mathf.Clamp01(p);
             if (_progressFill != null) _progressFill.fillAmount = p;
         }
-
-        // Wired to the Complain button's onClick. Spawns one emoji at a randomised x offset
-        // under the spawn parent, rises it and fades it out, then destroys.
+        
         private void SpawnEmoji()
         {
             if (_emojiSprite == null || _emojiSpawnParent == null) return;
@@ -92,7 +89,6 @@ namespace Game.Scripts.UI.Screens
             var cg = go.GetComponent<CanvasGroup>();
             cg.alpha = 1f;
 
-            // Float upward + fade out. Destroyed in OnComplete to keep the hierarchy clean.
             rt.DOAnchorPosY(_emojiRiseDistance, _emojiDuration).SetEase(Ease.OutQuad);
             cg.DOFade(0f, _emojiDuration).SetEase(Ease.InQuad)
                 .OnComplete(() => Destroy(go));

@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {
-    // Persistent wrapper around SceneManager.LoadSceneAsync. Exposes a progress event the
-    // LoadingScreenUI listens to. Single active scene model — every load fully replaces the
-    // previous scene. Persistent singletons survive via DontDestroyOnLoad on their root.
     public class SceneLoader : PersistentSingleton<SceneLoader>
     {
         public const string BootstrapScene = "BootstrapScene";

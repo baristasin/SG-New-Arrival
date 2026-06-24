@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.ZombieModules
 {
-    // Pool for the floating zombie health bars. Tracks which bar belongs to which target so each
-    // zombie only ever has ONE bar — repeated hits update the same bar instead of stacking new
-    // ones that linger on the dead zombie during its death animation.
+
     public class ZombieHealthBarPool : MonoBehaviour
     {
         [SerializeField] private ZombieHealthBar _prefab;
@@ -21,8 +19,7 @@ namespace Game.Scripts.ZombieModules
             _activeBars.Clear();
         }
 
-        // Reuses the existing bar if one is already tracking this target; otherwise pulls a fresh
-        // one from the pool.
+
         public static void Show(Transform target, int remainingHealth, int maxHealth)
         {
             if (target == null) return;
@@ -35,8 +32,7 @@ namespace Game.Scripts.ZombieModules
             bar.Show(target, remainingHealth, maxHealth);
         }
 
-        // Called by ZombieController.ZombieDead — instantly removes the bar in the same frame
-        // the zombie dies, instead of waiting for LateUpdate / display-duration.
+  
         public static void HideFor(Transform target)
         {
             if (target == null) return;
@@ -48,7 +44,6 @@ namespace Game.Scripts.ZombieModules
         {
             if (bar == null) return;
 
-            // Clear the target → bar mapping using the bar's still-set target.
             if (bar.Target != null) _activeBars.Remove(bar.Target);
 
             _pool.ReturnToPool(bar);

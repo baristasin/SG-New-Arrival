@@ -5,8 +5,6 @@ using UnityEngine.Serialization;
 
 namespace Game.Scripts.GunModules.Turrets
 {
-    // Shared base for turrets that rotate to face the nearest zombie and fire pooled homing
-    // projectiles. Subclasses decide the cadence by implementing TryFire().
     public abstract class ProjectileTurretBase : TurretBase
     {
         [FormerlySerializedAs("_bottlePrefab")]
@@ -40,7 +38,6 @@ namespace Game.Scripts.GunModules.Turrets
             _rotatingHead.rotation = Quaternion.RotateTowards(_rotatingHead.rotation, look, _turnSpeed * Time.deltaTime);
         }
 
-        // Fires one homing projectile at the nearest zombie. Returns it, or null if no pool/target.
         protected Projectile LaunchAtNearest()
         {
             if (_pool == null) return null;

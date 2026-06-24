@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace Game.Scripts.Night
 {
-    // Quick lightning flash on a Light component. Strike() ramps the intensity
-    // peak → mid → peak → mid → base, then sits at base again. Auto-strike fires it on a
-    // random interval so the night sky pulses without manual triggers.
     public class LightningEffect : MonoBehaviour
     {
         [SerializeField] private Light _light;
@@ -17,6 +14,9 @@ namespace Game.Scripts.Night
 
         [SerializeField] private bool _autoStrike = true;
         [SerializeField] private Vector2 _autoIntervalRange = new Vector2(4f, 12f);
+
+        [SerializeField] private AudioClip _thunderClip;
+        [SerializeField, Range(0f, 1f)] private float _thunderVolume = 1f;
 
         private Coroutine _strikeRoutine;
 
@@ -32,6 +32,9 @@ namespace Game.Scripts.Night
             if (_light == null) return;
             if (_strikeRoutine != null) StopCoroutine(_strikeRoutine);
             _strikeRoutine = StartCoroutine(StrikeRoutine());
+
+            if (_thunderClip != null && Camera.main != null)
+                AudioSource.PlayClipAtPoint(_thunderClip, Camera.main.transform.position, _thunderVolume);
         }
 
         private IEnumerator StrikeRoutine()

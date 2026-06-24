@@ -2,12 +2,6 @@ using UnityEngine;
 
 namespace Game.Scripts.City
 {
-    // Trigger volume placed at the entrance of a minigame station. When the player walks in,
-    // it calls GameManager.EnterMinigame for its MinigameId — but only while the player is
-    // roaming the city AND (optionally) the id matches the day's planned minigame, so the
-    // "one minigame per day" rule isn't broken by walking into the wrong door.
-    //
-    // Fires once per scene load (re-armed automatically because DayCity reloads after night).
     [RequireComponent(typeof(Collider))]
     public class MissionTrigger : MonoBehaviour
     {
@@ -21,8 +15,7 @@ namespace Game.Scripts.City
 
         private void Reset()
         {
-            // Ensure the attached collider is a trigger so the GameObject behaves correctly
-            // straight out of Add Component.
+
             var col = GetComponent<Collider>();
             if (col != null) col.isTrigger = true;
         }

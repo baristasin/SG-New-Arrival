@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    // Swings while held, hitting enemies based on how fast the cursor (this transform) turns.
     public class MeleeWeaponModule : WeaponBase
     {
         [SerializeField] private float _slashThreshold = 10f;
@@ -44,8 +43,6 @@ namespace Game.Scripts.GunModules
 
         private void Slash(float speed)
         {
-            // Extend the capsule BEHIND the weapon pivot too, so zombies on top of the player
-            // are still inside the start sphere and get hit.
             Vector3 start = transform.position - transform.forward * _handleBackExtent;
             Vector3 end = transform.position + transform.forward * _weaponLength;
 

@@ -4,10 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Night
 {
-    // Scene-local night clock for the NightCity survival run. Ticks in-game minutes from
-    // _startHour to _endHour at _realSecondsPerHour. Pauses on disable. Hour ticks and end-of-
-    // night are exposed as events so NightCombatGate / NightUI can react. Defaults: 20→23
-    // (8PM→11PM) at 60 real seconds per in-game hour = 3 minutes total.
+
     public class NightClock : MonoBehaviour
     {
         [SerializeField] private int _startHour = 20;
@@ -21,9 +18,9 @@ namespace Game.Scripts.Night
         public int StartHour => _startHour;
         public int EndHour => _endHour;
 
-        public event Action<int, int> OnTimeChanged;   // (hour, minute) every in-game minute
-        public event Action<int> OnHourPassed;          // (newHour) when we cross :00
-        public event Action OnEndReached;               // we hit endHour:00 — night is over
+        public event Action<int, int> OnTimeChanged;   
+        public event Action<int> OnHourPassed;          
+        public event Action OnEndReached;               
 
         private float _secondsPerMinute;
         private float _tickTimer;

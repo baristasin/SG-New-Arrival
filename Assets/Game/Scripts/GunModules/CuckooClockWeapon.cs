@@ -5,10 +5,6 @@ using UnityEngine;
 
 namespace Game.Scripts.GunModules
 {
-    // Kuckucksuhr. Hierarchy: Player → CuckooClock (this script) → Model. transform.forward is
-    // the punch direction (captured at release); transform.position is the spring origin and is
-    // read every frame so the punch follows the player. Model has no collider; hits are detected
-    // by OverlapSphere at the model's position.
     public class CuckooClockWeapon : WeaponBase
     {
         [SerializeField] private Transform _model;            // the cuckoo bird

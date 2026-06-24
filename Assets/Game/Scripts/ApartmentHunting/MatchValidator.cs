@@ -31,9 +31,7 @@ namespace Game.Scripts.ApartmentHunting
         {
             return student.Budget >= apartment.PriceCategory;
         }
-
-        // Long-term students must register their address (Anmeldung), which requires the
-        // landlord's Wohnungsgeberbescheinigung. Short-term stays skip registration.
+        
         private static bool IsAnmeldungMatch(StudentProfile student, ApartmentEntry apartment)
         {
             if (student.VisaStatus == VisaStatus.LongTerm)
@@ -41,7 +39,6 @@ namespace Game.Scripts.ApartmentHunting
             return true;
         }
 
-        // Dormitories are reserved for enrolled students.
         private static bool IsDormitoryMatch(StudentProfile student, ApartmentEntry apartment)
         {
             if (apartment.Type == ApartmentType.Dormitory)

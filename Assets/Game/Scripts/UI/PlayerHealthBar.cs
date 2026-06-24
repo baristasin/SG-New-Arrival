@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace Game.Scripts.UI
 {
-    // EKG-style player health bar: heart-rate images scroll left inside a mask, the leftmost wraps
-    // to the right end. As health drops the scroll speeds up and the images shrink. The health text
-    // shows the current value and steps through green → yellow → orange → red at 75/50/25.
     public class PlayerHealthBar : MonoBehaviour
     {
         [SerializeField] private float _maxHealth = 100f;
@@ -52,10 +49,7 @@ namespace Game.Scripts.UI
 
             float speed = Mathf.Lerp(_speedRange.y, _speedRange.x, n);   // low health → fast
             float scale = Mathf.Lerp(_scaleRange.x, _scaleRange.y, n);   // low health → short on Y only
-
-            // X scale stays at 1, so the on-screen horizontal extent of an image never changes.
-            // Use the unscaled width for both the wrap boundary and the wrap-placement distance —
-            // otherwise low Y scale would shrink horizontal spacing and the images would crowd.
+            
             float leftBoundary = -_mask.rect.width * 0.5f - _imageWidth * 0.5f;
 
             float dx = speed * Time.deltaTime;
@@ -69,7 +63,6 @@ namespace Game.Scripts.UI
                 rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - dx, rt.anchoredPosition.y);
             }
 
-            // Wrap any image that went past the left boundary to the right of the rightmost one.
             for (int i = 0; i < _heartImages.Length; i++)
             {
                 var rt = _heartImages[i];
@@ -96,8 +89,7 @@ namespace Game.Scripts.UI
         public void TakeDamage(float damage) => SetHealth(_currentHealth - damage);
         public void Heal(float amount)       => SetHealth(_currentHealth + amount);
 
-        // Sine pulse on the health number — frequency lerps from slow (full health) to fast
-        // (zero health), so it visibly speeds up as the number drops. Amplitude stays constant.
+
         private void PulseHealthNumber(float normalized)
         {
             if (_healthText == null || _pulseAmplitude <= 0f) return;

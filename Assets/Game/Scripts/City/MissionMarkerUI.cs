@@ -2,12 +2,6 @@ using UnityEngine;
 
 namespace Game.Scripts.City
 {
-    // Mission objective marker. Finds the MissionTrigger that matches the day's planned minigame
-    // and parks an arrow on screen:
-    //   • Target on-screen  → arrow sits over the target (marker mode).
-    //   • Target off-screen → arrow clamped to the screen edge, rotated toward the target.
-    // Hides itself outside CityRoaming. Lives in the DayCity scene on a Screen Space Overlay
-    // Canvas — the arrow's Image is a child of that canvas.
     public class MissionMarkerUI : MonoBehaviour
     {
         [SerializeField] private RectTransform _arrow;
@@ -91,7 +85,6 @@ namespace Game.Scripts.City
                 return;
             }
 
-            // Off-screen: clamp the screen-space position to the inner rectangle, point toward target.
             Vector2 dir = ((Vector2)screenPos - center).normalized;
             float tx = Mathf.Abs(dir.x) > 0.001f ? halfW / Mathf.Abs(dir.x) : float.MaxValue;
             float ty = Mathf.Abs(dir.y) > 0.001f ? halfH / Mathf.Abs(dir.y) : float.MaxValue;
@@ -103,8 +96,7 @@ namespace Game.Scripts.City
 
         private static Quaternion RotationTowards(Vector2 dir)
         {
-            // Arrow sprite assumed to point UP at zero rotation. Atan2 gives angle from +X CCW,
-            // so subtract 90° to align the sprite's UP with the direction vector.
+
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             return Quaternion.Euler(0f, 0f, angle);
         }

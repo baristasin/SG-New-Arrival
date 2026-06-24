@@ -91,9 +91,7 @@ namespace Game.Scripts.ZombieModules
         {
             _agent.ResetPath();
         }
-
-        // Fully halts the agent on death so it doesn't keep sliding toward its last
-        // destination while the death animation plays.
+        
         public void StopForDeath()
         {
             if (!_agent.isActiveAndEnabled || !_agent.isOnNavMesh) return;
@@ -114,7 +112,6 @@ namespace Game.Scripts.ZombieModules
 
         public void Knockback(Vector3 direction, float distance)
         {
-            // Small knockbacks (e.g. the staple gun) stay an instant nudge — no fly, no BT freeze.
             if (distance < _flyThreshold)
             {
                 if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
@@ -125,9 +122,7 @@ namespace Game.Scripts.ZombieModules
             if (_knockbackRoutine != null) ZombieController.StopCoroutine(_knockbackRoutine);
             _knockbackRoutine = ZombieController.StartCoroutine(KnockbackRoutine(direction.normalized, distance));
         }
-
-        // Disables the agent and flies the zombie back over _knockbackDuration (with a small arc),
-        // then snaps it back onto the NavMesh. While flying, IsKnockedBackNode freezes the BT.
+        
         private IEnumerator KnockbackRoutine(Vector3 dir, float distance)
         {
             _isKnockedBack = true;
