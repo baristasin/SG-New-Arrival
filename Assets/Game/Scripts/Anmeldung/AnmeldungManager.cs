@@ -29,14 +29,12 @@ namespace Game.Scripts.Anmeldung
         [SerializeField] private EventReference _slotDropEvent;
         [SerializeField] private EventReference _submitEvent;
 
-        [SerializeField, Min(1)] private int _scoreRequired = 10;
-
         [SerializeField] private Button _completeButton;
         [SerializeField] private float _submitCooldown = 4f;
 
+        // Raw points: +2 per correct drop, -2 per wrong drop, 0 for empty slots.
         private int _correctTotal;
-        public int GetScorePercent() =>
-            Mathf.Clamp(Mathf.RoundToInt(100f * _correctTotal / _scoreRequired), 0, 100);
+        public int GetScorePercent() => _correctTotal;
 
         private void Awake() { Active = this; }
         private void OnDestroy() { if (Active == this) Active = null; }
@@ -59,12 +57,9 @@ namespace Game.Scripts.Anmeldung
         private StudentProfile _currentStudent;
         private int _currentRound;
 
-        private int _points;
-        
         public void BeginGame()
         {
             _currentRound = 0;
-            _points = 0;
             _correctTotal = 0;
             StartCoroutine(LockSubmit());
             StartCoroutine(StartRound());
@@ -178,16 +173,11 @@ namespace Game.Scripts.Anmeldung
 
         public void CheckCompletion()
         {
-            var roundPoints = 0;
-
             foreach (var slot in _currentSlots)
             {
-                if (slot.IsCorrect)
-                {
-                    roundPoints++;
-                    _points++;
-                    _correctTotal++;
-                }
+                if (slot == null || !slot.IsOccupied) continue;
+                if (slot.IsCorrect) _correctTotal += 2;
+                else                _correctTotal -= 2;
             }
 
             StartCoroutine(OnRoundComplete());

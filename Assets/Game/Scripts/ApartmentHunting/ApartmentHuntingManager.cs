@@ -23,14 +23,12 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private EventReference _matchSubmitEvent;
         [SerializeField] private EventReference _tvBuzzingEvent;
 
-        [SerializeField, Min(1)] private int _scoreRequired = 10;
-
         [SerializeField] private UnityEngine.UI.Button _matchButton;
         [SerializeField] private float _matchCooldown = 2f;
-        
-        private int _correctCriteriaTotal;
-        public int GetScorePercent() =>
-            Mathf.Clamp(Mathf.RoundToInt(100f * _correctCriteriaTotal / (4f * _scoreRequired)), 0, 100);
+
+        // Raw points: +2 per correct criterion in each match (4 criteria → 0-8 per match).
+        private int _correctTotal;
+        public int GetScorePercent() => _correctTotal;
 
         public void PlayMatchSubmit() { if (!_matchSubmitEvent.IsNull) AudioManager.Instance.PlayOneShot(_matchSubmitEvent); }
         public EventReference TvBuzzingEvent => _tvBuzzingEvent;
@@ -80,7 +78,7 @@ namespace Game.Scripts.ApartmentHunting
         public void Initialize()
         {
             _studentRound = 0;
-            _correctCriteriaTotal = 0;
+            _correctTotal = 0;
             StartCoroutine(LockMatch());
             
             _apartmentPaperSlider.Initialize(_apartmentDatabase.Apartments);
@@ -103,7 +101,7 @@ namespace Game.Scripts.ApartmentHunting
             var studentData = _studentPaperSlider.CurrentData;
 
             var result = MatchValidator.Evaluate(studentData, apartmentData);
-            _correctCriteriaTotal += result.CorrectCount;   
+            _correctTotal += result.CorrectCount * 2;   // +2 per correct criterion   
 
             _apartmentPaperSlider.RecycleCurrent();
 
