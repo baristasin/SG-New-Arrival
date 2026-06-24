@@ -3728,6 +3728,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2583848982992609919, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1917995796}
+    - target: {fileID: 2583848982992609919, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndRound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583848982992609919, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.Scripts.Visa.VisaChecklist, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2816542079355837842, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
       propertyPath: _checklist
       value: 

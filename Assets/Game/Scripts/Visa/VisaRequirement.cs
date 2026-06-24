@@ -13,6 +13,7 @@ namespace Game.Scripts.Visa
         TravelInsurance,
         BiometricPhoto,
     }
+    
 
     public static class VisaRules
     {

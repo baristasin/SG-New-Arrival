@@ -86,9 +86,10 @@ namespace Game.Scripts.Visa
             CorrectCount = 0;
         }
 
-        // Wire a Submit/Approve button to this. Score = options matching the answer key.
-        public void Submit()
+        // Score the current student. Private — call EndRound, which scores + advances.
+        private void Submit()
         {
+            Debug.Log($"[VisaSubmit] called, rows count={(_rows!=null ? _rows.Length : 0)}");
             var student = _visaManager != null ? _visaManager.CurrentStudent : null;
             if (student == null || student.Visa == null)
             {
@@ -100,22 +101,27 @@ namespace Game.Scripts.Visa
             foreach (var row in _rows)
             {
                 if (row == null || !row.IsAnswered) continue;
-                if (row.Selected == VisaRules.Expected(student.Visa, row.Requirement))
-                    CorrectCount++;
+                var expected = VisaRules.Expected(student.Visa, row.Requirement);
+                bool match = row.Selected == expected;
+                Debug.Log($"[VisaSubmit] {row.Requirement}: selected={row.Selected} expected={expected} match={match}");
+                if (match) CorrectCount++;
             }
+            Debug.Log($"[VisaSubmit] CorrectCount={CorrectCount} TotalScoreBefore={TotalScore}");
 
             if (_resultText != null) _resultText.text = $"{CorrectCount} / {Total}";
         }
 
-        // Wire the End button here: scores the round once, adds it to the running total,
-        // then tells the manager to bring the next student.
+        // The ONE public entry point — wire the Submit / End / Approve button to this.
+        // Scores the current student, adds it to the running total, then advances.
         public void EndRound()
         {
+            Debug.Log($"[VisaEndRound] called, _roundEnded={_roundEnded}");
             if (_roundEnded) return;
             _roundEnded = true;
 
             Submit();
-            TotalScore += CorrectCount * 2;   // each correct checkbox = 2 points
+            TotalScore += CorrectCount * 2;
+            Debug.Log($"[VisaEndRound] TotalScore now = {TotalScore}");
 
             VisaManager.Active?.PlaySubmit();
             if (_visaManager != null) _visaManager.NextStudent();

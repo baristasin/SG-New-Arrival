@@ -28,7 +28,8 @@ namespace Game.Scripts.Visa
                 Debug.LogWarning("[VisaManager] _checklist not wired — score will always be 0.");
                 return 0;
             }
-            return _checklist.TotalScore;   // raw points: 2 per correct checkbox
+            Debug.Log($"[VisaManager.GetScorePercent] returning TotalScore={_checklist.TotalScore}");
+            return _checklist.TotalScore;
         }
 
         private void Awake() { Active = this; }

@@ -6408,8 +6408,7 @@ MonoBehaviour:
   _secondsPerInGameMinute: 1
   _minLoadingDuration: 2
   _newGameLoadingDuration: 6
-  _minigameTransitionDuration: 0.6
-  _dayMinigames: 000000000100000002000000
+  _dayMinigames: 020000000000000001000000
   _devSkipToNight: 0
   _devSkipDay: 4
 --- !u!4 &1533353040
