@@ -12034,6 +12034,18 @@ PrefabInstance:
       propertyPath: _footstepEvent.Guid.Data4
       value: 1301901548
       objectReference: {fileID: 0}
+    - target: {fileID: 5418217919687880398, guid: 432504df660f44d34ab0085729603ad0, type: 3}
+      propertyPath: _slashClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 34c61bdde7f3e42f388b8946d92edf08, type: 3}
+    - target: {fileID: 5418217919687880398, guid: 432504df660f44d34ab0085729603ad0, type: 3}
+      propertyPath: _slashVolume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418217919687880398, guid: 432504df660f44d34ab0085729603ad0, type: 3}
+      propertyPath: _slashSoundCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6044999042933912595, guid: 432504df660f44d34ab0085729603ad0, type: 3}
       propertyPath: _throwEvent.Path
       value: event:/guns/boomerang

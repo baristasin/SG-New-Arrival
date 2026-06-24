@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FMODUnity;
 using Game.Scripts.ZombieModules;
 using UnityEngine;
 
@@ -13,10 +12,12 @@ namespace Game.Scripts.GunModules
         [SerializeField] private float _weaponRadius = 0.5f;
         [SerializeField] private float _hitCooldown = 0.3f;
         [SerializeField] private LayerMask _targetLayer;
-        [SerializeField] private EventReference _slashEvent;
+        [SerializeField] private AudioClip _slashClip;
         [SerializeField, Range(0f, 2f)] private float _slashVolume = 0.7f;
+        [SerializeField] private float _slashSoundCooldown = 0.3f;
 
         private float _lastAngle;
+        private float _nextSlashSoundTime;
         private Collider[] _hitBuffer = new Collider[20];
         private Dictionary<Collider, float> _hitTimestamps = new();
 
@@ -37,7 +38,14 @@ namespace Game.Scripts.GunModules
             {
                 Slash(deltaAngle);
                 NotifyFired();
-                PlayShotSfx(_slashEvent, _slashVolume);
+
+                // Sound on every swing, but throttled so a fast continuous swing doesn't stack
+                // a dozen plays into one frame's worth of audio.
+                if (Time.time >= _nextSlashSoundTime && _slashClip != null && Camera.main != null)
+                {
+                    AudioSource.PlayClipAtPoint(_slashClip, Camera.main.transform.position, _slashVolume);
+                    _nextSlashSoundTime = Time.time + _slashSoundCooldown;
+                }
             }
         }
 
