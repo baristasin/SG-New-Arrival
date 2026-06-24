@@ -44,6 +44,9 @@ namespace Game.Scripts.UI.Screens
 
         private void SetActiveState(bool failed)
         {
+            Debug.Log($"[NightResultUI] SetActiveState failed={failed} " +
+                      $"failedRoot={(_failedRoot != null ? _failedRoot.name : "NULL")} " +
+                      $"successRoot={(_successRoot != null ? _successRoot.name : "NULL")}");
             if (_failedRoot  != null) _failedRoot.SetActive(failed);
             if (_successRoot != null) _successRoot.SetActive(!failed);
         }

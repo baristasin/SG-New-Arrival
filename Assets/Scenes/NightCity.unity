@@ -11208,13 +11208,8 @@ MonoBehaviour:
   _rotatingHead: {fileID: 1963764174}
   _turnSpeed: 360
   _areaRadius: 3
-  _fireEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  _fireClip: {fileID: 8300000, guid: 1e5cacc089e7243d49575ebf2f3e76b9, type: 3}
+  _fireVolume: 1.2
 --- !u!23 &1963764172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11546,32 +11541,46 @@ MonoBehaviour:
   _wavesByDay:
   - Entries:
     - ZombieCount: 7
-      DelayAfter: 10
+      DelayAfter: 8
     - ZombieCount: 9
-      DelayAfter: 10
+      DelayAfter: 7
     - ZombieCount: 12
-      DelayAfter: 15
+      DelayAfter: 10
   - Entries:
     - ZombieCount: 9
-      DelayAfter: 10
+      DelayAfter: 5
+    - ZombieCount: 9
+      DelayAfter: 5
     - ZombieCount: 12
-      DelayAfter: 10
-    - ZombieCount: 15
-      DelayAfter: 15
+      DelayAfter: 5
+    - ZombieCount: 12
+      DelayAfter: 5
+    - ZombieCount: 12
+      DelayAfter: 3
   - Entries:
     - ZombieCount: 18
-      DelayAfter: 10
-    - ZombieCount: 21
-      DelayAfter: 10
+      DelayAfter: 5
+    - ZombieCount: 18
+      DelayAfter: 5
     - ZombieCount: 24
-      DelayAfter: 15
+      DelayAfter: 5
+    - ZombieCount: 24
+      DelayAfter: 5
+    - ZombieCount: 21
+      DelayAfter: 3
   - Entries:
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 30
-      DelayAfter: 10
-    - ZombieCount: 40
-      DelayAfter: 10
+    - ZombieCount: 18
+      DelayAfter: 4
+    - ZombieCount: 18
+      DelayAfter: 4
+    - ZombieCount: 18
+      DelayAfter: 4
+    - ZombieCount: 24
+      DelayAfter: 4
+    - ZombieCount: 24
+      DelayAfter: 4
+    - ZombieCount: 18
+      DelayAfter: 2
 --- !u!4 &2003856352
 Transform:
   m_ObjectHideFlags: 0

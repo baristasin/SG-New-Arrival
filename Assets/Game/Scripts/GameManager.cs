@@ -76,6 +76,12 @@ namespace Game.Scripts
             Application.targetFrameRate = 30;
             if (Instance != this) return;        // a duplicate was destroyed by the base
             Clock = new DayClock { SecondsPerInGameMinute = _secondsPerInGameMinute };
+
+            // Force the game onto the primary monitor so users with a secondary display still
+            // see it. Without this, Unity may remember the last-used monitor from a previous run.
+            if (Display.displays.Length > 0 && !Display.displays[0].active)
+                Display.displays[0].Activate();
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
         }
 
         private void Start()
