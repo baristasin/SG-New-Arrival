@@ -16,7 +16,6 @@ namespace Game.Scripts.Visa
         [SerializeField] private EventReference _submitEvent;
         [SerializeField] private EventReference _stainEvent;
 
-        [SerializeField, Min(1)] private int _scoreRequired = 10;
         [SerializeField] private VisaChecklist _checklist;
 
         [SerializeField] private UnityEngine.UI.Button _submitButton;
@@ -29,7 +28,7 @@ namespace Game.Scripts.Visa
                 Debug.LogWarning("[VisaManager] _checklist not wired — score will always be 0.");
                 return 0;
             }
-            return Mathf.Clamp(Mathf.RoundToInt(100f * _checklist.TotalScore / _scoreRequired), 0, 100);
+            return _checklist.TotalScore;   // raw points: 2 per correct checkbox
         }
 
         private void Awake() { Active = this; }

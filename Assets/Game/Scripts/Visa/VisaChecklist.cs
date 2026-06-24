@@ -115,7 +115,7 @@ namespace Game.Scripts.Visa
             _roundEnded = true;
 
             Submit();
-            TotalScore += CorrectCount;
+            TotalScore += CorrectCount * 2;   // each correct checkbox = 2 points
 
             VisaManager.Active?.PlaySubmit();
             if (_visaManager != null) _visaManager.NextStudent();
