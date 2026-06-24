@@ -62,6 +62,7 @@ namespace Game.Scripts
         public int CurrentDay { get; private set; } = 1;
         public GameState State { get; private set; } = GameState.Boot;
         public CityHub CurrentCity { get; private set; }
+        public MinigameId? CurrentMinigameId { get; private set; }
 
         public int DayStartHour => _dayStartHour;
         public int MissionDeadlineHour => _missionDeadlineHour;
@@ -171,6 +172,7 @@ namespace Game.Scripts
         public void EnterMinigame(MinigameId id)
         {
             if (State != GameState.CityRoaming) return;
+            CurrentMinigameId = id;
             StartCoroutine(EnterMinigameRoutine(id));
         }
         
@@ -283,6 +285,7 @@ namespace Game.Scripts
             SetState(GameState.Sleeping);
             SanityManager.Instance.DrainPerSecond = 0f;
             Clock.Pause();
+            CurrentMinigameId = null;
 
             MusicController.Instance?.StopAll();
 
