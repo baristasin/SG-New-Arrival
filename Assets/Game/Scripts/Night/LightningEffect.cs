@@ -13,12 +13,9 @@ namespace Game.Scripts.Night
         [SerializeField] private float _baseIntensity = 4.3f;
         [SerializeField] private float _peakIntensity = 15f;
         [SerializeField] private float _midIntensity  = 10f;
-        [Tooltip("Seconds the light stays at each step of the peak/mid/peak/mid sequence.")]
         [SerializeField] private float _stepDuration = 0.06f;
 
-        [Header("Auto strike")]
         [SerializeField] private bool _autoStrike = true;
-        [Tooltip("Random gap between auto strikes (seconds).")]
         [SerializeField] private Vector2 _autoIntervalRange = new Vector2(4f, 12f);
 
         private Coroutine _strikeRoutine;

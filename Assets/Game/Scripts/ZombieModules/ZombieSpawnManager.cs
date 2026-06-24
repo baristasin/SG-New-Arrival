@@ -28,11 +28,7 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private float _buildingHalfWidth = 30f;
         [SerializeField] private int _initialPoolSize = 50;
         [SerializeField] private int _totalGroups = 5;
-        [Tooltip("Seconds between each zombie spawned inside a wave entry. Prevents the big " +
-                 "single-frame instantiate hitch when an entry has many zombies.")]
         [SerializeField] private float _spawnInterval = 0.08f;
-        [Tooltip("Wave data per day. Index = day-1 (element 0 → Day 1). Days past the end of " +
-                 "the list reuse the LAST entry forever (so Day 5+ keeps running the Day 4 wave).")]
         [UnityEngine.Serialization.FormerlySerializedAs("_waves")]
         [SerializeField] private WaveData[] _wavesByDay;
 

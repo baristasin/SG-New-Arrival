@@ -18,41 +18,23 @@ namespace Game.Scripts.Night
     //     GameManager.NightFinished() to return to day.
     public class NightCombatGate : MonoBehaviour
     {
-        [Header("Spawning")]
         [SerializeField] private ZombieSpawnManager _spawnManager;
 
-        [Header("Player modules (disabled until combat begins)")]
         [SerializeField] private PlayerMovementModule _playerMovement;
         [SerializeField] private PlayerShootingModule _playerShooting;
 
-        [Header("Combat HUD")]
-        [Tooltip("Parent of the gameplay menu (BottomGunUI, etc.) shown only once the night " +
-                 "intro is dismissed. Inactive in editor.")]
         [SerializeField] private GameObject _combatHUDRoot;
 
-        [Header("End condition watchers")]
         [SerializeField] private PlayerHealthModule _playerHealth;
         [SerializeField] private BuildingHealthModule _buildingHealth;
 
-        [Header("Next-day sanity carry-over")]
-        [Tooltip("Lowest sanity value the next morning can start with — even a flat-out failure " +
-                 "of tonight's defence guarantees this much.")]
         [SerializeField, Range(0, 100)] private int _nextDaySanityFloor = 70;
-        [Tooltip("Highest sanity the next morning can start with — reached when the building " +
-                 "survives at full health.")]
         [SerializeField, Range(0, 100)] private int _nextDaySanityCeiling = 100;
 
-        [Header("Survival clock")]
         [SerializeField] private NightClock _clock;
-        [Tooltip("Hour the Ruhezeit (quiet hours) penalty kicks in. Loud weapons fired at or " +
-                 "after this hour spawn extra zombies on a cooldown.")]
         [SerializeField] private int _ruhezeitStartHour = 22;
 
-        [Header("Loud-weapon noise penalty")]
-        [Tooltip("Extra zombies spawned per loud weapon fire during Ruhezeit.")]
         [SerializeField, Min(1)] private int _noisePenaltyCount = 2;
-        [Tooltip("Cooldown between noise penalties so spamming a loud weapon doesn't flood " +
-                 "the map.")]
         [SerializeField, Min(0f)] private float _noisePenaltyCooldown = 2.5f;
 
         private bool _combatStarted;

@@ -10,9 +10,6 @@ namespace Game.Scripts.GunModules
     {
         [SerializeField] private float _slashThreshold = 10f;
         [SerializeField] private float _weaponLength = 2.5f;
-        [Tooltip("How far behind the weapon transform the hit-capsule starts. Increase if " +
-                 "zombies right next to the player aren't being hit (the capsule was starting at " +
-                 "the blade pivot and missing the player's own footprint).")]
         [SerializeField] private float _handleBackExtent = 1f;
         [SerializeField] private float _weaponRadius = 0.5f;
         [SerializeField] private float _hitCooldown = 0.3f;

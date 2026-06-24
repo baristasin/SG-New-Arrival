@@ -8,17 +8,12 @@ namespace Game.Scripts.UI.Screens
 {
     public class LoadingScreenUI : UIScreen
     {
-        [Header("Progress bar")]
         [SerializeField] private Image _progressFill;
 
-        [Header("Complain button")]
         [SerializeField] private Button _complainButton;
         [SerializeField] private Sprite _emojiSprite;
-        [Tooltip("Parent RectTransform under which emojis spawn. Usually a child of the button " +
-                 "anchored just above it. The spawned Image is parented here.")]
         [SerializeField] private RectTransform _emojiSpawnParent;
         [SerializeField] private Vector2 _emojiSize = new Vector2(80f, 80f);
-        [Tooltip("Random horizontal jitter applied to each spawn (± value).")]
         [SerializeField] private float _emojiHorizontalJitter = 40f;
         [SerializeField] private float _emojiRiseDistance = 400f;
         [SerializeField] private float _emojiDuration = 1.5f;

@@ -9100,21 +9100,21 @@ MonoBehaviour:
     - ZombieCount: 9
       DelayAfter: 10
     - ZombieCount: 12
-      DelayAfter: 0
+      DelayAfter: 15
   - Entries:
     - ZombieCount: 9
       DelayAfter: 10
     - ZombieCount: 12
       DelayAfter: 10
     - ZombieCount: 15
-      DelayAfter: 10
+      DelayAfter: 15
   - Entries:
     - ZombieCount: 18
       DelayAfter: 10
     - ZombieCount: 21
       DelayAfter: 10
     - ZombieCount: 24
-      DelayAfter: 10
+      DelayAfter: 15
   - Entries:
     - ZombieCount: 30
       DelayAfter: 10
@@ -9296,6 +9296,10 @@ PrefabInstance:
       propertyPath: _bottomGunUI
       value: 
       objectReference: {fileID: 1174977457504913753}
+    - target: {fileID: 4329826968937400939, guid: 432504df660f44d34ab0085729603ad0, type: 3}
+      propertyPath: _fireVolume
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4329826968937400939, guid: 432504df660f44d34ab0085729603ad0, type: 3}
       propertyPath: _fireEvent.Path
       value: event:/guns/staple-gun

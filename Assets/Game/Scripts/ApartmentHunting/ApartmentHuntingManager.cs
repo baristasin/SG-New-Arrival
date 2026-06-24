@@ -17,18 +17,16 @@ namespace Game.Scripts.ApartmentHunting
         [SerializeField] private ApartmentPaperSlider _apartmentPaperSlider;
         [SerializeField] private StudentPaperSlider _studentPaperSlider;
 
-        [Header("Shared sprites (consumed by paper bases via Active)")]
         [SerializeField] private List<Sprite> _apartmentSprites;
         [SerializeField] private List<Sprite> _studentSprites;
 
-        [Header("Audio")]
         [SerializeField] private EventReference _matchSubmitEvent;
         [SerializeField] private EventReference _tvBuzzingEvent;
 
-        [Header("Scoring")]
-        [Tooltip("Full matches needed to reach 100%. Each FULL match (all 4 criteria correct) " +
-                 "counts as 1.")]
         [SerializeField, Min(1)] private int _scoreRequired = 10;
+
+        [SerializeField] private UnityEngine.UI.Button _matchButton;
+        [SerializeField] private float _matchCooldown = 2f;
 
         private int _fullMatchCount;
         public int GetScorePercent() =>
@@ -37,21 +35,13 @@ namespace Game.Scripts.ApartmentHunting
         public void PlayMatchSubmit() { if (!_matchSubmitEvent.IsNull) AudioManager.Instance.PlayOneShot(_matchSubmitEvent); }
         public EventReference TvBuzzingEvent => _tvBuzzingEvent;
 
-        [Header("Tablet slide-in (BeginGame)")]
-        [Tooltip("Root of the left tablet (placed off-screen-left in editor). Slides to its target.")]
         [SerializeField] private RectTransform _apartmentScreenRoot;
-        [Tooltip("Root of the right tablet (placed off-screen-right in editor). Slides to its target.")]
         [SerializeField] private RectTransform _studentScreenRoot;
-        [Tooltip("World-space Transform where the apartment screen should land.")]
         [SerializeField] private Transform _apartmentScreenTarget;
-        [Tooltip("World-space Transform where the student screen should land.")]
         [SerializeField] private Transform _studentScreenTarget;
         [SerializeField] private float _slideDuration = 0.5f;
         [SerializeField] private Ease _slideEase = Ease.OutQuad;
 
-        [Header("Round flow")]
-        [Tooltip("How many students are pre-loaded into the student slider on BeginGame. ≥2 keeps " +
-                 "the slide-out → slide-in transition smooth (the next student is queued off-screen).")]
         [SerializeField] private int _studentInitialBufferSize = 2;
 
         // Sequential counter for student picks; once we've gone through every entry once, the
@@ -99,6 +89,7 @@ namespace Game.Scripts.ApartmentHunting
         {
             _studentRound = 0;
             _fullMatchCount = 0;
+            StartCoroutine(LockMatch());
 
             // Apartments: load the full list so the player can swipe through every option.
             // Matched ones get recycled to the back in MatchClicked, never destroyed.
@@ -117,6 +108,7 @@ namespace Game.Scripts.ApartmentHunting
 
         public void MatchClicked()
         {
+            StartCoroutine(LockMatch());
             PlayMatchSubmit();
 
             var apartmentData = _apartmentPaperSlider.CurrentData;
@@ -124,11 +116,6 @@ namespace Game.Scripts.ApartmentHunting
 
             var result = MatchValidator.Evaluate(studentData, apartmentData);
             if (result.IsFullMatch) _fullMatchCount++;
-            Debug.Log($"[Match] {studentData.FullName} x {apartmentData.Name} — " +
-                      $"Price:{result.PriceMatch} Anmeldung:{result.AnmeldungMatch} Dormitory:{result.DormitoryMatch} " +
-                      $"Schufa: {result.SchufaMatch} " +
-                      $"=> {(result.IsFullMatch ? "FULL MATCH" : $"{result.CorrectCount}/4")}  " +
-                      $"Total full matches: {_fullMatchCount}/{_scoreRequired}");
 
             // Apartment recycles to the back of the strip — the player can swipe back to it.
             _apartmentPaperSlider.RecycleCurrent();
@@ -139,6 +126,16 @@ namespace Game.Scripts.ApartmentHunting
                 var next = PickNextStudent();
                 if (next != null) _studentPaperSlider.AddPage(next);
             });
+        }
+
+        // Disables the Match button for _matchCooldown seconds so the player can't spam-match
+        // while papers slide.
+        private IEnumerator LockMatch()
+        {
+            if (_matchButton == null) yield break;
+            _matchButton.interactable = false;
+            yield return new WaitForSeconds(_matchCooldown);
+            _matchButton.interactable = true;
         }
 
         private StudentProfile PickNextStudent()

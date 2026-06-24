@@ -11,18 +11,16 @@ namespace Game.Scripts.Visa
     {
         public static VisaManager Active { get; private set; }
 
-        [Header("Audio")]
         [SerializeField] private EventReference _paperSlideEvent;
         [SerializeField] private EventReference _penWriteEvent;
         [SerializeField] private EventReference _submitEvent;
         [SerializeField] private EventReference _stainEvent;
 
-        [Header("Scoring")]
-        [Tooltip("Correct checklist answers needed to reach 100%. The checklist's TotalScore " +
-                 "drives the count — each correctly-checked row across all students adds 1.")]
         [SerializeField, Min(1)] private int _scoreRequired = 10;
-        [Tooltip("Checklist whose TotalScore is read for the score percent.")]
         [SerializeField] private VisaChecklist _checklist;
+
+        [SerializeField] private UnityEngine.UI.Button _submitButton;
+        [SerializeField] private float _submitCooldown = 4f;
 
         public int GetScorePercent()
         {
@@ -38,10 +36,8 @@ namespace Game.Scripts.Visa
         public void PlaySubmit()     { if (!_submitEvent.IsNull)     AudioManager.Instance.PlayOneShot(_submitEvent); }
         public void PlayStain()      { if (!_stainEvent.IsNull)      AudioManager.Instance.PlayOneShot(_stainEvent); }
 
-        [Header("Data")]
         [SerializeField] private StudentDatabase _studentDatabase;
 
-        [Header("Documents (placed in scene)")]
         [SerializeField] private PassportDocument _passportDoc;
         [SerializeField] private VisaApplyDocument _visaApplyDoc;
         [SerializeField] private AdmissionDocument _admissionDoc;
@@ -51,7 +47,6 @@ namespace Game.Scripts.Visa
         [SerializeField] private InsuranceDocument _insuranceDoc;
         [SerializeField] private PhotoDocument _photoDoc;
 
-        [Header("Interaction")]
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private LayerMask _documentLayerMask;
 
@@ -61,7 +56,6 @@ namespace Game.Scripts.Visa
         // Button.onClick to CloseOpenDocument(); the manager toggles its visibility.
         [SerializeField] private GameObject _closeButton;
 
-        [Header("Round transition")]
         [SerializeField] private float _stagger = 0.08f;
 
         private IClickableDocument _openDocument;
@@ -103,7 +97,18 @@ namespace Game.Scripts.Visa
             _studentIndex = Mathf.Clamp(index, 0, _studentDatabase.Students.Count - 1);
             PopulateDocuments(_studentDatabase.Students[_studentIndex]);
             PlayEntrance();
+            StartCoroutine(LockSubmit());
             StudentLoaded?.Invoke();
+        }
+
+        // Disables the End/Submit button for _submitCooldown seconds so the player can't spam
+        // through students before papers have slid into place.
+        private IEnumerator LockSubmit()
+        {
+            if (_submitButton == null) yield break;
+            _submitButton.interactable = false;
+            yield return new WaitForSeconds(_submitCooldown);
+            _submitButton.interactable = true;
         }
 
         // Wire the "next / approve" button here. Current papers slide out, then the next
@@ -113,6 +118,10 @@ namespace Game.Scripts.Visa
         {
             if (_isTransitioning || _studentDatabase == null || _studentDatabase.Students.Count == 0)
                 return;
+
+            // Lock the button the INSTANT the player clicks — spam clicks during the slide-out
+            // transition must not register.
+            StartCoroutine(LockSubmit());
 
             _completedRounds++;
             int count = _studentDatabase.Students.Count;

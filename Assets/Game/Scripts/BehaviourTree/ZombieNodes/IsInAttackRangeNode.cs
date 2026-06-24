@@ -9,7 +9,6 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
         {
             bool isCloseEnoughToAttack = ZombieController.ZombieMovementModule.IsCloseEnoughToAttack();
             bool isAttacking = ZombieController.ZombieCombatModule.IsAttacking;
-            // if(isCloseEnoughToAttack && !isAttacking) Debug.Log("CloseEnoughToAttack");
             return isCloseEnoughToAttack ? NodeState.SUCCESS : NodeState.FAILURE;
         }
     }

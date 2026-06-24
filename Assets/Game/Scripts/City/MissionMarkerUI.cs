@@ -12,10 +12,7 @@ namespace Game.Scripts.City
     {
         [SerializeField] private RectTransform _arrow;
         [SerializeField] private Camera _camera;
-        [Tooltip("Distance kept from each screen edge when the arrow is clamped to the border.")]
         [SerializeField] private float _edgePadding = 80f;
-        [Tooltip("Rotate the arrow toward the target even when it's already on-screen. Off = " +
-                 "arrow sits flat over the target like a marker; only rotates while off-screen.")]
         [SerializeField] private bool _rotateOnScreen = false;
 
         private Transform _target;

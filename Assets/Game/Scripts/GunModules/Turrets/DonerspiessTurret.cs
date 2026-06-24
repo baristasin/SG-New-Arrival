@@ -13,13 +13,10 @@ namespace Game.Scripts.GunModules.Turrets
         [SerializeField] private Transform _skewer;
         [SerializeField] private float _rotationSpeed = 180f;
 
-        [Header("Blade hit (capsule along the skewer)")]
         [SerializeField] private float _skewerLength = 2.5f;
         [SerializeField] private float _skewerRadius = 0.4f;
         [SerializeField] private float _hitCooldown = 0.5f;
 
-        [Header("Audio")]
-        [Tooltip("Looping spin sound while the turret is enabled. Leave null to disable.")]
         [SerializeField] private EventReference _spinLoopEvent;
 
         private readonly Collider[] _hitBuffer = new Collider[16];

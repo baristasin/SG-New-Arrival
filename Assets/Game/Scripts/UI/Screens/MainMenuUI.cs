@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 namespace Game.Scripts.UI.Screens
 {
-    // Bootstrap-time main menu. Exposes click events that GameManager subscribes to in the
-    // boot flow (slice 3). Continue is optional — null-safe if save system isn't present yet.
+    // Bootstrap-time main menu. Exposes click events that GameManager subscribes to.
+    // Continue is optional — null-safe if save system isn't present yet.
     public class MainMenuUI : UIScreen
     {
         [SerializeField] private Button _newGameButton;

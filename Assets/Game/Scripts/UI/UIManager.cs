@@ -14,7 +14,6 @@ namespace Game.Scripts.UI
         [SerializeField] private Canvas _canvas;
         [SerializeField] private SanityBar _sanityBar;
 
-        [Header("Screens")]
         [SerializeField] private MainMenuUI _mainMenu;
         [SerializeField] private LoadingScreenUI _loading;
         [SerializeField] private DayStartUI _dayStart;

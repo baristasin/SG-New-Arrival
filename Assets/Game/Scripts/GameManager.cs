@@ -49,8 +49,6 @@ namespace Game.Scripts
         [Tooltip("Longer loading bar duration for the first NewGame load — gives the player " +
                  "time to mash the Complain button.")]
         [SerializeField] private float _newGameLoadingDuration = 6f;
-        [Tooltip("Legacy field — no longer used; the minigame transition runs through FillBar.")]
-        [SerializeField] private float _minigameTransitionDuration = 0.6f;
 
         [Header("Day plan")]
         [Tooltip("Which minigame plays on day 1, 2, 3, ... in order. Indexed by day-1.")]

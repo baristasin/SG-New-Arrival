@@ -13,14 +13,12 @@ namespace Game.Scripts.GunModules
         public int RewardDay = 1;
         public WeaponCategory Category = WeaponCategory.PlayerHeld;
 
-        [Header("Combat")]
         public int Damage = 5;
         public float Range = 10f;
         public float FireInterval = 0.3f;   // seconds between shots / hits
         public float Knockback = 0f;
         public NoiseLevel Noise = NoiseLevel.Medium;
 
-        [Header("Magazine (MagazineSize 0 = no reload)")]
         public int MagazineSize = 0;
         public float ReloadTime = 1f;
     }

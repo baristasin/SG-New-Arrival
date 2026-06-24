@@ -11,7 +11,6 @@ namespace Game.Scripts.UI.Screens
     // for NightCity.
     public class EyeCloseUI : UIScreen
     {
-        [Header("Eyelid panels")]
         [SerializeField] private RectTransform _topPanel;
         [SerializeField] private RectTransform _bottomPanel;
         [SerializeField] private float _closeDuration = 1.2f;
@@ -19,9 +18,6 @@ namespace Game.Scripts.UI.Screens
         [SerializeField] private Ease _closeEase = Ease.InQuad;
         [SerializeField] private Ease _openEase  = Ease.OutQuad;
 
-        [Header("Post-close explanation panel")]
-        [Tooltip("Fullscreen GameObject (image + text + button) shown after the eyelids close. " +
-                 "Wire its button's OnClick to EyeCloseUI.Dismiss.")]
         [SerializeField] private GameObject _explanationRoot;
 
         private Vector2 _topOpenPos;

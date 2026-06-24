@@ -58,8 +58,6 @@ namespace Game.Scripts.Anmeldung
         {
             _moveTween?.Kill();
             _rotateTween?.Kill();
-            // _rectTransform.localPosition = _originalPosition;
-            // _rectTransform.localRotation = _originalRotation;
         }
 
         public void Reset()

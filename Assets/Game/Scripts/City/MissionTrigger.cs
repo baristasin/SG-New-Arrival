@@ -12,9 +12,7 @@ namespace Game.Scripts.City
     public class MissionTrigger : MonoBehaviour
     {
         [SerializeField] private MinigameId _minigameId;
-        [Tooltip("Skip the trigger unless it matches GameManager.GetTodayMinigame(). On by default.")]
         [SerializeField] private bool _onlyIfTodaysMinigame = true;
-        [Tooltip("Tag the player's collider carries. Anything else is ignored.")]
         [SerializeField] private string _playerTag = "Player";
 
         public MinigameId Id => _minigameId;

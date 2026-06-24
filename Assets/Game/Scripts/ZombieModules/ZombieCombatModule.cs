@@ -9,7 +9,6 @@ namespace Game.Scripts.ZombieModules
         public bool IsAttacking { get; private set; }
 
         [SerializeField] private int _attackDamage = 1;
-        [Tooltip("FMOD event played at the zombie's position the moment a Building attack lands.")]
         [SerializeField] private EventReference _wallHitEvent;
 
         private float _attackEndTime;

@@ -16,12 +16,10 @@ namespace Game.Scripts.Visa
     {
         public static VisaSanityCorruption Active { get; private set; }
 
-        [Header("Coffee stains")]
         [SerializeField] private List<GameObject> _stainPrefabs;          // pre-styled stain sheets
         [SerializeField] private RectTransform[] _papers;                 // documents + checklist to dirty
         [SerializeField] private int[] _stainsPerPaperByStage = { 0, 1, 2, 3 };
 
-        [Header("Checklist input glitch (chance per stage)")]
         [SerializeField] private float[] _dropChanceByStage = { 0f, 0.1f, 0.2f, 0.35f };
         [SerializeField] private float[] _flipChanceByStage = { 0f, 0.1f, 0.2f, 0.35f };
 
@@ -50,8 +48,6 @@ namespace Game.Scripts.Visa
 
         protected override void ApplyStage(SanityStage stage)
         {
-            Debug.Log($"[VisaCorruption] stage = {stage}");
-
             if (_papers == null || _stainPrefabs == null || _stainPrefabs.Count == 0) return;
 
             int target = _stainsPerPaperByStage.Length > 0

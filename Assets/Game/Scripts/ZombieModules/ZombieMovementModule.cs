@@ -11,7 +11,6 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private float _moveSpeed = 2f;
         [SerializeField] private NavMeshAgent _agent;
 
-        [Header("Knockback fly")]
         [SerializeField] private float _flyThreshold = 1f;   // below this: instant nudge, no fly/BT-freeze
         [SerializeField] private float _knockbackDuration = 0.3f;
         [SerializeField] private float _knockbackArcHeight = 0.5f;

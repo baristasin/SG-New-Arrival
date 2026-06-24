@@ -18,7 +18,6 @@ namespace Game.Scripts.Visa
     {
         [SerializeField] private List<Image> _photoImages;
 
-        [Header("Quality overlay prefabs (instantiated on each shown photo)")]
         [SerializeField] private GameObject _sunglassesPrefab;
         [SerializeField] private GameObject _blurPrefab;
 

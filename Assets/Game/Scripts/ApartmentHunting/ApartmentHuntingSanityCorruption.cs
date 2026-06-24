@@ -22,22 +22,17 @@ namespace Game.Scripts.ApartmentHunting
         {
             public RectTransform BrokenParent;
             public RectTransform TvStaticParent;
-            [Tooltip("Mirror brokens on this screen (X-flip both anchoredPosition and localScale).")]
             public bool MirrorBrokens;
         }
 
-        [Header("Tablet mask softness (X)")]
         [SerializeField] private RectMask2D[] _tabletMasks;
         [SerializeField] private int[] _softnessXByStage = { 50, 90, 140, 200 };
 
-        [Header("Screens (one entry per tablet)")]
         [SerializeField] private Screen[] _screens;
 
-        [Header("Broken-screen prefabs (lightest -> heaviest in list order)")]
         [SerializeField] private List<GameObject> _brokenPrefabs;
         [SerializeField] private int[] _brokenCountByStage = { 0, 1, 2, 4 };
 
-        [Header("TV static (Critical only — pulses on/off in sync across screens)")]
         [SerializeField] private GameObject _tvStaticPrefab;
         [SerializeField] private float _tvStaticVisibleTime = 2f;
         [SerializeField] private float _tvStaticFadeTime = 0.5f;
@@ -50,7 +45,6 @@ namespace Game.Scripts.ApartmentHunting
 
         protected override void ApplyStage(SanityStage stage)
         {
-            Debug.Log($"[ApartmentCorruption] stage = {stage}");
             int s = (int)stage;
 
             // 1) tablet mask softness

@@ -5,6 +5,7 @@ using FMODUnity;
 using Game.Scripts.StudentData;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Scripts.Anmeldung
 {
@@ -25,16 +26,13 @@ namespace Game.Scripts.Anmeldung
         [SerializeField] private Canvas _canvas;
         [SerializeField] private AnmeldungSanityCorruption _sanityCorruption;
 
-        [Header("Audio")]
-        [Tooltip("Played when the player drops an item into ANY slot — instant feedback, " +
-                 "regardless of whether the answer was correct.")]
         [SerializeField] private EventReference _slotDropEvent;
-        [Tooltip("Played when the Complete / Submit button is pressed at the end of a round.")]
         [SerializeField] private EventReference _submitEvent;
 
-        [Header("Scoring")]
-        [Tooltip("Correct answers needed to reach 100%. Each correctly-placed slot counts as 1.")]
         [SerializeField, Min(1)] private int _scoreRequired = 10;
+
+        [SerializeField] private Button _completeButton;
+        [SerializeField] private float _submitCooldown = 4f;
 
         private int _correctTotal;
         public int GetScorePercent() =>
@@ -70,7 +68,18 @@ namespace Game.Scripts.Anmeldung
             _currentRound = 0;
             _points = 0;
             _correctTotal = 0;
+            StartCoroutine(LockSubmit());
             StartCoroutine(StartRound());
+        }
+
+        // Disables the Complete button for _submitCooldown seconds. Called at BeginGame and at
+        // every round start so the player can't mash the button while items slide in.
+        private IEnumerator LockSubmit()
+        {
+            if (_completeButton == null) yield break;
+            _completeButton.interactable = false;
+            yield return new WaitForSeconds(_submitCooldown);
+            _completeButton.interactable = true;
         }
 
         private IEnumerator StartRound()
@@ -168,6 +177,8 @@ namespace Game.Scripts.Anmeldung
         [Button]
         public void CompletePaper()
         {
+            // Lock the button the INSTANT the player clicks — no spam during the round-complete animation.
+            StartCoroutine(LockSubmit());
             PlaySubmit();
             CheckCompletion();
         }
@@ -186,8 +197,6 @@ namespace Game.Scripts.Anmeldung
                 }
             }
 
-            Debug.Log($"Points: {roundPoints}/5  Total correct: {_correctTotal}/{_scoreRequired}");
-
             StartCoroutine(OnRoundComplete());
         }
 
@@ -195,6 +204,9 @@ namespace Game.Scripts.Anmeldung
         {
             yield return SlideOutAll();
             _currentRound++;
+            // Re-lock for the slide-in of the next round. Cooldown starts here so the button
+            // becomes interactable a few seconds after items appear.
+            StartCoroutine(LockSubmit());
             yield return StartRound();
         }
     }

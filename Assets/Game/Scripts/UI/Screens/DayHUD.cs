@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.Scripts.UI.Screens
 {
     // Always-on overlay while the city is active: clock label + sanity bar + mission interaction
-    // prompts (added in later slices). Subscribes to the GameManager's day clock while shown.
+    // prompts. Subscribes to the GameManager's day clock while shown.
     public class DayHUD : UIScreen
     {
         [SerializeField] private TMP_Text _timeText;

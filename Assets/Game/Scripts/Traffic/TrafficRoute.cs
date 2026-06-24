@@ -10,25 +10,16 @@ namespace Game.Scripts.Traffic
     [DisallowMultipleComponent]
     public class TrafficRoute : MonoBehaviour
     {
-        [Tooltip("Spline this route follows. If null, the SplineContainer on this GameObject is used.")]
         [SerializeField] private SplineContainer _spline;
 
-        [Tooltip("Pool of car prefabs (each with a TrafficCar component). One is picked at random " +
-                 "per spawn — leave a single entry for a one-model road.")]
         [SerializeField] private TrafficCar[] _carPrefabs;
 
-        [Tooltip("How many cars are placed on the route on Start.")]
         [SerializeField, Min(0)] private int _carCount = 5;
 
-        [Tooltip("Per-car speed range, picked uniformly. Metres per second " +
-                 "(≈14 m/s ≈ 50 km/h).")]
         [SerializeField] private Vector2 _speedRange = new Vector2(8f, 14f);
 
-        [Tooltip("Loop indefinitely. Disable for one-shot drive-throughs — cars destroy at the end.")]
         [SerializeField] private bool _loop = true;
 
-        [Tooltip("How much each car can drift from its evenly-spaced slot. 0 = perfectly even " +
-                 "spacing, 1 = random within its own segment (gaps vary, no clumping).")]
         [SerializeField, Range(0f, 1f)] private float _spacingJitter = 0.8f;
 
         private void Awake()

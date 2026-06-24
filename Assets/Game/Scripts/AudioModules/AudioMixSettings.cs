@@ -14,12 +14,10 @@ namespace Game.Scripts.AudioModules
         [Serializable]
         public class BusVolume
         {
-            [Tooltip("Full FMOD bus path, e.g. \"bus:/Master/SFX/Guns\".")]
             public string Path = "bus:/";
             [Range(0f, 2f)] public float Volume = 1f;
         }
 
-        [Tooltip("Volumes pushed to FMOD on Start. Add one entry per bus you want to control.")]
         [SerializeField] private List<BusVolume> _busVolumes = new();
 
         private void Start()

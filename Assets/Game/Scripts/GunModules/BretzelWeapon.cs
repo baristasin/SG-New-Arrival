@@ -16,7 +16,6 @@ namespace Game.Scripts.GunModules
         [SerializeField] private EventReference _throwEvent;
         [SerializeField, Range(0f, 2f)] private float _throwVolume = 0.7f;
 
-        [Header("Flight")]
         [SerializeField] private float _flightTime = 1.5f;
         [SerializeField] private float _arcWidth = 2.5f;
         [SerializeField] private float _spinSpeed = 720f;

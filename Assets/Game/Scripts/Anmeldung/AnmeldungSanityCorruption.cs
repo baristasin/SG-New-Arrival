@@ -12,10 +12,8 @@ namespace Game.Scripts.Anmeldung
     // AnmeldungManager queries ShouldShowDistractors when building each round.
     public class AnmeldungSanityCorruption : SanityCorruptionHandler
     {
-        [Header("Paper spin (Disturbed and Critical)")]
         [SerializeField] private float _spinDuration = 40f;   // seconds per full rotation (higher = slower)
 
-        [Header("Tremble (Critical only — periodic short shakes during spin)")]
         [SerializeField] private Vector2 _trembleIntervalRange = new Vector2(1.5f, 3f);
         [SerializeField] private float _trembleIntensity = 4f;
         [SerializeField] private float _trembleDuration = 0.3f;
@@ -35,8 +33,6 @@ namespace Game.Scripts.Anmeldung
 
         protected override void ApplyStage(SanityStage stage)
         {
-            Debug.Log($"[AnmeldungCorruption] stage = {stage}");
-
             StopTremble();
             if (_paper == null) return;
             _paper.StopEffects();

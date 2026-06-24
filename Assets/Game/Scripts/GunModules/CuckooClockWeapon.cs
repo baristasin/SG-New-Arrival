@@ -17,13 +17,11 @@ namespace Game.Scripts.GunModules
         [SerializeField] private EventReference _punchEvent;
         [SerializeField, Range(0f, 2f)] private float _punchVolume = 0.7f;
 
-        [Header("Spring punch")]
         [SerializeField] private float _extendTime = 1f;
         [SerializeField] private float _retractTime = 1f;
         [SerializeField] private float _hitRadius = 0.8f;
         [SerializeField] private AnimationCurve _springCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-        [Header("Chaotic knockback")]
         [SerializeField] private float _knockChaosAngle = 25f;
         [SerializeField] private float _knockChaosAmount = 0.3f;
 

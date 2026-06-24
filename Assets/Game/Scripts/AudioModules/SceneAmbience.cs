@@ -11,8 +11,6 @@ namespace Game.Scripts.AudioModules
     {
         [SerializeField] private AudioClip _clip;
         [SerializeField, Range(0f, 1f)] private float _volume = 1f;
-        [Tooltip("Wait this many seconds before starting the loop. Useful if you want ambience " +
-                 "to begin after the loading screen fades out.")]
         [SerializeField, Min(0f)] private float _startDelay = 0f;
 
         private AudioSource _source;

@@ -23,9 +23,6 @@ namespace Game.Scripts.Visa
         [SerializeField] private Transform _cameraTarget;
         [SerializeField] private float _animDuration = 0.4f;
 
-        [Header("Round entrance / exit slide")]
-        [Tooltip("World-space Transform the doc slides from on entry and to on exit. Place an empty " +
-                 "GameObject off the side of the desk and drag it here.")]
         [SerializeField] private Transform _slideAnchor;
         [SerializeField] private float _slideDuration = 0.5f;       // entrance speed
         [SerializeField] private float _slideOutDuration = 0.25f;   // exit speed (usually a bit faster)

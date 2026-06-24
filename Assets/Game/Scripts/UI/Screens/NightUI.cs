@@ -11,18 +11,14 @@ namespace Game.Scripts.UI.Screens
     // all scene objects. Wires their events on enable, unwires on disable.
     public class NightUI : MonoBehaviour
     {
-        [Header("Source modules (scene objects)")]
         [SerializeField] private PlayerHealthModule _playerHealth;
         [SerializeField] private BuildingHealthModule _buildingHealth;
         [SerializeField] private NightClock _clock;
 
-        [Header("Bars")]
         [SerializeField] private PlayerHealthBar _playerHealthBar;
         [SerializeField] private HealthBarUI _buildingHealthBar;
 
-        [Header("Survival clock")]
         [SerializeField] private TMP_Text _clockText;
-        [Tooltip("Indicator shown while the night is past Ruhezeit start (default 22:00).")]
         [SerializeField] private GameObject _ruhezeitIndicator;
         [SerializeField] private int _ruhezeitStartHour = 22;
 

@@ -13,8 +13,6 @@ namespace Game.Scripts.PlayerModules
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private PlayerAnimationModule _animationModule;
 
-        [Tooltip("On = character always faces the mouse cursor (combat/aim mode). " +
-                 "Off = character faces its movement direction (exploration mode).")]
         [SerializeField] private bool _faceMouseDirection = true;
 
         [SerializeField] private EventReference _footstepEvent;
@@ -25,7 +23,6 @@ namespace Game.Scripts.PlayerModules
             _agent.speed = _moveSpeed;
             _agent.acceleration = 999f;
             _agent.angularSpeed = 0f;
-            // if (_cam == null) Debug.Log("No cam assigned");
         }
 
         private void Update()

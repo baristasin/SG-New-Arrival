@@ -15,8 +15,6 @@ namespace Game.Scripts.AudioModules
 
         [SerializeField] private EventReference _dayMusic;
         [SerializeField] private EventReference _nightMusic;
-        [Tooltip("Volume multiplier. 1 = unity, values above 1 boost beyond the event's authored " +
-                 "level (push too far and FMOD will clip). 0.5 ≈ -6dB, 2.0 ≈ +6dB.")]
         [SerializeField, Range(0f, 3f)] private float _dayVolume   = 1f;
         [SerializeField, Range(0f, 3f)] private float _nightVolume = 1f;
 

@@ -8,10 +8,7 @@ namespace Game.Scripts.City
     public class MinigameStation : MonoBehaviour
     {
         [SerializeField] private MinigameId _id;
-        [Tooltip("Root containing the station's camera + manager + minigame UI. Inactive in editor.")]
         [SerializeField] private GameObject _root;
-        [Tooltip("MonoBehaviour on the station that implements IMinigameManager " +
-                 "(AnmeldungManager, ApartmentHuntingManager, VisaManager).")]
         [SerializeField] private MonoBehaviour _manager;
 
         public MinigameId Id => _id;

@@ -12,7 +12,6 @@ namespace Game.Scripts.Night
     {
         [SerializeField] private int _startHour = 20;
         [SerializeField] private int _endHour = 23;
-        [Tooltip("Real seconds per in-game hour. 60 = a 3-hour night runs in 3 real minutes.")]
         [SerializeField] private float _realSecondsPerHour = 60f;
         [SerializeField] private bool _autoStartOnEnable = false;
 

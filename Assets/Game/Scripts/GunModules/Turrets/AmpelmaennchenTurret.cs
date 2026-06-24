@@ -10,23 +10,17 @@ namespace Game.Scripts.GunModules.Turrets
     // attacking and dance; they resume once they leave the area or the light switches.
     public class AmpelmaennchenTurret : TurretBase
     {
-        [Header("Light cycle")]
         [SerializeField] private float _minPhase = 5f;
         [SerializeField] private float _maxPhase = 6f;
         [SerializeField] private bool _danceOnGreen = false;   // false = red is the dance phase
         [SerializeField] private GameObject _redLight;
         [SerializeField] private GameObject _greenLight;
 
-        [Header("Dance area (box in front)")]
         [SerializeField] private Vector3 _areaOffset = new Vector3(0f, 0f, 5f);
         [SerializeField] private Vector3 _areaHalfExtents = new Vector3(3f, 1.5f, 5f);
         [SerializeField] private float _danceRefresh = 0.25f;
 
-        [Header("Audio")]
-        [Tooltip("One-shot played at each red<->green transition.")]
         [SerializeField] private EventReference _moveEvent;
-        [Tooltip("Looping ambience that plays only while the light is in the WAIT phase " +
-                 "(the dance phase that holds zombies).")]
         [SerializeField] private EventReference _waitLoopEvent;
 
         private bool _isGreen;

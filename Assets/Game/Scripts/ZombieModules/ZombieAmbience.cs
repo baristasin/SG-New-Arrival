@@ -13,18 +13,11 @@ namespace Game.Scripts.ZombieModules
     public class ZombieAmbience : MonoBehaviour
     {
         [SerializeField] private EventReference _growlLoopEvent;
-        [Tooltip("How many concurrent crowd voices play at once. Multiple stacks for a layered " +
-                 "murmur; one is enough if the event already has internal variation.")]
         [SerializeField, Min(1)] private int _voiceCount = 3;
 
-        [Header("Volume vs. crowd size")]
-        [Tooltip("Volume when no zombies are alive — kept low for a faint distant murmur.")]
         [SerializeField, Range(0f, 2f)] private float _minVolume = 0.15f;
-        [Tooltip("Volume at FullCrowdAt or more zombies.")]
         [SerializeField, Range(0f, 2f)] private float _maxVolume = 1f;
-        [Tooltip("Live zombie count that locks the ambience to MaxVolume.")]
         [SerializeField, Min(1)] private int _fullCrowdAt = 30;
-        [Tooltip("How often (seconds) we update the volume — no need to do it every frame.")]
         [SerializeField] private float _volumeUpdateInterval = 0.5f;
 
         private readonly List<EventInstance> _voices = new();

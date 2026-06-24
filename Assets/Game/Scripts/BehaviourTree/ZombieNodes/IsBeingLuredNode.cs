@@ -9,12 +9,10 @@ namespace Game.Scripts.BehaviourTree.ZombieNodes
             bool isBeingLured = ZombieController.ZombieMovementModule.IsCloseEnoughToBeingLured();
             if (isBeingLured)
             {
-                // Debug.Log("Lured");
                 ZombieController.ZombiePerceptionModule.SetTargetTransformToPlayer();
             }
             else
             {
-                // Debug.Log("Not lured");
                 ZombieController.ZombiePerceptionModule.SetTargetTransformToBuildingHitPoint();
             }
             

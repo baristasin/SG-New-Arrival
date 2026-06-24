@@ -7,7 +7,7 @@ namespace Game.Scripts.SanityModules
 {
     // Holds the player's sanity (0..MaxSanity), drains it over time, and raises events as the
     // value and stage change. Minigames listen to OnStageChanged to apply their corruptions.
-    // Tuning lives in BalanceVariables. (Per-scene for now; becomes persistent with the city flow.)
+    // Tuning lives in BalanceVariables.
     public class SanityManager : PersistentSingleton<SanityManager>
     {
         public float Sanity { get; private set; }

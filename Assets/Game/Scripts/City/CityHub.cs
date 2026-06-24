@@ -11,8 +11,6 @@ namespace Game.Scripts.City
     public class CityHub : MonoBehaviour
     {
         [SerializeField] private List<MinigameStation> _stations = new();
-        [Tooltip("Player GameObject in the city. Hidden while a station is active so the body " +
-                 "doesn't show in the background behind the minigame UI.")]
         [SerializeField] private GameObject _player;
 
         private void OnEnable()  { GameManager.Instance?.RegisterCity(this); }

@@ -12,7 +12,6 @@ namespace Game.Scripts.Visa
         [SerializeField] private VisaChecklistRow[] _rows;
         [SerializeField] private TextMeshProUGUI _resultText;
 
-        [Header("Round entrance / exit slide")]
         [SerializeField] private float _slideOffsetX = -60f;
         [SerializeField] private float _slideDuration = 0.5f;
 
@@ -106,7 +105,6 @@ namespace Game.Scripts.Visa
             }
 
             if (_resultText != null) _resultText.text = $"{CorrectCount} / {Total}";
-            Debug.Log($"[VisaChecklist] {student.FullName}: {CorrectCount}/{Total} correct.");
         }
 
         // Wire the End button here: scores the round once, adds it to the running total,

@@ -18,7 +18,6 @@ namespace Game.Scripts.StudentData.Editor
             ImportApartments();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("[StudentDataImporter] Done.");
         }
 
         [MenuItem("Tools/Student Data/Ping Student Database")]
@@ -44,7 +43,6 @@ namespace Game.Scripts.StudentData.Editor
             db.Students.Clear();
             db.Students.AddRange(wrapper.Items);
             EditorUtility.SetDirty(db);
-            Debug.Log($"[StudentDataImporter] Imported {wrapper.Items.Count} students.");
         }
 
         private static void ImportApartments()
@@ -56,7 +54,6 @@ namespace Game.Scripts.StudentData.Editor
             db.Apartments.Clear();
             db.Apartments.AddRange(wrapper.Items);
             EditorUtility.SetDirty(db);
-            Debug.Log($"[StudentDataImporter] Imported {wrapper.Items.Count} apartments.");
         }
 
         private static string ReadText(string assetPath)

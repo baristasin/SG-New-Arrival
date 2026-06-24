@@ -9,17 +9,12 @@ namespace Game.Scripts.UI.Screens
 {
     public class NightResultUI : UIScreen
     {
-        [Header("Failed (player / building died)")]
         [SerializeField] private GameObject _failedRoot;
         [SerializeField] private TMP_Text _failedSanityText;
-        [Tooltip("{0} = tomorrow's sanity percent (int).")]
 
-        [Header("Success (all zombies eliminated)")]
         [SerializeField] private GameObject _successRoot;
         [SerializeField] private TMP_Text _successKillsText;
-        [Tooltip("{0} = number of zombies eliminated (int).")]
 
-        [Header("Shared")]
         [SerializeField] private Button _continueButton;
 
         private bool _dismissed;

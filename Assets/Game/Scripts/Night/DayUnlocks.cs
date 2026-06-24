@@ -17,10 +17,7 @@ namespace Game.Scripts.Night
         public class DayUnlock
         {
             public int Day;
-            [Tooltip("Total weapons unlocked once this day begins (cumulative).")]
             public int WeaponsUnlocked = 1;
-            [Tooltip("GameObjects that become active this day. Combine for turret combos: e.g. " +
-                     "Day 3 = [Doner_02, PaperPlane_01, PaperPlane_02].")]
             public List<GameObject> Activate = new();
         }
 

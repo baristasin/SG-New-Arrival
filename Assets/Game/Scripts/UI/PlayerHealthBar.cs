@@ -9,35 +9,23 @@ namespace Game.Scripts.UI
     // shows the current value and steps through green → yellow → orange → red at 75/50/25.
     public class PlayerHealthBar : MonoBehaviour
     {
-        [Header("Health")]
         [SerializeField] private float _maxHealth = 100f;
         [SerializeField] private float _startingHealth = 100f;
         [SerializeField] private TextMeshProUGUI _healthText;
 
-        [Header("Health text colors (high → low)")]
         [SerializeField] private Color _greenColor  = new Color(0.20f, 0.85f, 0.20f);
         [SerializeField] private Color _yellowColor = new Color(0.95f, 0.90f, 0.20f);
         [SerializeField] private Color _orangeColor = new Color(1.00f, 0.55f, 0.10f);
         [SerializeField] private Color _redColor    = new Color(0.95f, 0.20f, 0.15f);
 
-        [Header("EKG loop")]
-        [Tooltip("Mask rect — defines the visible area (its width is used to find the wrap point).")]
         [SerializeField] private RectTransform _mask;
-        [Tooltip("Heart-rate images placed side by side inside the mask.")]
         [SerializeField] private RectTransform[] _heartImages;
-        [Tooltip("Extra gap inserted between images on wrap-around (anchoredPosition units).")]
         [SerializeField] private float _imageSpacing = 0f;
 
-        [Header("Scroll speed & scale (vary with health)")]
-        [Tooltip("X = slow speed at full health, Y = fast speed at zero health (px/sec).")]
         [SerializeField] private Vector2 _speedRange = new Vector2(60f, 240f);
-        [Tooltip("X = small scale at zero health, Y = full scale at full health.")]
         [SerializeField] private Vector2 _scaleRange = new Vector2(0.4f, 1f);
 
-        [Header("Health number pulse")]
-        [Tooltip("Peak grow amount (0.15 = +15% at the top of the pulse). Set 0 to disable.")]
         [SerializeField] private float _pulseAmplitude = 0.15f;
-        [Tooltip("X = pulse Hz at full health (slow), Y = pulse Hz at zero health (fast).")]
         [SerializeField] private Vector2 _pulseFrequencyRange = new Vector2(0.6f, 2.5f);
 
         private float _currentHealth;

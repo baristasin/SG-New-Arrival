@@ -21,9 +21,7 @@ namespace Game.Scripts.UI.Screens
 
         [SerializeField] private List<DayRewardImage> _rewards = new();
 
-        [Header("Score readout (shared by every day's panel)")]
         [SerializeField] private TMP_Text _scoreText;
-        [Tooltip("{0} = score percent (0-100).")]
 
         private bool _dismissed;
         private DayRewardImage _activeEntry;
@@ -40,7 +38,6 @@ namespace Game.Scripts.UI.Screens
             if (_activeEntry == null || _activeEntry.Root == null) yield break;
             _activeEntry.Root.SetActive(true);
 
-            Debug.Log($"[DayRewardsUI] Play day={day} score={scorePercent} scoreText={(_scoreText != null ? _scoreText.name : "NULL")}");
             if (_scoreText != null) _scoreText.text = scorePercent.ToString();
 
             _dismissed = false;

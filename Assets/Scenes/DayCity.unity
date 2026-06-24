@@ -795,6 +795,10 @@ PrefabInstance:
       value: -1472
       objectReference: {fileID: 0}
     - target: {fileID: 5456527896384075868, guid: cd215ce2facc84c409c1f9068012a92f, type: 3}
+      propertyPath: _matchButton
+      value: 
+      objectReference: {fileID: 382815067}
+    - target: {fileID: 5456527896384075868, guid: cd215ce2facc84c409c1f9068012a92f, type: 3}
       propertyPath: _tvBuzzingEvent.Path
       value: event:/minigame/tv-buzzing
       objectReference: {fileID: 0}
@@ -891,6 +895,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd215ce2facc84c409c1f9068012a92f, type: 3}
+--- !u!114 &382815067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5657951975015507047, guid: cd215ce2facc84c409c1f9068012a92f, type: 3}
+  m_PrefabInstance: {fileID: 382815066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &382815068 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5094080921133714811, guid: cd215ce2facc84c409c1f9068012a92f, type: 3}
@@ -3541,6 +3556,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4694852579890903395, guid: 317431937438b4149ac033a1d37b5371, type: 3}
+      propertyPath: _completeButton
+      value: 
+      objectReference: {fileID: 1900071683}
+    - target: {fileID: 4694852579890903395, guid: 317431937438b4149ac033a1d37b5371, type: 3}
       propertyPath: _submitEvent.Path
       value: event:/minigame/submit
       objectReference: {fileID: 0}
@@ -3678,6 +3697,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 232096630817917544, guid: 317431937438b4149ac033a1d37b5371, type: 3}
   m_PrefabInstance: {fileID: 1900071678}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900071683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7050536594618179637, guid: 317431937438b4149ac033a1d37b5371, type: 3}
+  m_PrefabInstance: {fileID: 1900071678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &1917995792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3699,9 +3729,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2816542079355837842, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+      propertyPath: _checklist
+      value: 
+      objectReference: {fileID: 1917995796}
+    - target: {fileID: 2816542079355837842, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 1136954937}
+    - target: {fileID: 2816542079355837842, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+      propertyPath: _submitButton
+      value: 
+      objectReference: {fileID: 1917995793}
     - target: {fileID: 2816542079355837842, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
       propertyPath: _stainEvent.Path
       value: event:/minigame/water-spill
@@ -3842,6 +3880,17 @@ PrefabInstance:
       addedObject: {fileID: 83064674}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+--- !u!114 &1917995793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2583848982992609919, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+  m_PrefabInstance: {fileID: 1917995792}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &1917995794 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8165823749271047908, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
@@ -3858,6 +3907,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3991083014600529675, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
   m_PrefabInstance: {fileID: 1917995792}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1917995796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1049582051956491076, guid: d7e7658ea0ec1a04789262d0ce724b38, type: 3}
+  m_PrefabInstance: {fileID: 1917995792}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cadc7a64ede0f4c85b74c09dcd62a775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.Visa.VisaChecklist
 --- !u!1001 &1970381911
 PrefabInstance:
   m_ObjectHideFlags: 0
