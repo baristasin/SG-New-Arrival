@@ -19,7 +19,9 @@ namespace Game.Scripts.GunModules.Turrets
         [SerializeField] private float _danceRefresh = 0.25f;
 
         [SerializeField] private EventReference _moveEvent;
+        [SerializeField, Range(0f, 2f)] private float _moveVolume = 0.5f;
         [SerializeField] private EventReference _waitLoopEvent;
+        [SerializeField, Range(0f, 2f)] private float _waitVolume = 0.5f;
 
         private bool _isGreen;
         private float _phaseTimer;
@@ -54,12 +56,13 @@ namespace Game.Scripts.GunModules.Turrets
             if (_greenLight != null) _greenLight.SetActive(green);
 
             // Click on every transition.
-            if (!_moveEvent.IsNull) AudioManager.Instance.PlayOneShot(_moveEvent, transform.position);
+            if (!_moveEvent.IsNull)
+                AudioManager.Instance.PlayOneShotWithVolume(_moveEvent, transform.position, _moveVolume);
 
             // Wait loop runs during the dance phase.
             bool dancePhase = _isGreen == _danceOnGreen;
             if (dancePhase && !_waitLoopEvent.IsNull && !_waitInstance.isValid())
-                _waitInstance = AudioManager.Instance.PlayLoopAttached(_waitLoopEvent, gameObject);
+                _waitInstance = AudioManager.Instance.PlayLoopAttachedVolume(_waitLoopEvent, gameObject, _waitVolume);
             else if (!dancePhase && _waitInstance.isValid())
                 AudioManager.Instance.Stop(ref _waitInstance);
         }

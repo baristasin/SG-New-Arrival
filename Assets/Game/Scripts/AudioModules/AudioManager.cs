@@ -268,6 +268,25 @@ public class AudioManager : MonoBehaviour
         return instance;
     }
 
+    /// <summary>
+    /// PlayLoopAttached + setVolume. Use to start a loop that needs its FMOD-authored level
+    /// trimmed (or boosted) at runtime, e.g. turret ambience.
+    /// </summary>
+    public EventInstance PlayLoopAttachedVolume(EventReference eventRef, GameObject target, float volume)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("[AudioManager] PlayLoopAttachedVolume called with null target.");
+            return default;
+        }
+
+        EventInstance instance = RuntimeManager.CreateInstance(eventRef);
+        RuntimeManager.AttachInstanceToGameObject(instance, target, true);
+        instance.setVolume(volume);
+        instance.start();
+        return instance;
+    }
+
     public void EventStart(EventInstance instance)
     {
         if (!instance.isValid()) return;
