@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.DaySanityVolumeEffects
   _profile: {fileID: 11400000, guid: fbc133819cee44e1c8d610ff9d5f97d4, type: 2}
   _sanityThreshold: 10
-  _lerpSpeed: 1
+  _lerpSpeed: 2
   _config:
   - Minigame: 0
     Effect: 0
@@ -2210,7 +2210,7 @@ MonoBehaviour:
     TargetIntensity: 0.3
   - Minigame: 2
     Effect: 2
-    TargetIntensity: 0.3
+    TargetIntensity: -150
 --- !u!1 &1059169019
 GameObject:
   m_ObjectHideFlags: 0

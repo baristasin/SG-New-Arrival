@@ -3794,8 +3794,8 @@ Camera:
   m_GameObject: {fileID: 892246292}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5668,19 +5668,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5688,7 +5688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 53.9147
+      value: 53.914673
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5720,11 +5720,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 486
+      value: -474
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 496
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 5009110669460843694, guid: ca68879d4d2014f299d737b587e5422b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5929,10 +5929,10 @@ RectTransform:
   - {fileID: 2086380755}
   m_Father: {fileID: 466396650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453265788
 MonoBehaviour:

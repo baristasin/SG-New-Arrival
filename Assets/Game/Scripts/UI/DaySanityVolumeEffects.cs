@@ -15,14 +15,14 @@ namespace Game.Scripts.UI
     // Lives in the DayCity scene next to the Global Volume.
     public class DaySanityVolumeEffects : MonoBehaviour
     {
-        public enum EffectType { ChromaticAberration, Vignette, LensDistortion }
+        public enum EffectType { ChromaticAberration, Vignette, ColorAdjustments }
 
         [Serializable]
         public class MinigameEffect
         {
             public MinigameId Minigame;
             public EffectType Effect;
-            [Range(0f, 1f)] public float TargetIntensity = 0.5f;
+            [Range(-150f, 150f)] public float TargetIntensity = 0.5f;
         }
 
         [SerializeField] private VolumeProfile _profile;
@@ -32,7 +32,7 @@ namespace Game.Scripts.UI
 
         private ChromaticAberration _chromatic;
         private Vignette _vignette;
-        private LensDistortion _lens;
+        private ColorAdjustments _colorAdjustments;
         private float _baseChromatic, _baseVignette, _baseLens;
 
         private void Awake()
@@ -40,13 +40,13 @@ namespace Game.Scripts.UI
             if (_profile == null) return;
             _profile.TryGet(out _chromatic);
             _profile.TryGet(out _vignette);
-            _profile.TryGet(out _lens);
+            _profile.TryGet(out _colorAdjustments);
 
             // Remember the inspector-authored starting values so we can blend out cleanly when
             // sanity is healthy / the player isn't inside a minigame.
             _baseChromatic = _chromatic != null ? _chromatic.intensity.value : 0f;
             _baseVignette  = _vignette  != null ? _vignette.intensity.value  : 0f;
-            _baseLens      = _lens      != null ? _lens.intensity.value      : 0f;
+            _baseLens      = _colorAdjustments      != null ? _colorAdjustments.hueShift.value      : 0f;
         }
 
         private void Update()
@@ -64,7 +64,7 @@ namespace Game.Scripts.UI
                     {
                         case EffectType.ChromaticAberration: chromaticTarget = c.TargetIntensity; break;
                         case EffectType.Vignette:            vignetteTarget  = c.TargetIntensity; break;
-                        case EffectType.LensDistortion:      lensTarget      = c.TargetIntensity; break;
+                        case EffectType.ColorAdjustments:      lensTarget      = c.TargetIntensity; break;
                     }
                 }
             }
@@ -72,7 +72,7 @@ namespace Game.Scripts.UI
             float t = _lerpSpeed * Time.deltaTime;
             if (_chromatic != null) _chromatic.intensity.value = Mathf.Lerp(_chromatic.intensity.value, chromaticTarget, t);
             if (_vignette  != null) _vignette.intensity.value  = Mathf.Lerp(_vignette.intensity.value,  vignetteTarget,  t);
-            if (_lens      != null) _lens.intensity.value      = Mathf.Lerp(_lens.intensity.value,      lensTarget,      t);
+            if (_colorAdjustments      != null) _colorAdjustments.hueShift.value      = Mathf.Lerp(_colorAdjustments.hueShift.value,      lensTarget,      t);
         }
 
         private bool ShouldApplyEffect(out MinigameId activeId)

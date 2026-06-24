@@ -169,6 +169,9 @@ namespace Game.Scripts.ZombieModules
         private void Update()
         {
             if (!_isInitialized) return;
+            // Freeze behaviour the moment the night ends (result panel shown, loading, etc.).
+            var gm = Game.Scripts.GameManager.Instance;
+            if (gm != null && gm.State != Game.Scripts.GameState.NightCombat) return;
             if (Time.frameCount % _totalGroups != _tickGroup) return;
             _topNode.Evaluate();
         }

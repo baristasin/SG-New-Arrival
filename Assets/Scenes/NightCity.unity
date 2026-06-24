@@ -1703,10 +1703,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3206761261297228523}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -799, y: 244.1}
-  m_SizeDelta: {x: 294.4977, y: 90.3053}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 161, y: 244.1}
+  m_SizeDelta: {x: 294.49768, y: 90.3053}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515882286
 MonoBehaviour:
@@ -11542,6 +11542,7 @@ MonoBehaviour:
   _initialPoolSize: 50
   _totalGroups: 5
   _spawnInterval: 0.08
+  _maxAliveZombies: 250
   _wavesByDay:
   - Entries:
     - ZombieCount: 7

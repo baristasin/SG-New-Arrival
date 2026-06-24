@@ -29,6 +29,7 @@ namespace Game.Scripts.ZombieModules
         [SerializeField] private int _initialPoolSize = 50;
         [SerializeField] private int _totalGroups = 5;
         [SerializeField] private float _spawnInterval = 0.08f;
+        [SerializeField] private int _maxAliveZombies = 250;
         [UnityEngine.Serialization.FormerlySerializedAs("_waves")]
         [SerializeField] private WaveData[] _wavesByDay;
 
@@ -110,6 +111,10 @@ namespace Game.Scripts.ZombieModules
         [Button]
         public ZombieController SpawnZombie()
         {
+            // Hard cap on alive zombies so the field never gets above _maxAliveZombies — keeps
+            // the framerate sane and stops late-night waves from snowballing forever.
+            if (ZombieRegistry.Count >= _maxAliveZombies) return null;
+
             var zombie = _pool.Get();
             var spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
 
