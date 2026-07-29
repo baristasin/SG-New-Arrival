@@ -27,6 +27,7 @@ namespace Game.Scripts
         DayRewards,       // end-of-day summary
         LoadingNight,     // scene loading into NightCity
         NightCombat,      // zombie combat scene
+        MinigameSelect,   // presentation mode: pick-a-minigame menu shown in DayCity
     }
     
     public class GameManager : PersistentSingleton<GameManager>
@@ -51,6 +52,15 @@ namespace Game.Scripts
         [Tooltip("Which minigame plays on day 1, 2, 3, ... in order. Indexed by day-1.")]
         [SerializeField] private List<MinigameId> _dayMinigames = new();
 
+        [Header("Presentation")]
+        [Tooltip("PRESENTATION MODE: city walking is skipped. After the day-start card a menu " +
+                 "lets the presenter pick any of the 3 minigames and jump straight in. Night " +
+                 "combat always runs with the waves/unlocks of the day set below.")]
+        [SerializeField] private bool _presentationMode;
+        [Tooltip("Night difficulty day used while presentation mode is on (zombie waves + " +
+                 "weapon/turret unlocks). 4 = final-stage zombie fight.")]
+        [SerializeField, Range(1, 10)] private int _presentationNightDay = 4;
+
         [Header("Dev")]
         [Tooltip("DEV ONLY: when checked, NewGame skips straight to NightCity on the given day. " +
                  "Use it to test the night build (all weapons / turrets unlocked) without playing " +
@@ -66,6 +76,10 @@ namespace Game.Scripts
 
         public int DayStartHour => _dayStartHour;
         public int MissionDeadlineHour => _missionDeadlineHour;
+
+        public bool PresentationMode => _presentationMode;
+        // Day used for night difficulty (zombie waves + unlocks). Pinned in presentation mode.
+        public int NightDay => _presentationMode ? _presentationNightDay : CurrentDay;
 
         // (previousState, newState)
         public event Action<GameState, GameState> OnStateChanged;
@@ -177,7 +191,9 @@ namespace Game.Scripts
         [Button]
         public void EnterMinigame(MinigameId id)
         {
-            if (State != GameState.CityRoaming) return;
+            if (State != GameState.CityRoaming && State != GameState.MinigameSelect) return;
+            if (State == GameState.MinigameSelect)
+                UIManager.Instance?.MinigameSelect?.Hide();
             CurrentMinigameId = id;
             StartCoroutine(EnterMinigameRoutine(id));
         }
@@ -245,12 +261,32 @@ namespace Game.Scripts
 
             yield return ui.DayStart.Play(CurrentDay, onShown: () => ui.Loading.Hide());
 
+            if (_presentationMode)
+            {
+                // No walking: clock stays paused, player hidden, minigame menu shown instead.
+                CurrentCity?.SetPlayerActive(false);
+
+                var select = ui.MinigameSelect;
+                select.OnMinigameChosen -= HandleMinigameChosen;
+                select.OnMinigameChosen += HandleMinigameChosen;
+                select.Show();
+
+                MusicController.Instance?.PlayDay();
+                SetState(GameState.MinigameSelect);
+                yield break;
+            }
+
             ui.DayHUD.Show();
             Clock.Resume();
 
             MusicController.Instance?.PlayDay();
 
             SetState(GameState.CityRoaming);
+        }
+
+        private void HandleMinigameChosen(MinigameId id)
+        {
+            EnterMinigame(id);
         }
 
         private IEnumerator EnterMinigameRoutine(MinigameId id)
@@ -291,6 +327,9 @@ namespace Game.Scripts
             SetState(GameState.Sleeping);
             SanityManager.Instance.DrainPerSecond = 0f;
             Clock.Pause();
+            // The minigame actually played this day — in presentation mode the menu choice can
+            // differ from the _dayMinigames plan, so don't rely on GetTodayMinigame alone.
+            var playedId = CurrentMinigameId ?? GetTodayMinigame();
             CurrentMinigameId = null;
 
             MusicController.Instance?.StopAll();
@@ -301,10 +340,9 @@ namespace Game.Scripts
             yield return ui.EyeClose.Play();
 
             int score = 0;
-            var todayId = GetTodayMinigame();
-            var station = (todayId.HasValue && CurrentCity != null) ? CurrentCity.GetStation(todayId.Value) : null;
+            var station = (playedId.HasValue && CurrentCity != null) ? CurrentCity.GetStation(playedId.Value) : null;
             if (station != null) score = station.GetScorePercent();
-            Debug.Log($"[GameManager] Sleep score lookup: todayId={todayId} city={CurrentCity} station={station} score={score}");
+            Debug.Log($"[GameManager] Sleep score lookup: playedId={playedId} city={CurrentCity} station={station} score={score}");
             
             SetState(GameState.DayRewards);
             yield return ui.DayRewards.Play(CurrentDay, score, onDismissed: () =>

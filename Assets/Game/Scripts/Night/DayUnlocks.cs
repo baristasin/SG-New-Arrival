@@ -21,8 +21,8 @@ namespace Game.Scripts.Night
 
         private void Start()
         {
-            int currentDay = GameManager.Instance != null ? GameManager.Instance.CurrentDay : 1;
-            ApplyForDay(currentDay);
+            int day = GameManager.Instance != null ? GameManager.Instance.NightDay : 1;
+            ApplyForDay(day);
         }
 
         [Button]

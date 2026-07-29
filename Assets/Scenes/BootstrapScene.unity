@@ -2017,6 +2017,7 @@ MonoBehaviour:
   _dayRewards: {fileID: 561030407}
   _nightIntro: {fileID: 1704832035}
   _nightResult: {fileID: 1994117753}
+  _minigameSelect: {fileID: 0}
 --- !u!4 &454358419
 Transform:
   m_ObjectHideFlags: 0
@@ -6412,6 +6413,8 @@ MonoBehaviour:
   _minLoadingDuration: 2
   _newGameLoadingDuration: 6
   _dayMinigames: 000000000100000002000000
+  _presentationMode: 1
+  _presentationNightDay: 4
   _devSkipToNight: 0
   _devSkipDay: 4
 --- !u!4 &1533353040

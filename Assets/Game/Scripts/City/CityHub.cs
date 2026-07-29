@@ -31,6 +31,11 @@ namespace Game.Scripts.City
             station.Enter();
         }
 
+        public void SetPlayerActive(bool active)
+        {
+            if (_player != null) _player.SetActive(active);
+        }
+
         public void ExitToCity()
         {
             foreach (var s in _stations) if (s != null) s.Exit();

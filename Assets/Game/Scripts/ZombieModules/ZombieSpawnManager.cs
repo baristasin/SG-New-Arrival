@@ -56,7 +56,7 @@ namespace Game.Scripts.ZombieModules
 
         private IEnumerator RunWaves()
         {
-            var wave = GetWaveForDay(GameManager.Instance != null ? GameManager.Instance.CurrentDay : 1);
+            var wave = GetWaveForDay(GameManager.Instance != null ? GameManager.Instance.NightDay : 1);
             if (wave == null || wave.Entries == null || wave.Entries.Length == 0)
             {
                 OnAllWavesCompleted?.Invoke();

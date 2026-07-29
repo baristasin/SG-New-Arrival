@@ -19,6 +19,8 @@ namespace Game.Scripts.UI
         [SerializeField] private DayRewardsUI _dayRewards;
         [SerializeField] private NightIntroUI _nightIntro;
         [SerializeField] private NightResultUI _nightResult;
+        [Tooltip("Optional. Leave empty to auto-build the presentation minigame menu at runtime.")]
+        [SerializeField] private MinigameSelectUI _minigameSelect;
 
         public Canvas Canvas => _canvas;
         public SanityBar SanityBar => _sanityBar;
@@ -32,5 +34,26 @@ namespace Game.Scripts.UI
         public DayRewardsUI DayRewards => _dayRewards;
         public NightIntroUI NightIntro => _nightIntro;
         public NightResultUI NightResult => _nightResult;
+
+        // Called by a scene-placed MinigameSelectUI (e.g. in DayCity) so it takes priority
+        // over the runtime-built fallback.
+        public void RegisterMinigameSelect(MinigameSelectUI screen)
+        {
+            if (screen != null) _minigameSelect = screen;
+        }
+
+        public MinigameSelectUI MinigameSelect
+        {
+            get
+            {
+                if (_minigameSelect == null)
+                {
+                    var parent = _canvas != null ? _canvas.transform : transform;
+                    var insertBefore = _loading != null ? _loading.transform : null;
+                    _minigameSelect = MinigameSelectUI.CreateRuntime(parent, insertBefore);
+                }
+                return _minigameSelect;
+            }
+        }
     }
 }
